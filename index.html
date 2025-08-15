@@ -161,6 +161,12 @@
   <body class="min-h-screen bg-gray-100 flex items-center justify-center">
     <div id="app"></div>
 
+    <!-- Hidden YouTube player -->
+    <div id="youtube-player" style="display: none"></div>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
       const { h, render } = preact;
       const { useState } = preactHooks;
@@ -396,11 +402,53 @@
         `;
       };
 
+      // YouTube player variable
+      let player;
+      let playerReady = false;
+
+      // This function will be called by YouTube API when it's ready
+      window.onYouTubeIframeAPIReady = function () {
+        player = new YT.Player("youtube-player", {
+          height: "1",
+          width: "1",
+          videoId: "eklqLkyoJWA",
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            loop: 1,
+            playlist: "eklqLkyoJWA", // Required for loop to work
+            modestbranding: 1,
+            playsinline: 1,
+          },
+          events: {
+            onReady: function (event) {
+              playerReady = true;
+              event.target.setVolume(50);
+            },
+            onStateChange: function (event) {
+              // Restart video when it ends (backup for loop)
+              if (event.data === YT.PlayerState.ENDED) {
+                player.playVideo();
+              }
+            },
+          },
+        });
+      };
+
       const App = () => {
         const [isDancing, setIsDancing] = useState(false);
 
         const handleDanceClick = () => {
           setIsDancing(!isDancing);
+
+          // Control YouTube player based on dancing state
+          if (!isDancing && playerReady && player) {
+            player.playVideo();
+          } else if (playerReady && player) {
+            player.pauseVideo();
+          }
         };
 
         return html`
