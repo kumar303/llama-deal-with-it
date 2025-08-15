@@ -51,6 +51,15 @@
         }
       }
 
+      @keyframes spin-dance-reverse {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(-360deg);
+        }
+      }
+
       @keyframes sway-dance {
         0%,
         100% {
@@ -914,7 +923,7 @@
           {
             type: "llama",
             color: "#FF1493",
-            danceAnimation: "spin-dance 2s linear infinite",
+            danceAnimation: "spin-dance-reverse 3s linear infinite",
             position: { top: "200px", left: "80px" },
           },
           {
