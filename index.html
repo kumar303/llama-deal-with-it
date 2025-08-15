@@ -635,6 +635,121 @@
         `;
       };
 
+      // Fox Component for background dancers
+      const Fox = ({
+        color = "#FF6347",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Fox body -->
+            <rect x="4" y="9" width="8" height="5" fill=${color} />
+
+            <!-- Fox chest/belly -->
+            <rect x="5" y="10" width="6" height="3" fill="#FFDAB9" />
+
+            <!-- Fox neck -->
+            <rect x="8" y="7" width="4" height="3" fill=${color} />
+
+            <!-- Fox head -->
+            <rect x="7" y="4" width="5" height="3" fill=${color} />
+
+            <!-- Snout -->
+            <rect x="11" y="5" width="2" height="2" fill=${color} />
+            <rect x="12" y="6" width="1" height="1" fill="#000" />
+
+            <!-- Ears (pointed) -->
+            <rect x="7" y="3" width="2" height="2" fill=${color} />
+            <rect x="10" y="3" width="2" height="2" fill=${color} />
+            <!-- Inner ears -->
+            <rect x="8" y="4" width="1" height="1" fill="#FFDAB9" />
+            <rect x="10" y="4" width="1" height="1" fill="#FFDAB9" />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill="#000" />
+            <rect x="9" y="14" width="2" height="2" fill="#000" />
+
+            <!-- Bushy tail -->
+            <rect x="2" y="8" width="2" height="2" fill=${color} />
+            <rect x="1" y="9" width="3" height="3" fill=${color} />
+            <rect x="2" y="12" width="2" height="1" fill="#FFDAB9" />
+
+            <!-- Eyes -->
+            <rect x="8" y="5" width="1" height="1" fill="#000" />
+            <rect x="10" y="5" width="1" height="1" fill="#000" />
+          </svg>
+        `;
+      };
+
+      // Owl Component for background dancers
+      const Owl = ({
+        color = "#8B4513",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Owl body (round) -->
+            <rect x="5" y="8" width="6" height="6" fill=${color} />
+            <rect x="4" y="9" width="8" height="4" fill=${color} />
+
+            <!-- Owl belly -->
+            <rect x="6" y="10" width="4" height="3" fill="#D2691E" />
+
+            <!-- Owl head (round) -->
+            <rect x="5" y="4" width="6" height="4" fill=${color} />
+            <rect x="4" y="5" width="8" height="2" fill=${color} />
+
+            <!-- Ear tufts -->
+            <rect x="4" y="3" width="2" height="2" fill=${color} />
+            <rect x="10" y="3" width="2" height="2" fill=${color} />
+
+            <!-- Wings (folded) -->
+            <rect x="3" y="9" width="1" height="3" fill="#654321" />
+            <rect x="12" y="9" width="1" height="3" fill="#654321" />
+
+            <!-- Feet/talons -->
+            <rect x="6" y="14" width="1" height="1" fill="#FFD700" />
+            <rect x="9" y="14" width="1" height="1" fill="#FFD700" />
+
+            <!-- Face -->
+            <!-- Big eyes (owls have big eyes!) -->
+            <rect x="5" y="5" width="2" height="2" fill="#FFFFFF" />
+            <rect x="9" y="5" width="2" height="2" fill="#FFFFFF" />
+            <!-- Pupils -->
+            <rect x="6" y="5" width="1" height="1" fill="#000" />
+            <rect x="9" y="5" width="1" height="1" fill="#000" />
+
+            <!-- Beak -->
+            <rect x="7" y="6" width="2" height="1" fill="#FFD700" />
+            <rect x="7" y="7" width="2" height="1" fill="#FFA500" />
+          </svg>
+        `;
+      };
+
       // Dragon Component for background dancers
       const Dragon = ({
         color = "#228B22",
@@ -1211,15 +1326,15 @@
             position: { top: "80px", right: "150px" },
           },
           {
-            type: "unicorn",
-            color: "#FFB6C1",
+            type: "fox",
+            color: "#FF6347",
             danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
             position: { bottom: "150px", left: "20px" },
           },
           {
-            type: "dragon",
-            color: "#8B0000",
-            danceAnimation: "sway-dance 0.952s ease-in-out infinite",
+            type: "owl",
+            color: "#8B4513",
+            danceAnimation: "head-bob 0.476s ease-in-out infinite",
             position: { bottom: "150px", right: "20px" },
           },
           {
@@ -1287,6 +1402,10 @@
                   ? Dragon
                   : dancer.type === "kitty"
                   ? Kitty
+                  : dancer.type === "fox"
+                  ? Fox
+                  : dancer.type === "owl"
+                  ? Owl
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
