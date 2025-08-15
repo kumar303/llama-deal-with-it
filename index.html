@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dancing Llama</title>
+    <script src="https://unpkg.com/preact@latest/dist/preact.umd.js"></script>
+    <script src="https://unpkg.com/preact@latest/hooks/dist/hooks.umd.js"></script>
+    <script src="https://unpkg.com/htm@latest/dist/htm.umd.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes dance {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(-20px);
+        }
+        75% {
+          transform: translateY(20px);
+        }
+      }
+
+      .dancing {
+        animation: dance 0.5s ease-in-out infinite;
+      }
+
+      /* Pixelated effect */
+      .pixelated {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div id="app"></div>
+
+    <script>
+      const { h, render } = preact;
+      const { useState } = preactHooks;
+      const html = htm.bind(h);
+
+      // Pixelated Llama SVG Component
+      const PixelatedLlama = ({ isDancing }) => {
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated ${isDancing ? "dancing" : ""}`}
+            style=${{ imageRendering: "pixelated" }}
+          >
+            <!-- Llama body -->
+            <rect x="4" y="8" width="8" height="6" fill="#FF8C00" />
+
+            <!-- Llama neck -->
+            <rect x="9" y="5" width="3" height="4" fill="#FF8C00" />
+
+            <!-- Llama head -->
+            <rect x="9" y="2" width="4" height="3" fill="#FF8C00" />
+
+            <!-- Ears -->
+            <rect x="10" y="1" width="1" height="1" fill="#FF8C00" />
+            <rect x="12" y="1" width="1" height="1" fill="#FF8C00" />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill="#FF8C00" />
+            <rect x="9" y="14" width="2" height="2" fill="#FF8C00" />
+
+            <!-- Eye -->
+            <rect x="11" y="3" width="1" height="1" fill="#000" />
+
+            <!-- Tail -->
+            <rect x="3" y="9" width="1" height="2" fill="#FF8C00" />
+
+            <!-- Deal with it sunglasses -->
+            ${isDancing &&
+            html`
+              <g>
+                <!-- Sunglasses frame -->
+                <rect x="10" y="3" width="3" height="1" fill="#000" />
+                <!-- Left lens -->
+                <rect x="10" y="3" width="1" height="1" fill="#333" />
+                <!-- Right lens -->
+                <rect x="12" y="3" width="1" height="1" fill="#333" />
+              </g>
+            `}
+          </svg>
+        `;
+      };
+
+      const App = () => {
+        const [isDancing, setIsDancing] = useState(false);
+
+        const handleDanceClick = () => {
+          setIsDancing(!isDancing);
+        };
+
+        return html`
+          <div
+            className="w-96 h-96 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg flex flex-col items-center justify-center shadow-2xl"
+          >
+            <${PixelatedLlama} isDancing=${isDancing} />
+            <button
+              onClick=${handleDanceClick}
+              className="mt-8 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-md transition-colors duration-200 shadow-lg"
+            >
+              ${isDancing ? "Stop the dance!" : "Make the llama dance"}
+            </button>
+          </div>
+        `;
+      };
+
+      render(html`<${App} />`, document.getElementById("app"));
+    </script>
+  </body>
+</html>
