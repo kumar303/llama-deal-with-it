@@ -22,8 +22,26 @@
         }
       }
 
+      @keyframes sunglasses-fly-in {
+        0% {
+          transform: translate(-15px, -15px);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(0, 0);
+          opacity: 1;
+        }
+      }
+
       .dancing {
         animation: dance 0.5s ease-in-out infinite;
+      }
+
+      .sunglasses {
+        animation: sunglasses-fly-in 0.8s ease-out forwards;
       }
 
       /* Pixelated effect */
@@ -78,13 +96,23 @@
             <!-- Deal with it sunglasses -->
             ${isDancing &&
             html`
-              <g>
-                <!-- Sunglasses frame -->
-                <rect x="10" y="3" width="3" height="1" fill="#000" />
-                <!-- Left lens -->
-                <rect x="10" y="3" width="1" height="1" fill="#333" />
-                <!-- Right lens -->
-                <rect x="12" y="3" width="1" height="1" fill="#333" />
+              <g className="sunglasses">
+                <!-- Sunglasses frame (thicker, more pixelated) -->
+                <rect x="9" y="3" width="5" height="1" fill="#000" />
+                <!-- Bridge -->
+                <rect x="11" y="2" width="1" height="1" fill="#000" />
+                <!-- Left lens frame -->
+                <rect x="9" y="2" width="2" height="1" fill="#000" />
+                <rect x="9" y="4" width="2" height="1" fill="#000" />
+                <rect x="8" y="3" width="1" height="1" fill="#000" />
+                <!-- Right lens frame -->
+                <rect x="12" y="2" width="2" height="1" fill="#000" />
+                <rect x="12" y="4" width="2" height="1" fill="#000" />
+                <rect x="14" y="3" width="1" height="1" fill="#000" />
+                <!-- Left lens (dark) -->
+                <rect x="9" y="3" width="2" height="1" fill="#222" />
+                <!-- Right lens (dark) -->
+                <rect x="12" y="3" width="2" height="1" fill="#222" />
               </g>
             `}
           </svg>
