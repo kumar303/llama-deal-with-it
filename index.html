@@ -91,11 +91,11 @@
       const PixelatedLlama = ({ isDancing }) => {
         return html`
           <svg
-            width="160"
-            height="160"
-            viewBox="0 0 16 16"
+            width="320"
+            height="320"
+            viewBox="-10 -10 36 36"
             className=${`pixelated ${isDancing ? "dancing" : ""}`}
-            style=${{ imageRendering: "pixelated" }}
+            style=${{ imageRendering: "pixelated", overflow: "visible" }}
           >
             <!-- Llama body -->
             <rect x="4" y="8" width="8" height="6" fill="#FF8C00" />
@@ -155,7 +155,7 @@
 
         return html`
           <div
-            className="w-96 h-96 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg flex flex-col items-center justify-center shadow-2xl"
+            className="w-96 h-96 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg flex flex-col items-center justify-center shadow-2xl overflow-visible"
           >
             <${PixelatedLlama} isDancing=${isDancing} />
             <button
