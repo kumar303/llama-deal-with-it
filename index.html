@@ -108,6 +108,34 @@
         }
       }
 
+      @keyframes rainbow-pulse {
+        0%,
+        100% {
+          background-color: #ff0000;
+          box-shadow: 0 0 20px #ff0000;
+        }
+        16% {
+          background-color: #ff7f00;
+          box-shadow: 0 0 20px #ff7f00;
+        }
+        33% {
+          background-color: #ffff00;
+          box-shadow: 0 0 20px #ffff00;
+        }
+        50% {
+          background-color: #00ff00;
+          box-shadow: 0 0 20px #00ff00;
+        }
+        66% {
+          background-color: #0000ff;
+          box-shadow: 0 0 20px #0000ff;
+        }
+        83% {
+          background-color: #9400d3;
+          box-shadow: 0 0 20px #9400d3;
+        }
+      }
+
       @keyframes sunglasses-fly-in {
         0% {
           transform: translate(-80px, -80px) rotate(0deg) scale(2);
@@ -256,6 +284,19 @@
         animation-delay: 5s, 6s; /* Fade in at 5s, start dancing at 6s */
       }
 
+      /* Rainbow dancefloor tiles */
+      .dancefloor-tile {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+      }
+
+      .dancefloor-tile.active {
+        opacity: 0.8;
+        animation: rainbow-pulse 1s ease-in-out;
+      }
+
       @keyframes glare-sweep {
         0% {
           opacity: 0;
@@ -305,7 +346,7 @@
 
     <script>
       const { h, render } = preact;
-      const { useState } = preactHooks;
+      const { useState, useEffect } = preactHooks;
       const html = htm.bind(h);
 
       // Mini Llama Component for background dancers
@@ -754,6 +795,71 @@
         });
       };
 
+      // Dancefloor Tiles Component
+      const DancefloorTiles = ({ isDancing }) => {
+        const [activeTiles, setActiveTiles] = useState(new Set());
+
+        // Create a grid of tile positions
+        const tilePositions = [];
+        for (let x = 0; x < window.innerWidth; x += 40) {
+          for (let y = 0; y < window.innerHeight; y += 40) {
+            tilePositions.push({ x, y, id: `${x}-${y}` });
+          }
+        }
+
+        // Randomly activate tiles when dancing
+        useEffect(() => {
+          if (!isDancing) {
+            setActiveTiles(new Set());
+            return;
+          }
+
+          const interval = setInterval(() => {
+            setActiveTiles((prev) => {
+              const newActive = new Set(prev);
+
+              // Remove some random active tiles
+              const activeArray = Array.from(newActive);
+              for (let i = 0; i < 3; i++) {
+                if (activeArray.length > 0) {
+                  const randomIndex = Math.floor(
+                    Math.random() * activeArray.length
+                  );
+                  newActive.delete(activeArray[randomIndex]);
+                }
+              }
+
+              // Add some new random tiles
+              for (let i = 0; i < 5; i++) {
+                const randomTile =
+                  tilePositions[
+                    Math.floor(Math.random() * tilePositions.length)
+                  ];
+                newActive.add(randomTile.id);
+              }
+
+              return newActive;
+            });
+          }, 200);
+
+          return () => clearInterval(interval);
+        }, [isDancing]);
+
+        return html`
+          ${tilePositions.map(
+            (tile) => html`
+              <div
+                key=${tile.id}
+                className=${`dancefloor-tile ${
+                  activeTiles.has(tile.id) ? "active" : ""
+                }`}
+                style=${{ left: `${tile.x}px`, top: `${tile.y}px` }}
+              />
+            `
+          )}
+        `;
+      };
+
       const App = () => {
         const [isDancing, setIsDancing] = useState(false);
 
@@ -837,6 +943,9 @@
           >
             <!-- Dancefloor -->
             <div className="absolute inset-0 dancefloor opacity-20"></div>
+
+            <!-- Rainbow blinking tiles -->
+            <${DancefloorTiles} isDancing=${isDancing} />
 
             <!-- Background dancing creatures -->
             ${isDancing &&
