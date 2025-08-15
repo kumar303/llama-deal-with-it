@@ -97,6 +97,17 @@
         }
       }
 
+      @keyframes fade-in-dance {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
       @keyframes sunglasses-fly-in {
         0% {
           transform: translate(-80px, -80px) rotate(0deg) scale(2);
@@ -238,6 +249,13 @@
         background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
       }
 
+      /* Fade in background llamas after sunglasses land */
+      .background-llama {
+        opacity: 0;
+        animation: fade-in-dance 1s ease-out forwards;
+        animation-delay: 5s; /* Start when sunglasses land */
+      }
+
       @keyframes glare-sweep {
         0% {
           opacity: 0;
@@ -301,7 +319,7 @@
             width="80"
             height="80"
             viewBox="0 0 16 16"
-            className=${`pixelated ${danceStyle}`}
+            className=${`pixelated background-llama ${danceStyle}`}
             style=${{
               imageRendering: "pixelated",
               position: "absolute",
