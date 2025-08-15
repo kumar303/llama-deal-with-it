@@ -365,13 +365,11 @@
         danceAnimation = "",
         position = {},
       }) => {
-        const isSpinning = danceAnimation.includes("spin-dance");
-
         return html`
           <svg
             width="160"
-            height=${isSpinning ? "200" : "160"}
-            viewBox=${isSpinning ? "0 -5 16 21" : "0 0 16 16"}
+            height="200"
+            viewBox="0 -5 16 21"
             className=${`pixelated background-llama`}
             style=${{
               imageRendering: "pixelated",
@@ -380,28 +378,25 @@
               ...position,
             }}
           >
-            <!-- Rainbow party hat for spinning llamas -->
-            ${isSpinning &&
-            html`
-              <!-- Party hat -->
-              <!-- Row 1 - tip (red) -->
-              <rect x="11" y="-3" width="1" height="1" fill="#FF0000" />
+            <!-- Rainbow party hat for all background llamas -->
+            <!-- Party hat -->
+            <!-- Row 1 - tip (red) -->
+            <rect x="11" y="-3" width="1" height="1" fill="#FF0000" />
 
-              <!-- Row 2 (orange) -->
-              <rect x="10" y="-2" width="3" height="1" fill="#FF7F00" />
+            <!-- Row 2 (orange) -->
+            <rect x="10" y="-2" width="3" height="1" fill="#FF7F00" />
 
-              <!-- Row 3 (yellow) -->
-              <rect x="10" y="-1" width="3" height="1" fill="#FFFF00" />
+            <!-- Row 3 (yellow) -->
+            <rect x="10" y="-1" width="3" height="1" fill="#FFFF00" />
 
-              <!-- Row 4 (green) -->
-              <rect x="9" y="0" width="5" height="1" fill="#00FF00" />
+            <!-- Row 4 (green) -->
+            <rect x="9" y="0" width="5" height="1" fill="#00FF00" />
 
-              <!-- Row 5 (blue) -->
-              <rect x="9" y="1" width="5" height="1" fill="#0000FF" />
+            <!-- Row 5 (blue) -->
+            <rect x="9" y="1" width="5" height="1" fill="#0000FF" />
 
-              <!-- Hat pom-pom -->
-              <rect x="11" y="-4" width="1" height="1" fill="#FFFFFF" />
-            `}
+            <!-- Hat pom-pom -->
+            <rect x="11" y="-4" width="1" height="1" fill="#FFFFFF" />
 
             <!-- Llama body (same as main) -->
             <rect x="4" y="8" width="8" height="6" fill=${color} />
