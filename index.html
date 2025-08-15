@@ -61,6 +61,31 @@
         }
       }
 
+      @keyframes disco-ball-drop {
+        0% {
+          transform: translateY(-200px) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+          transform: translateY(-180px) rotate(30deg);
+        }
+        100% {
+          transform: translateY(0px) rotate(360deg);
+          opacity: 1;
+        }
+      }
+
+      @keyframes sparkle {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
       .dancing {
         animation: dance 0.5s ease-in-out infinite;
       }
@@ -69,6 +94,30 @@
         animation: sunglasses-fly-in 5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
           forwards;
         transform-origin: center;
+      }
+
+      .disco-ball {
+        animation: disco-ball-drop 5s ease-in-out forwards;
+      }
+
+      .sparkle {
+        animation: sparkle 1s ease-in-out infinite;
+      }
+
+      .sparkle-1 {
+        animation-delay: 0s;
+      }
+
+      .sparkle-2 {
+        animation-delay: 0.3s;
+      }
+
+      .sparkle-3 {
+        animation-delay: 0.6s;
+      }
+
+      .sparkle-4 {
+        animation-delay: 0.9s;
       }
 
       @keyframes glare-sweep {
@@ -116,6 +165,63 @@
       const { h, render } = preact;
       const { useState } = preactHooks;
       const html = htm.bind(h);
+
+      // Pixelated Disco Ball Component
+      const PixelatedDiscoBall = () => {
+        return html`
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 8 8"
+            className="pixelated disco-ball"
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              top: "20px",
+            }}
+          >
+            <!-- Disco ball base -->
+            <rect x="1" y="2" width="6" height="5" fill="#C0C0C0" />
+
+            <!-- Mirror tiles (lighter pixels) -->
+            <rect x="2" y="2" width="1" height="1" fill="#FFFFFF" />
+            <rect x="4" y="2" width="1" height="1" fill="#FFFFFF" />
+            <rect x="6" y="2" width="1" height="1" fill="#E0E0E0" />
+
+            <rect x="1" y="3" width="1" height="1" fill="#E0E0E0" />
+            <rect x="3" y="3" width="1" height="1" fill="#FFFFFF" />
+            <rect x="5" y="3" width="1" height="1" fill="#FFFFFF" />
+
+            <rect x="2" y="4" width="1" height="1" fill="#FFFFFF" />
+            <rect x="4" y="4" width="1" height="1" fill="#E0E0E0" />
+            <rect x="6" y="4" width="1" height="1" fill="#FFFFFF" />
+
+            <rect x="1" y="5" width="1" height="1" fill="#FFFFFF" />
+            <rect x="3" y="5" width="1" height="1" fill="#E0E0E0" />
+            <rect x="5" y="5" width="1" height="1" fill="#FFFFFF" />
+
+            <rect x="2" y="6" width="1" height="1" fill="#E0E0E0" />
+            <rect x="4" y="6" width="1" height="1" fill="#FFFFFF" />
+
+            <!-- String/chain -->
+            <rect x="3" y="0" width="2" height="2" fill="#666666" />
+
+            <!-- Sparkles -->
+            <g className="sparkle sparkle-1">
+              <rect x="0" y="1" width="1" height="1" fill="#FFFF00" />
+            </g>
+            <g className="sparkle sparkle-2">
+              <rect x="7" y="3" width="1" height="1" fill="#FFFF00" />
+            </g>
+            <g className="sparkle sparkle-3">
+              <rect x="0" y="5" width="1" height="1" fill="#FFFF00" />
+            </g>
+            <g className="sparkle sparkle-4">
+              <rect x="7" y="6" width="1" height="1" fill="#FFFF00" />
+            </g>
+          </svg>
+        `;
+      };
 
       // Pixelated Llama SVG Component
       const PixelatedLlama = ({ isDancing }) => {
@@ -208,8 +314,9 @@
 
         return html`
           <div
-            className="w-96 h-96 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg flex flex-col items-center justify-center shadow-2xl overflow-visible"
+            className="w-96 h-96 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg flex flex-col items-center justify-center shadow-2xl overflow-visible relative"
           >
+            ${isDancing && html`<${PixelatedDiscoBall} />`}
             <${PixelatedLlama} isDancing=${isDancing} />
             <button
               onClick=${handleDanceClick}
