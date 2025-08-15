@@ -95,8 +95,10 @@
       }
 
       .glare {
+        opacity: 0;
         animation: glare-sweep 3s ease-in-out infinite;
         animation-delay: 5s; /* Start after sunglasses land */
+        animation-fill-mode: both; /* Keeps opacity:0 until animation starts */
       }
 
       /* Pixelated effect */
