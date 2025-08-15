@@ -71,6 +71,29 @@
         transform-origin: center;
       }
 
+      @keyframes glare-sweep {
+        0% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        90% {
+          opacity: 1;
+          transform: translateX(-6px);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-6px);
+        }
+      }
+
+      .glare {
+        animation: glare-sweep 3s ease-in-out infinite;
+        animation-delay: 5s; /* Start after sunglasses land */
+      }
+
       /* Pixelated effect */
       .pixelated {
         image-rendering: pixelated;
@@ -140,6 +163,61 @@
                 <rect x="9" y="3" width="2" height="1" fill="#222" />
                 <!-- Right lens (dark) -->
                 <rect x="12" y="3" width="2" height="1" fill="#222" />
+
+                <!-- Pixelated glare effect -->
+                <g className="glare">
+                  <!-- Right lens glare (starts here) -->
+                  <rect
+                    x="14"
+                    y="2"
+                    width="1"
+                    height="1"
+                    fill="#FFF"
+                    opacity="0.7"
+                  />
+                  <rect
+                    x="13"
+                    y="3"
+                    width="1"
+                    height="1"
+                    fill="#FFF"
+                    opacity="0.9"
+                  />
+                  <rect
+                    x="14"
+                    y="4"
+                    width="1"
+                    height="1"
+                    fill="#FFF"
+                    opacity="0.5"
+                  />
+
+                  <!-- Left lens glare (offset for continuous effect) -->
+                  <rect
+                    x="11"
+                    y="2"
+                    width="1"
+                    height="1"
+                    fill="#FFF"
+                    opacity="0.5"
+                  />
+                  <rect
+                    x="10"
+                    y="3"
+                    width="1"
+                    height="1"
+                    fill="#FFF"
+                    opacity="0.7"
+                  />
+                  <rect
+                    x="11"
+                    y="4"
+                    width="1"
+                    height="1"
+                    fill="#FFF"
+                    opacity="0.4"
+                  />
+                </g>
               </g>
             `}
           </svg>
