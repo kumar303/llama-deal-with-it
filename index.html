@@ -360,6 +360,121 @@
         `;
       };
 
+      // Unicorn Component for background dancers
+      const Unicorn = ({
+        color = "#FFB6C1",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Unicorn body -->
+            <rect x="4" y="8" width="8" height="6" fill=${color} />
+
+            <!-- Unicorn neck -->
+            <rect x="9" y="5" width="3" height="4" fill=${color} />
+
+            <!-- Unicorn head -->
+            <rect x="9" y="2" width="4" height="3" fill=${color} />
+
+            <!-- Horn -->
+            <rect x="11" y="0" width="1" height="2" fill="#FFD700" />
+
+            <!-- Ears -->
+            <rect x="10" y="1" width="1" height="1" fill=${color} />
+            <rect x="12" y="1" width="1" height="1" fill=${color} />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill=${color} />
+            <rect x="9" y="14" width="2" height="2" fill=${color} />
+
+            <!-- Eye -->
+            <rect x="11" y="3" width="1" height="1" fill="#000" />
+
+            <!-- Flowing tail -->
+            <rect x="3" y="9" width="1" height="1" fill="#FFB6C1" />
+            <rect x="2" y="10" width="2" height="1" fill="#FFB6C1" />
+            <rect x="3" y="11" width="1" height="1" fill="#DDA0DD" />
+
+            <!-- Sunglasses -->
+            <rect x="9" y="3" width="5" height="1" fill="#000" />
+            <rect x="11" y="2" width="1" height="1" fill="#000" />
+            <rect x="9" y="2" width="2" height="1" fill="#000" />
+            <rect x="12" y="2" width="2" height="1" fill="#000" />
+          </svg>
+        `;
+      };
+
+      // Dragon Component for background dancers
+      const Dragon = ({
+        color = "#228B22",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Dragon body -->
+            <rect x="4" y="8" width="8" height="6" fill=${color} />
+
+            <!-- Dragon neck -->
+            <rect x="9" y="5" width="3" height="4" fill=${color} />
+
+            <!-- Dragon head -->
+            <rect x="9" y="2" width="4" height="3" fill=${color} />
+
+            <!-- Horns -->
+            <rect x="9" y="1" width="1" height="1" fill="#FFD700" />
+            <rect x="12" y="1" width="1" height="1" fill="#FFD700" />
+
+            <!-- Wings -->
+            <rect x="2" y="7" width="2" height="1" fill=${color} />
+            <rect x="1" y="8" width="3" height="2" fill=${color} />
+            <rect x="12" y="7" width="2" height="1" fill=${color} />
+            <rect x="12" y="8" width="3" height="2" fill=${color} />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill=${color} />
+            <rect x="9" y="14" width="2" height="2" fill=${color} />
+
+            <!-- Eye -->
+            <rect x="11" y="3" width="1" height="1" fill="#FF0000" />
+
+            <!-- Spiky tail -->
+            <rect x="3" y="9" width="1" height="2" fill=${color} />
+            <rect x="2" y="11" width="2" height="1" fill=${color} />
+            <rect x="2" y="10" width="1" height="1" fill="#FFD700" />
+
+            <!-- Sunglasses -->
+            <rect x="9" y="3" width="5" height="1" fill="#000" />
+            <rect x="11" y="2" width="1" height="1" fill="#000" />
+            <rect x="9" y="2" width="2" height="1" fill="#000" />
+            <rect x="12" y="2" width="2" height="1" fill="#000" />
+          </svg>
+        `;
+      };
+
       // Pixelated Disco Ball Component
       const PixelatedDiscoBall = () => {
         return html`
@@ -653,53 +768,63 @@
           }
         };
 
-        const backgroundLlamas = [
+        const backgroundDancers = [
           {
+            type: "llama",
             color: "#FF69B4",
             danceAnimation: "spin-dance 2s linear infinite",
             position: { top: "20px", left: "20px" },
           },
           {
-            color: "#00CED1",
+            type: "unicorn",
+            color: "#DDA0DD",
             danceAnimation: "sway-dance 0.952s ease-in-out infinite",
             position: { top: "20px", right: "20px" },
           },
           {
-            color: "#FFD700",
+            type: "dragon",
+            color: "#228B22",
             danceAnimation: "head-bob 0.476s ease-in-out infinite",
             position: { top: "80px", left: "150px" },
           },
           {
+            type: "llama",
             color: "#7B68EE",
             danceAnimation: "shuffle-dance 0.952s ease-in-out infinite",
             position: { top: "80px", right: "150px" },
           },
           {
-            color: "#32CD32",
+            type: "unicorn",
+            color: "#FFB6C1",
             danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
             position: { bottom: "150px", left: "20px" },
           },
           {
-            color: "#FF6347",
+            type: "dragon",
+            color: "#8B0000",
             danceAnimation: "sway-dance 0.952s ease-in-out infinite",
             position: { bottom: "150px", right: "20px" },
           },
           {
+            type: "llama",
             color: "#FF1493",
             danceAnimation: "spin-dance 2s linear infinite",
             position: { top: "200px", left: "80px" },
           },
           {
-            color: "#00FA9A",
+            type: "unicorn",
+            color: "#E6E6FA",
             danceAnimation: "head-bob 0.476s ease-in-out infinite",
             position: { top: "200px", right: "80px" },
           },
           {
-            color: "#9370DB",
+            type: "dragon",
+            color: "#4B0082",
             danceAnimation: "shuffle-dance 0.952s ease-in-out infinite",
             position: { bottom: "50px", left: "120px" },
           },
           {
+            type: "llama",
             color: "#FF4500",
             danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
             position: { bottom: "50px", right: "120px" },
@@ -713,11 +838,17 @@
             <!-- Dancefloor -->
             <div className="absolute inset-0 dancefloor opacity-20"></div>
 
-            <!-- Background dancing llamas -->
+            <!-- Background dancing creatures -->
             ${isDancing &&
-            backgroundLlamas.map(
-              (llama) => html` <${MiniLlama} ...${llama} /> `
-            )}
+            backgroundDancers.map((dancer) => {
+              const Component =
+                dancer.type === "unicorn"
+                  ? Unicorn
+                  : dancer.type === "dragon"
+                  ? Dragon
+                  : MiniLlama;
+              return html` <${Component} ...${dancer} /> `;
+            })}
 
             <!-- Main stage -->
             <div
