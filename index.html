@@ -373,6 +373,21 @@
         opacity: 0;
       }
 
+      /* Dancefloor fade in */
+      .dancefloor-fade {
+        opacity: 0;
+        transition: opacity 5s ease-in;
+      }
+
+      .dancefloor-fade.visible {
+        opacity: 0.2;
+      }
+
+      /* Background color transition */
+      .bg-transition {
+        transition: background-color 5s ease-in-out;
+      }
+
       @keyframes glare-sweep {
         0% {
           opacity: 0;
@@ -411,7 +426,7 @@
       }
     </style>
   </head>
-  <body class="min-h-screen bg-gray-900">
+  <body class="min-h-screen bg-white" id="body">
     <div id="app"></div>
 
     <!-- Hidden YouTube player -->
@@ -1156,10 +1171,16 @@
 
         return html`
           <div
-            className="min-h-screen w-full bg-gray-900 flex items-center justify-center relative overflow-hidden"
+            className=${`min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-transition ${
+              isDancing ? "bg-gray-900" : "bg-white"
+            }`}
           >
             <!-- Dancefloor -->
-            <div className="absolute inset-0 dancefloor opacity-20"></div>
+            <div
+              className=${`absolute inset-0 dancefloor dancefloor-fade ${
+                isDancing ? "visible" : ""
+              }`}
+            ></div>
 
             <!-- Rainbow blinking tiles -->
             <${DancefloorTiles} isDancing=${isDancing} />
