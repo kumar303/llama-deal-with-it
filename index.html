@@ -171,72 +171,73 @@
         return html`
           <svg
             width="100"
-            height="120"
-            viewBox="0 0 10 12"
+            height="300"
+            viewBox="0 0 10 30"
             className="pixelated disco-ball"
             style=${{
               imageRendering: "pixelated",
               position: "absolute",
-              top: "-20px",
+              top: "-200px",
+              left: "80px",
             }}
           >
-            <!-- Cord -->
-            <rect x="4" y="0" width="2" height="4" fill="#333333" />
+            <!-- Cord extending to top -->
+            <rect x="4" y="0" width="2" height="22" fill="#333333" />
 
             <!-- Disco ball - more round shape -->
             <!-- Top row -->
-            <rect x="3" y="4" width="4" height="1" fill="#C0C0C0" />
+            <rect x="3" y="22" width="4" height="1" fill="#C0C0C0" />
 
             <!-- Second row -->
-            <rect x="2" y="5" width="6" height="1" fill="#C0C0C0" />
+            <rect x="2" y="23" width="6" height="1" fill="#C0C0C0" />
 
             <!-- Middle rows -->
-            <rect x="1" y="6" width="8" height="2" fill="#C0C0C0" />
+            <rect x="1" y="24" width="8" height="2" fill="#C0C0C0" />
 
             <!-- Lower row -->
-            <rect x="2" y="8" width="6" height="1" fill="#C0C0C0" />
+            <rect x="2" y="26" width="6" height="1" fill="#C0C0C0" />
 
             <!-- Bottom row -->
-            <rect x="3" y="9" width="4" height="1" fill="#C0C0C0" />
+            <rect x="3" y="27" width="4" height="1" fill="#C0C0C0" />
 
             <!-- Mirror tiles pattern for round effect -->
             <!-- Top section -->
-            <rect x="4" y="4" width="1" height="1" fill="#FFFFFF" />
+            <rect x="4" y="22" width="1" height="1" fill="#FFFFFF" />
 
             <!-- Upper section -->
-            <rect x="3" y="5" width="1" height="1" fill="#FFFFFF" />
-            <rect x="5" y="5" width="1" height="1" fill="#E0E0E0" />
+            <rect x="3" y="23" width="1" height="1" fill="#FFFFFF" />
+            <rect x="5" y="23" width="1" height="1" fill="#E0E0E0" />
 
             <!-- Middle section -->
-            <rect x="2" y="6" width="1" height="1" fill="#E0E0E0" />
-            <rect x="4" y="6" width="1" height="1" fill="#FFFFFF" />
-            <rect x="6" y="6" width="1" height="1" fill="#FFFFFF" />
-            <rect x="8" y="6" width="1" height="1" fill="#E0E0E0" />
+            <rect x="2" y="24" width="1" height="1" fill="#E0E0E0" />
+            <rect x="4" y="24" width="1" height="1" fill="#FFFFFF" />
+            <rect x="6" y="24" width="1" height="1" fill="#FFFFFF" />
+            <rect x="8" y="24" width="1" height="1" fill="#E0E0E0" />
 
-            <rect x="1" y="7" width="1" height="1" fill="#FFFFFF" />
-            <rect x="3" y="7" width="1" height="1" fill="#E0E0E0" />
-            <rect x="5" y="7" width="1" height="1" fill="#FFFFFF" />
-            <rect x="7" y="7" width="1" height="1" fill="#E0E0E0" />
+            <rect x="1" y="25" width="1" height="1" fill="#FFFFFF" />
+            <rect x="3" y="25" width="1" height="1" fill="#E0E0E0" />
+            <rect x="5" y="25" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="25" width="1" height="1" fill="#E0E0E0" />
 
             <!-- Lower section -->
-            <rect x="3" y="8" width="1" height="1" fill="#FFFFFF" />
-            <rect x="5" y="8" width="1" height="1" fill="#E0E0E0" />
+            <rect x="3" y="26" width="1" height="1" fill="#FFFFFF" />
+            <rect x="5" y="26" width="1" height="1" fill="#E0E0E0" />
 
             <!-- Bottom section -->
-            <rect x="4" y="9" width="1" height="1" fill="#E0E0E0" />
+            <rect x="4" y="27" width="1" height="1" fill="#E0E0E0" />
 
             <!-- Sparkles around the ball -->
             <g className="sparkle sparkle-1">
-              <rect x="0" y="5" width="1" height="1" fill="#FFFF00" />
+              <rect x="0" y="23" width="1" height="1" fill="#FFFF00" />
             </g>
             <g className="sparkle sparkle-2">
-              <rect x="9" y="6" width="1" height="1" fill="#FFFF00" />
+              <rect x="9" y="24" width="1" height="1" fill="#FFFF00" />
             </g>
             <g className="sparkle sparkle-3">
-              <rect x="1" y="9" width="1" height="1" fill="#FFFF00" />
+              <rect x="1" y="27" width="1" height="1" fill="#FFFF00" />
             </g>
             <g className="sparkle sparkle-4">
-              <rect x="8" y="8" width="1" height="1" fill="#FFFF00" />
+              <rect x="8" y="26" width="1" height="1" fill="#FFFF00" />
             </g>
           </svg>
         `;
