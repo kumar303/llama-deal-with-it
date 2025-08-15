@@ -556,6 +556,85 @@
         `;
       };
 
+      // Kitty Component with disco ball glasses
+      const Kitty = ({
+        color = "#FFA500",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Kitty body -->
+            <rect x="5" y="10" width="6" height="5" fill=${color} />
+
+            <!-- Kitty chest/belly -->
+            <rect x="6" y="11" width="4" height="3" fill="#FFFFFF" />
+
+            <!-- Kitty head -->
+            <rect x="5" y="6" width="6" height="4" fill=${color} />
+
+            <!-- Ears -->
+            <rect x="5" y="5" width="2" height="2" fill=${color} />
+            <rect x="9" y="5" width="2" height="2" fill=${color} />
+            <!-- Inner ears -->
+            <rect x="6" y="6" width="1" height="1" fill="#FFB6C1" />
+            <rect x="9" y="6" width="1" height="1" fill="#FFB6C1" />
+
+            <!-- Legs -->
+            <rect x="6" y="15" width="1" height="1" fill=${color} />
+            <rect x="9" y="15" width="1" height="1" fill=${color} />
+
+            <!-- Tail -->
+            <rect x="3" y="10" width="1" height="1" fill=${color} />
+            <rect x="2" y="9" width="2" height="1" fill=${color} />
+            <rect x="1" y="8" width="2" height="1" fill=${color} />
+
+            <!-- Face -->
+            <!-- Eyes (happy/smiling) -->
+            <rect x="6" y="8" width="1" height="1" fill="#000" />
+            <rect x="9" y="8" width="1" height="1" fill="#000" />
+
+            <!-- Nose -->
+            <rect x="7" y="9" width="2" height="1" fill="#FF69B4" />
+
+            <!-- Smile -->
+            <rect x="6" y="9" width="1" height="1" fill="#000" />
+            <rect x="9" y="9" width="1" height="1" fill="#000" />
+
+            <!-- Disco ball glasses -->
+            <!-- Frame -->
+            <rect x="5" y="7" width="6" height="1" fill="#000" />
+            <!-- Bridge -->
+            <rect x="7" y="6" width="2" height="1" fill="#000" />
+
+            <!-- Left disco ball lens -->
+            <rect x="5" y="8" width="3" height="2" fill="#C0C0C0" />
+            <rect x="5" y="8" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="8" width="1" height="1" fill="#E0E0E0" />
+            <rect x="6" y="9" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="9" width="1" height="1" fill="#C0C0C0" />
+
+            <!-- Right disco ball lens -->
+            <rect x="8" y="8" width="3" height="2" fill="#C0C0C0" />
+            <rect x="8" y="8" width="1" height="1" fill="#E0E0E0" />
+            <rect x="10" y="8" width="1" height="1" fill="#FFFFFF" />
+            <rect x="9" y="9" width="1" height="1" fill="#C0C0C0" />
+            <rect x="10" y="9" width="1" height="1" fill="#E0E0E0" />
+          </svg>
+        `;
+      };
+
       // Dragon Component for background dancers
       const Dragon = ({
         color = "#228B22",
@@ -1167,6 +1246,16 @@
             danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
             position: { bottom: "50px", right: "120px" },
           },
+          {
+            type: "kitty",
+            color: "#FFA500",
+            danceAnimation: "sway-dance 0.952s ease-in-out infinite",
+            position: {
+              top: "50px",
+              left: "50%",
+              transform: "translateX(-50%)",
+            },
+          },
         ];
 
         return html`
@@ -1196,6 +1285,8 @@
                   ? Unicorn
                   : dancer.type === "dragon"
                   ? Dragon
+                  : dancer.type === "kitty"
+                  ? Kitty
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
