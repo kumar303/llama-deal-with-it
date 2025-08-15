@@ -173,6 +173,15 @@
         }
       }
 
+      @keyframes gradient-fade {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
       @keyframes sunglasses-fly-in {
         0% {
           transform: translate(-80px, -80px) rotate(0deg) scale(2);
@@ -353,6 +362,15 @@
         animation: confetti-explode 0.7s ease-out forwards,
           confetti-fall 4s ease-in forwards;
         animation-delay: 10s, 10.7s;
+      }
+
+      /* Gradient background fade */
+      .gradient-bg {
+        transition: opacity 10s ease-out;
+      }
+
+      .gradient-bg.fading {
+        opacity: 0;
       }
 
       @keyframes glare-sweep {
@@ -1162,17 +1180,27 @@
             })}
 
             <!-- Main stage -->
-            <div
-              className="w-96 h-96 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg flex flex-col items-center justify-center shadow-2xl overflow-visible relative z-10"
-            >
-              ${isDancing && html`<${PixelatedDiscoBall} />`}
-              <${PixelatedLlama} isDancing=${isDancing} />
-              <button
-                onClick=${handleDanceClick}
-                className="mt-8 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-md transition-colors duration-200 shadow-lg"
+            <div className="w-96 h-96 relative z-10">
+              <!-- Gradient background (separate div for fading) -->
+              <div
+                className=${`absolute inset-0 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg shadow-2xl gradient-bg ${
+                  isDancing ? "fading" : ""
+                }`}
+              ></div>
+
+              <!-- Content (doesn't fade) -->
+              <div
+                className="relative w-full h-full flex flex-col items-center justify-center overflow-visible"
               >
-                ${isDancing ? "OK, stop" : "Deal with it"}
-              </button>
+                ${isDancing && html`<${PixelatedDiscoBall} />`}
+                <${PixelatedLlama} isDancing=${isDancing} />
+                <button
+                  onClick=${handleDanceClick}
+                  className="mt-8 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-md transition-colors duration-200 shadow-lg"
+                >
+                  ${isDancing ? "OK, stop" : "Deal with it"}
+                </button>
+              </div>
             </div>
           </div>
         `;
