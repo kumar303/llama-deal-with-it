@@ -945,6 +945,29 @@
 
       // Confetti Component
       const Confetti = ({ isDancing }) => {
+        const [explosionCount, setExplosionCount] = useState(0);
+
+        useEffect(() => {
+          if (!isDancing) {
+            setExplosionCount(0);
+            return;
+          }
+
+          // Start counting explosions after 10 seconds
+          const timeout = setTimeout(() => {
+            setExplosionCount(1);
+
+            // Then add a new explosion every 5 seconds
+            const interval = setInterval(() => {
+              setExplosionCount((prev) => prev + 1);
+            }, 5000);
+
+            return () => clearInterval(interval);
+          }, 10000);
+
+          return () => clearTimeout(timeout);
+        }, [isDancing]);
+
         if (!isDancing) return null;
 
         const colors = [
@@ -958,14 +981,16 @@
           "#00CED1",
         ];
 
-        // Create multiple explosions
-        const explosions = [
-          { delay: 10, x: 50, y: 50 }, // Center at 10s
-          { delay: 15, x: 20, y: 30 }, // Top-left at 15s
-          { delay: 20, x: 80, y: 70 }, // Bottom-right at 20s
-          { delay: 25, x: 70, y: 20 }, // Top-right at 25s
-          { delay: 30, x: 30, y: 80 }, // Bottom-left at 30s
-        ];
+        // Generate explosions based on count
+        const explosions = [];
+        for (let i = 0; i < explosionCount; i++) {
+          explosions.push({
+            id: i,
+            delay: 0, // All start immediately when created
+            x: 10 + Math.random() * 80, // Random position 10-90%
+            y: 10 + Math.random() * 80,
+          });
+        }
 
         const allConfettiPieces = [];
 
@@ -986,13 +1011,14 @@
             const color = colors[Math.floor(Math.random() * colors.length)];
 
             allConfettiPieces.push({
-              id: `${explosionIndex}-${i}`,
+              id: `${explosion.id}-${i}`,
               color,
               xSpread: `${xSpread}px`,
               ySpread: `${ySpread}px`,
               xDrift: `${xDrift}px`,
               explosionX: explosion.x,
               explosionY: explosion.y,
+              explosionId: explosion.id,
               delay: explosion.delay + Math.random() * 0.3, // Slight random delay for explosion
             });
           }
@@ -1009,11 +1035,7 @@
                 }}
               >
                 ${allConfettiPieces
-                  .filter(
-                    (piece) =>
-                      piece.explosionX === explosion.x &&
-                      piece.explosionY === explosion.y
-                  )
+                  .filter((piece) => piece.explosionId === explosion.id)
                   .map(
                     (piece) => html`
                       <div
