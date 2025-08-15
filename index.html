@@ -22,6 +22,25 @@
         }
       }
 
+      @keyframes foot-dance {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-1px);
+        }
+        40% {
+          transform: translateX(1px);
+        }
+        60% {
+          transform: translateX(-1px);
+        }
+        80% {
+          transform: translateX(1px);
+        }
+      }
+
       @keyframes sunglasses-fly-in {
         0% {
           transform: translate(-80px, -80px) rotate(0deg) scale(2);
@@ -88,6 +107,15 @@
 
       .dancing {
         animation: dance 0.5s ease-in-out infinite;
+      }
+
+      .dancing-feet-left {
+        animation: foot-dance 0.3s ease-in-out infinite;
+      }
+
+      .dancing-feet-right {
+        animation: foot-dance 0.3s ease-in-out infinite;
+        animation-delay: 0.15s; /* Offset for alternating movement */
       }
 
       .sunglasses {
@@ -344,8 +372,22 @@
             <rect x="12" y="1" width="1" height="1" fill="#FF8C00" />
 
             <!-- Legs -->
-            <rect x="5" y="14" width="2" height="2" fill="#FF8C00" />
-            <rect x="9" y="14" width="2" height="2" fill="#FF8C00" />
+            <rect
+              x="5"
+              y="14"
+              width="2"
+              height="2"
+              fill="#FF8C00"
+              class=${isDancing ? "dancing-feet-left" : ""}
+            />
+            <rect
+              x="9"
+              y="14"
+              width="2"
+              height="2"
+              fill="#FF8C00"
+              class=${isDancing ? "dancing-feet-right" : ""}
+            />
 
             <!-- Eye -->
             <rect x="11" y="3" width="1" height="1" fill="#000" />
