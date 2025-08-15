@@ -750,6 +750,71 @@
         `;
       };
 
+      // Octopus Component for background dancers
+      const Octopus = ({
+        color = "#9370DB",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Octopus head/body -->
+            <rect x="5" y="6" width="6" height="5" fill=${color} />
+            <rect x="4" y="7" width="8" height="3" fill=${color} />
+
+            <!-- Eyes -->
+            <rect x="6" y="7" width="2" height="2" fill="#FFFFFF" />
+            <rect x="8" y="7" width="2" height="2" fill="#FFFFFF" />
+            <!-- Pupils -->
+            <rect x="6" y="8" width="1" height="1" fill="#000" />
+            <rect x="9" y="8" width="1" height="1" fill="#000" />
+
+            <!-- Smile -->
+            <rect x="6" y="9" width="4" height="1" fill="#FF1493" />
+
+            <!-- 8 Tentacles -->
+            <!-- Front left tentacles -->
+            <rect x="3" y="10" width="2" height="3" fill=${color} />
+            <rect x="2" y="12" width="2" height="2" fill=${color} />
+            <rect x="1" y="13" width="2" height="1" fill=${color} />
+
+            <rect x="5" y="10" width="1" height="4" fill=${color} />
+            <rect x="4" y="13" width="2" height="2" fill=${color} />
+
+            <!-- Front right tentacles -->
+            <rect x="10" y="10" width="1" height="4" fill=${color} />
+            <rect x="10" y="13" width="2" height="2" fill=${color} />
+
+            <rect x="11" y="10" width="2" height="3" fill=${color} />
+            <rect x="12" y="12" width="2" height="2" fill=${color} />
+            <rect x="13" y="13" width="2" height="1" fill=${color} />
+
+            <!-- Back tentacles (shorter, behind) -->
+            <rect x="6" y="10" width="1" height="3" fill=${color} />
+            <rect x="7" y="10" width="1" height="3" fill=${color} />
+            <rect x="8" y="10" width="1" height="3" fill=${color} />
+            <rect x="9" y="10" width="1" height="3" fill=${color} />
+
+            <!-- Suction cups (lighter dots) -->
+            <rect x="3" y="11" width="1" height="1" fill="#DDA0DD" />
+            <rect x="5" y="12" width="1" height="1" fill="#DDA0DD" />
+            <rect x="10" y="12" width="1" height="1" fill="#DDA0DD" />
+            <rect x="12" y="11" width="1" height="1" fill="#DDA0DD" />
+          </svg>
+        `;
+      };
+
       // Dragon Component for background dancers
       const Dragon = ({
         color = "#228B22",
@@ -1371,6 +1436,15 @@
               transform: "translateX(-50%)",
             },
           },
+          {
+            type: "octopus",
+            color: "#9370DB",
+            danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
+            position: {
+              bottom: "80px",
+              right: "200px",
+            },
+          },
         ];
 
         return html`
@@ -1406,6 +1480,8 @@
                   ? Fox
                   : dancer.type === "owl"
                   ? Owl
+                  : dancer.type === "octopus"
+                  ? Octopus
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
