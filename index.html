@@ -694,6 +694,29 @@
         }
       }
 
+      @keyframes owl-hop {
+        0%,
+        20%,
+        100% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(-25px);
+        }
+        30% {
+          transform: translateY(0);
+        }
+        70% {
+          transform: translateY(0);
+        }
+        75% {
+          transform: translateY(-25px);
+        }
+        80% {
+          transform: translateY(0);
+        }
+      }
+
       @keyframes sheep-unison-dance {
         /* 3 hops facing right */
         0%,
@@ -1152,6 +1175,10 @@
             <!-- Legs -->
             <rect x="5" y="14" width="2" height="2" fill="#000" />
             <rect x="9" y="14" width="2" height="2" fill="#000" />
+
+            <!-- White feet/socks -->
+            <rect x="5" y="15" width="2" height="1" fill="#FFFFFF" />
+            <rect x="9" y="15" width="2" height="1" fill="#FFFFFF" />
 
             <!-- Bushy tail -->
             <rect x="2" y="8" width="2" height="2" fill=${color} />
@@ -2750,7 +2777,7 @@
           {
             type: "owl",
             color: "#8B4513",
-            danceAnimation: "head-bob 0.476s ease-in-out infinite",
+            danceAnimation: "owl-hop 4s ease-in-out infinite",
             position: { bottom: "150px", right: "20px" },
           },
           {
@@ -2790,7 +2817,7 @@
           {
             type: "octopus",
             color: "#9370DB",
-            danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
+            danceAnimation: "wiggle-dance 1.5s ease-in-out infinite",
             position: {
               bottom: "80px",
               right: "200px",
