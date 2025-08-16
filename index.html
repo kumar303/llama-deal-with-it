@@ -1811,9 +1811,9 @@
 
         return html`
           <svg
-            width="200"
+            width="320"
             height="160"
-            viewBox="-2 0 22 16"
+            viewBox="-13 0 33 16"
             className=${`pixelated background-llama`}
             style=${{
               imageRendering: "pixelated",
@@ -1897,16 +1897,31 @@
                 transformOrigin: "3px 10px",
               }}
             >
-              <!-- Tail segments getting narrower -->
+              <!-- Tail segments getting narrower and longer -->
               <rect x="2" y="9" width="2" height="3" fill=${color} />
-              <rect x="1" y="10" width="2" height="2" fill=${color} />
-              <rect x="0" y="10" width="1" height="2" fill=${color} />
-              <rect x="-1" y="11" width="1" height="1" fill=${color} />
+              <rect x="0" y="10" width="3" height="2" fill=${color} />
+              <rect x="-2" y="10" width="2" height="2" fill=${color} />
+              <rect x="-4" y="10" width="2" height="2" fill=${color} />
+              <rect x="-6" y="11" width="2" height="1" fill=${color} />
+              <rect x="-8" y="11" width="2" height="1" fill=${color} />
+              <rect x="-10" y="11" width="1" height="1" fill=${color} />
+              <rect x="-11" y="11" width="1" height="1" fill=${color} />
+              <rect x="-12" y="11" width="1" height="1" fill=${color} />
 
-              <!-- Tail ridges -->
+              <!-- Tail ridges along the top -->
               <rect x="2" y="8" width="1" height="1" fill=${color} />
               <rect x="1" y="9" width="1" height="1" fill=${color} />
               <rect x="0" y="9" width="1" height="1" fill=${color} />
+              <rect x="-1" y="9" width="1" height="1" fill=${color} />
+              <rect x="-2" y="9" width="1" height="1" fill=${color} />
+              <rect x="-3" y="9" width="1" height="1" fill=${color} />
+              <rect x="-4" y="9" width="1" height="1" fill=${color} />
+              <rect x="-5" y="10" width="1" height="1" fill=${color} />
+              <rect x="-6" y="10" width="1" height="1" fill=${color} />
+              <rect x="-7" y="10" width="1" height="1" fill=${color} />
+              <rect x="-8" y="10" width="1" height="1" fill=${color} />
+              <rect x="-9" y="10" width="1" height="1" fill=${color} />
+              <rect x="-10" y="10" width="1" height="1" fill=${color} />
             </g>
           </svg>
         `;
@@ -2218,7 +2233,7 @@
             danceAnimation: "gator-dance 2s ease-in-out infinite",
             position: {
               top: "200px",
-              left: "250px",
+              left: "320px",
             },
           },
         ];
