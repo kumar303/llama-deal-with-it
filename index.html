@@ -733,13 +733,22 @@
         }
       }
 
-      @keyframes floss-arms {
+      @keyframes arms-raise-lower {
         0%,
-        100% {
-          transform: translateX(3px);
+        62.5% {
+          transform: rotate(-45deg); /* Arms raised */
         }
-        50% {
-          transform: translateX(-3px);
+        62.5%,
+        75% {
+          transform: rotate(0deg); /* Arms lowered - 1 second */
+        }
+        75%,
+        87.5% {
+          transform: rotate(-45deg); /* Arms raised - 1 second */
+        }
+        87.5%,
+        100% {
+          transform: rotate(0deg); /* Arms lowered - 1 second */
         }
       }
 
@@ -2626,33 +2635,29 @@
               <!-- Nose -->
               <rect x="7" y="6" width="2" height="1" fill="#000" />
 
-              <!-- Arms doing the floss - attached at shoulders -->
+              <!-- New simple arms with raise/lower animation -->
               <!-- Left arm -->
               <g
                 style=${{
-                  animation: "floss-arms 0.8s ease-in-out infinite",
+                  animation: "arms-raise-lower 8s ease-in-out infinite",
                   animationDelay: "6s",
-                  transformOrigin: "5px 8px",
+                  transformOrigin: "5px 9px",
                 }}
               >
-                <rect x="5" y="8" width="1" height="1" fill=${color} />
-                <rect x="4" y="9" width="1" height="1" fill=${color} />
-                <rect x="3" y="10" width="1" height="1" fill=${color} />
-                <rect x="2" y="11" width="2" height="1" fill=${color} />
+                <rect x="5" y="9" width="1" height="4" fill=${color} />
+                <rect x="4" y="12" width="2" height="1" fill=${color} />
               </g>
 
               <!-- Right arm -->
               <g
                 style=${{
-                  animation: "floss-arms 0.8s ease-in-out infinite reverse",
+                  animation: "arms-raise-lower 8s ease-in-out infinite",
                   animationDelay: "6s",
-                  transformOrigin: "10px 8px",
+                  transformOrigin: "10px 9px",
                 }}
               >
-                <rect x="10" y="8" width="1" height="1" fill=${color} />
-                <rect x="11" y="9" width="1" height="1" fill=${color} />
-                <rect x="12" y="10" width="1" height="1" fill=${color} />
-                <rect x="12" y="11" width="2" height="1" fill=${color} />
+                <rect x="10" y="9" width="1" height="4" fill=${color} />
+                <rect x="10" y="12" width="2" height="1" fill=${color} />
               </g>
 
               <!-- Legs (separated with gap) -->
