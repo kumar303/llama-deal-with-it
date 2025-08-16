@@ -652,6 +652,31 @@
         }
       }
 
+      @keyframes hip-wiggle {
+        0%,
+        100% {
+          transform: translateX(-2px);
+        }
+        25% {
+          transform: translateX(2px);
+        }
+        50% {
+          transform: translateX(-2px);
+        }
+        75% {
+          transform: translateX(2px);
+        }
+      }
+
+      @keyframes hula-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
       @keyframes sheep-unison-dance {
         /* 3 hops facing right */
         0%,
@@ -2281,6 +2306,111 @@
         `;
       };
 
+      // Hippo Component for background dancers
+      const Hippo = ({
+        color = "#9370DB",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const hippoColor = "#8B7D7B"; // Grayish brown for hippo
+        const hoopColor = "#FF1493"; // Hot pink hula hoop
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Hippo body (wiggling) -->
+            <g
+              style=${{
+                animation: "hip-wiggle 0.5s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "8px 10px",
+              }}
+            >
+              <rect x="4" y="8" width="8" height="6" fill=${hippoColor} />
+              <rect x="3" y="9" width="10" height="4" fill=${hippoColor} />
+
+              <!-- Belly -->
+              <rect x="5" y="10" width="6" height="3" fill="#C8B8B0" />
+            </g>
+
+            <!-- Head -->
+            <rect x="5" y="4" width="6" height="5" fill=${hippoColor} />
+            <rect x="4" y="5" width="8" height="3" fill=${hippoColor} />
+
+            <!-- Snout -->
+            <rect x="6" y="7" width="4" height="2" fill=${hippoColor} />
+
+            <!-- Eyes -->
+            <rect x="6" y="5" width="1" height="1" fill="#000" />
+            <rect x="9" y="5" width="1" height="1" fill="#000" />
+
+            <!-- Nostrils -->
+            <rect x="7" y="7" width="1" height="1" fill="#000" />
+            <rect x="8" y="7" width="1" height="1" fill="#000" />
+
+            <!-- Ears -->
+            <rect x="5" y="3" width="1" height="2" fill=${hippoColor} />
+            <rect x="10" y="3" width="1" height="2" fill=${hippoColor} />
+
+            <!-- Arms up in the air -->
+            <rect x="3" y="6" width="1" height="4" fill=${hippoColor} />
+            <rect x="2" y="4" width="1" height="3" fill=${hippoColor} />
+            <rect x="1" y="3" width="2" height="1" fill=${hippoColor} />
+
+            <rect x="12" y="6" width="1" height="4" fill=${hippoColor} />
+            <rect x="13" y="4" width="1" height="3" fill=${hippoColor} />
+            <rect x="13" y="3" width="2" height="1" fill=${hippoColor} />
+
+            <!-- Hula hoop (spinning) -->
+            <g
+              style=${{
+                animation: "hula-spin 1s linear infinite",
+                animationDelay: "6s",
+                transformOrigin: "8px 11px",
+              }}
+            >
+              <!-- Hoop segments to create circular appearance -->
+              <rect x="2" y="10" width="2" height="1" fill=${hoopColor} />
+              <rect x="12" y="10" width="2" height="1" fill=${hoopColor} />
+              <rect x="3" y="9" width="1" height="1" fill=${hoopColor} />
+              <rect x="12" y="9" width="1" height="1" fill=${hoopColor} />
+              <rect x="3" y="12" width="1" height="1" fill=${hoopColor} />
+              <rect x="12" y="12" width="1" height="1" fill=${hoopColor} />
+              <rect x="2" y="11" width="2" height="1" fill=${hoopColor} />
+              <rect x="12" y="11" width="2" height="1" fill=${hoopColor} />
+
+              <!-- Top and bottom of hoop -->
+              <rect
+                x="6"
+                y="8"
+                width="4"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect x="6" y="13" width="4" height="1" fill=${hoopColor} />
+            </g>
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill=${hippoColor} />
+            <rect x="9" y="14" width="2" height="2" fill=${hippoColor} />
+
+            <!-- Happy mouth -->
+            <rect x="7" y="8" width="2" height="1" fill="#FF69B4" />
+          </svg>
+        `;
+      };
+
       const DancefloorTiles = ({ isDancing }) => {
         const [activeTiles, setActiveTiles] = useState(new Set());
 
@@ -2628,6 +2758,15 @@
               right: "380px",
             },
           },
+          {
+            type: "hippo",
+            color: "#8B7D7B",
+            danceAnimation: "sway-dance 0.952s ease-in-out infinite",
+            position: {
+              bottom: "150px",
+              right: "550px",
+            },
+          },
         ];
 
         return html`
@@ -2677,6 +2816,8 @@
                   ? Sheep
                   : dancer.type === "toucan"
                   ? Toucan
+                  : dancer.type === "hippo"
+                  ? Hippo
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
