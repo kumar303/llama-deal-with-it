@@ -667,7 +667,23 @@
           transform: translateY(0) rotate(360deg);
         }
 
-        /* Back to start */
+        /* Immediately start hopping again */
+        60%,
+        65% {
+          transform: translateY(0) scaleX(1);
+        }
+        62.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
+        65%,
+        70% {
+          transform: translateY(0) scaleX(1);
+        }
+        67.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
         70%,
         100% {
           transform: translateY(0) scaleX(1);
@@ -2409,7 +2425,7 @@
             color: "#FFB6C1",
             danceAnimation: "sheep-unison-dance 8s ease-in-out infinite",
             position: {
-              top: "350px",
+              top: "450px",
               left: "250px",
             },
           },
@@ -2418,8 +2434,8 @@
             color: "#FFB6C1",
             danceAnimation: "sheep-unison-dance 8s ease-in-out infinite",
             position: {
-              top: "350px",
-              left: "350px",
+              top: "450px",
+              left: "370px",
             },
           },
           {
@@ -2427,8 +2443,8 @@
             color: "#FFB6C1",
             danceAnimation: "sheep-unison-dance 8s ease-in-out infinite",
             position: {
-              top: "350px",
-              left: "450px",
+              top: "450px",
+              left: "490px",
             },
           },
         ];
