@@ -717,6 +717,32 @@
         }
       }
 
+      @keyframes floss-dance {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-1px);
+        }
+        50% {
+          transform: translateX(0);
+        }
+        75% {
+          transform: translateX(1px);
+        }
+      }
+
+      @keyframes floss-arms {
+        0%,
+        100% {
+          transform: translateX(3px);
+        }
+        50% {
+          transform: translateX(-3px);
+        }
+      }
+
       @keyframes sheep-unison-dance {
         /* 3 hops facing right */
         0%,
@@ -2547,6 +2573,106 @@
         `;
       };
 
+      // Lion Component for background dancers
+      const Lion = ({
+        color = "#FFD700",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const maneColor = "#CD853F"; // Darker brown for mane
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Entire lion with subtle body sway -->
+            <g
+              style=${{
+                animation: "floss-dance 0.8s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "8px 10px",
+              }}
+            >
+              <!-- Lion body -->
+              <rect x="5" y="8" width="6" height="5" fill=${color} />
+              <rect x="4" y="9" width="8" height="3" fill=${color} />
+
+              <!-- Mane -->
+              <rect x="4" y="3" width="8" height="2" fill=${maneColor} />
+              <rect x="3" y="4" width="10" height="2" fill=${maneColor} />
+              <rect x="3" y="5" width="10" height="2" fill=${maneColor} />
+              <rect x="4" y="6" width="8" height="2" fill=${maneColor} />
+
+              <!-- Head -->
+              <rect x="5" y="4" width="6" height="4" fill=${color} />
+
+              <!-- Snout -->
+              <rect x="6" y="6" width="4" height="2" fill=${color} />
+              <rect x="7" y="7" width="2" height="1" fill="#FFB6C1" />
+
+              <!-- Eyes -->
+              <rect x="6" y="5" width="1" height="1" fill="#000" />
+              <rect x="9" y="5" width="1" height="1" fill="#000" />
+
+              <!-- Nose -->
+              <rect x="7" y="6" width="2" height="1" fill="#000" />
+
+              <!-- Arms doing the floss - attached at shoulders -->
+              <!-- Left arm -->
+              <g
+                style=${{
+                  animation: "floss-arms 0.8s ease-in-out infinite",
+                  animationDelay: "6s",
+                  transformOrigin: "5px 8px",
+                }}
+              >
+                <rect x="5" y="8" width="1" height="1" fill=${color} />
+                <rect x="4" y="9" width="1" height="1" fill=${color} />
+                <rect x="3" y="10" width="1" height="1" fill=${color} />
+                <rect x="2" y="11" width="2" height="1" fill=${color} />
+              </g>
+
+              <!-- Right arm -->
+              <g
+                style=${{
+                  animation: "floss-arms 0.8s ease-in-out infinite reverse",
+                  animationDelay: "6s",
+                  transformOrigin: "10px 8px",
+                }}
+              >
+                <rect x="10" y="8" width="1" height="1" fill=${color} />
+                <rect x="11" y="9" width="1" height="1" fill=${color} />
+                <rect x="12" y="10" width="1" height="1" fill=${color} />
+                <rect x="12" y="11" width="2" height="1" fill=${color} />
+              </g>
+
+              <!-- Legs (separated with gap) -->
+              <rect x="5" y="13" width="2" height="3" fill=${color} />
+              <rect x="9" y="13" width="2" height="3" fill=${color} />
+
+              <!-- Paws (aligned with legs) -->
+              <rect x="5" y="15" width="2" height="1" fill="#8B4513" />
+              <rect x="9" y="15" width="2" height="1" fill="#8B4513" />
+            </g>
+
+            <!-- Tail -->
+            <rect x="2" y="9" width="2" height="1" fill=${color} />
+            <rect x="1" y="10" width="2" height="1" fill=${color} />
+            <rect x="0" y="11" width="2" height="1" fill=${color} />
+            <rect x="0" y="12" width="1" height="1" fill=${maneColor} />
+          </svg>
+        `;
+      };
+
       const DancefloorTiles = ({ isDancing }) => {
         const [activeTiles, setActiveTiles] = useState(new Set());
 
@@ -2903,6 +3029,15 @@
               right: "700px",
             },
           },
+          {
+            type: "lion",
+            color: "#FFD700",
+            danceAnimation: "sway-dance 0.952s ease-in-out infinite",
+            position: {
+              bottom: "300px",
+              left: "calc(65% - 50px)",
+            },
+          },
         ];
 
         return html`
@@ -2954,6 +3089,8 @@
                   ? Toucan
                   : dancer.type === "hippo"
                   ? Hippo
+                  : dancer.type === "lion"
+                  ? Lion
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
