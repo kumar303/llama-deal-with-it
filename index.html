@@ -1811,9 +1811,9 @@
 
         return html`
           <svg
-            width="160"
+            width="200"
             height="160"
-            viewBox="0 0 16 16"
+            viewBox="-2 0 22 16"
             className=${`pixelated background-llama`}
             style=${{
               imageRendering: "pixelated",
@@ -1828,41 +1828,52 @@
             <!-- Belly -->
             <rect x="4" y="9" width="8" height="2" fill=${bellyColor} />
 
-            <!-- Head -->
-            <rect x="11" y="6" width="5" height="4" fill=${color} />
+            <!-- Head base -->
+            <rect x="10" y="6" width="4" height="4" fill=${color} />
 
-            <!-- Snout -->
-            <rect x="14" y="7" width="2" height="2" fill=${color} />
+            <!-- Extended snout -->
+            <rect x="13" y="7" width="5" height="2" fill=${color} />
+            <rect x="17" y="7" width="2" height="2" fill=${color} />
+            <rect x="18" y="8" width="2" height="1" fill=${color} />
 
             <!-- Eyes (smiling) -->
-            <rect x="12" y="6" width="2" height="1" fill="#FFF" />
+            <rect x="11" y="6" width="2" height="1" fill="#FFF" />
+            <rect x="11" y="7" width="1" height="1" fill="#000" />
             <rect x="12" y="7" width="1" height="1" fill="#000" />
-            <rect x="13" y="7" width="1" height="1" fill="#000" />
 
             <!-- Lower jaw (animated) -->
             <g
               style=${{
                 animation: "jaw-laugh 3s ease-in-out infinite",
                 animationDelay: "6s",
-                transformOrigin: "11px 9px",
+                transformOrigin: "10px 9px",
               }}
             >
-              <rect x="11" y="9" width="5" height="2" fill=${color} />
-              <rect x="14" y="10" width="2" height="1" fill=${color} />
+              <rect x="10" y="9" width="4" height="2" fill=${color} />
+              <rect x="13" y="9" width="5" height="2" fill=${color} />
+              <rect x="17" y="10" width="2" height="1" fill=${color} />
+              <rect x="18" y="10" width="2" height="1" fill=${color} />
 
               <!-- Teeth -->
-              <rect x="12" y="9" width="1" height="1" fill="#FFF" />
-              <rect x="14" y="9" width="1" height="1" fill="#FFF" />
-              <rect x="13" y="10" width="1" height="1" fill="#FFF" />
-              <rect x="15" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="11" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="13" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="15" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="17" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="12" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="14" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="16" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="18" y="10" width="1" height="1" fill="#FFF" />
             </g>
 
             <!-- Upper teeth -->
-            <rect x="12" y="8" width="1" height="1" fill="#FFF" />
-            <rect x="14" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="11" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="13" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="15" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="17" y="8" width="1" height="1" fill="#FFF" />
 
             <!-- Nostrils -->
-            <rect x="15" y="7" width="1" height="1" fill="#000" opacity="0.5" />
+            <rect x="18" y="7" width="1" height="1" fill="#000" opacity="0.5" />
+            <rect x="19" y="7" width="1" height="1" fill="#000" opacity="0.5" />
 
             <!-- Back ridges -->
             <rect x="4" y="7" width="1" height="1" fill=${color} />
@@ -1886,12 +1897,16 @@
                 transformOrigin: "3px 10px",
               }}
             >
-              <rect x="1" y="9" width="3" height="3" fill=${color} />
+              <!-- Tail segments getting narrower -->
+              <rect x="2" y="9" width="2" height="3" fill=${color} />
+              <rect x="1" y="10" width="2" height="2" fill=${color} />
               <rect x="0" y="10" width="1" height="2" fill=${color} />
+              <rect x="-1" y="11" width="1" height="1" fill=${color} />
 
               <!-- Tail ridges -->
-              <rect x="1" y="8" width="1" height="1" fill=${color} />
               <rect x="2" y="8" width="1" height="1" fill=${color} />
+              <rect x="1" y="9" width="1" height="1" fill=${color} />
+              <rect x="0" y="9" width="1" height="1" fill=${color} />
             </g>
           </svg>
         `;
