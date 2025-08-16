@@ -150,6 +150,48 @@
         }
       }
 
+      @keyframes butterfly-fly {
+        0% {
+          transform: translate(0, 0) rotate(5deg);
+        }
+        25% {
+          transform: translate(-100px, -50px) rotate(-5deg);
+        }
+        50% {
+          transform: translate(-150px, 20px) rotate(10deg);
+        }
+        75% {
+          transform: translate(-80px, -30px) rotate(-10deg);
+        }
+        100% {
+          transform: translate(0, 0) rotate(5deg);
+        }
+      }
+
+      @keyframes wing-flap {
+        0%,
+        100% {
+          transform: scaleX(1);
+        }
+        50% {
+          transform: scaleX(0.3);
+        }
+      }
+
+      @keyframes guitar-spin {
+        0%,
+        70%,
+        100% {
+          transform: rotate(-45deg) translate(-2px, -2px);
+        }
+        80% {
+          transform: rotate(-45deg) translate(-2px, -2px) rotateY(180deg);
+        }
+        90% {
+          transform: rotate(-45deg) translate(-2px, -2px) rotateY(360deg);
+        }
+      }
+
       @keyframes shuffle-dance {
         0%,
         100% {
@@ -1439,6 +1481,156 @@
       };
 
       // Dancefloor Tiles Component
+      // Butterfly Component for background dancers
+      const Butterfly = ({
+        color = "#FF69B4",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const wingColor = "#FFB6C1"; // Light pink wings
+        const guitarColor = "#8B4513"; // Brown guitar
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Butterfly body -->
+            <rect x="7" y="6" width="2" height="5" fill=${color} />
+            <rect x="7" y="5" width="2" height="1" fill="#000" />
+
+            <!-- Head -->
+            <rect x="7" y="4" width="2" height="2" fill=${color} />
+
+            <!-- Antennae -->
+            <rect x="7" y="3" width="1" height="1" fill="#000" />
+            <rect x="8" y="3" width="1" height="1" fill="#000" />
+            <rect x="6" y="2" width="1" height="1" fill="#000" />
+            <rect x="9" y="2" width="1" height="1" fill="#000" />
+
+            <!-- Eyes -->
+            <rect x="7" y="4" width="1" height="1" fill="#000" />
+            <rect x="8" y="4" width="1" height="1" fill="#000" />
+
+            <!-- Left wing -->
+            <g
+              style=${{
+                animation: "wing-flap 0.3s ease-in-out infinite",
+                transformOrigin: "7px 7px",
+              }}
+            >
+              <rect x="3" y="5" width="4" height="3" fill=${wingColor} />
+              <rect x="2" y="6" width="1" height="2" fill=${wingColor} />
+              <rect x="4" y="4" width="2" height="1" fill=${wingColor} />
+              <!-- Wing spots -->
+              <rect x="4" y="6" width="1" height="1" fill=${color} />
+              <rect x="5" y="5" width="1" height="1" fill="#FFD700" />
+            </g>
+
+            <!-- Right wing -->
+            <g
+              style=${{
+                animation: "wing-flap 0.3s ease-in-out infinite",
+                animationDelay: "0.05s",
+                transformOrigin: "9px 7px",
+              }}
+            >
+              <rect x="9" y="5" width="4" height="3" fill=${wingColor} />
+              <rect x="13" y="6" width="1" height="2" fill=${wingColor} />
+              <rect x="10" y="4" width="2" height="1" fill=${wingColor} />
+              <!-- Wing spots -->
+              <rect x="11" y="6" width="1" height="1" fill=${color} />
+              <rect x="10" y="5" width="1" height="1" fill="#FFD700" />
+            </g>
+
+            <!-- Guitar -->
+            <g
+              style=${{
+                animation: "guitar-spin 4s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "6px 8px",
+              }}
+            >
+              <!-- Guitar body (figure-8 shape) -->
+              <rect x="3" y="9" width="6" height="6" fill=${guitarColor} />
+              <rect x="4" y="8" width="4" height="1" fill=${guitarColor} />
+              <rect x="4" y="15" width="4" height="1" fill=${guitarColor} />
+              <!-- Curves -->
+              <rect x="2" y="10" width="1" height="4" fill=${guitarColor} />
+              <rect x="9" y="10" width="1" height="4" fill=${guitarColor} />
+
+              <!-- Sound hole -->
+              <rect x="5" y="11" width="2" height="2" fill="#000" />
+
+              <!-- Bridge -->
+              <rect x="4" y="13" width="4" height="1" fill="#000" />
+
+              <!-- Guitar neck -->
+              <rect x="5" y="4" width="2" height="5" fill=${guitarColor} />
+
+              <!-- Headstock -->
+              <rect x="4" y="2" width="4" height="2" fill=${guitarColor} />
+
+              <!-- Tuning pegs -->
+              <rect x="3" y="2" width="1" height="1" fill="#C0C0C0" />
+              <rect x="8" y="2" width="1" height="1" fill="#C0C0C0" />
+              <rect x="3" y="3" width="1" height="1" fill="#C0C0C0" />
+              <rect x="8" y="3" width="1" height="1" fill="#C0C0C0" />
+
+              <!-- Fretboard -->
+              <rect x="5" y="4" width="2" height="5" fill="#4B0000" />
+
+              <!-- Frets -->
+              <rect
+                x="5"
+                y="5"
+                width="2"
+                height="1"
+                fill="#C0C0C0"
+                opacity="0.3"
+              />
+              <rect
+                x="5"
+                y="7"
+                width="2"
+                height="1"
+                fill="#C0C0C0"
+                opacity="0.3"
+              />
+
+              <!-- Strings -->
+              <rect
+                x="5"
+                y="2"
+                width="1"
+                height="11"
+                fill="#C0C0C0"
+                opacity="0.7"
+              />
+              <rect
+                x="6"
+                y="2"
+                width="1"
+                height="11"
+                fill="#C0C0C0"
+                opacity="0.7"
+              />
+            </g>
+
+            <!-- Smile -->
+            <rect x="7" y="5" width="2" height="1" fill="#FF1493" />
+          </svg>
+        `;
+      };
+
       // Horse Component for background dancers
       const Horse = ({
         color = "#8B4513",
@@ -1814,6 +2006,15 @@
               right: "200px",
             },
           },
+          {
+            type: "butterfly",
+            color: "#FF69B4",
+            danceAnimation: "butterfly-fly 5s ease-in-out infinite",
+            position: {
+              bottom: "400px",
+              right: "280px",
+            },
+          },
         ];
 
         return html`
@@ -1855,6 +2056,8 @@
                   ? Dog
                   : dancer.type === "horse"
                   ? Horse
+                  : dancer.type === "butterfly"
+                  ? Butterfly
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
