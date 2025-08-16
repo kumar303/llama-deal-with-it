@@ -570,6 +570,21 @@
         animation: rainbow-pulse 1s ease-in-out;
       }
 
+      .tiles-container {
+        opacity: 0;
+        animation: tiles-fade-in 3s ease-out forwards;
+        animation-delay: 0s;
+      }
+
+      @keyframes tiles-fade-in {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
       /* Confetti styles */
       .confetti-container {
         position: fixed;
@@ -1977,17 +1992,19 @@
         }, [isDancing]);
 
         return html`
-          ${tilePositions.map(
-            (tile) => html`
-              <div
-                key=${tile.id}
-                className=${`dancefloor-tile ${
-                  activeTiles.has(tile.id) ? "active" : ""
-                }`}
-                style=${{ left: `${tile.x}px`, top: `${tile.y}px` }}
-              />
-            `
-          )}
+          <div className=${isDancing ? "tiles-container" : ""}>
+            ${tilePositions.map(
+              (tile) => html`
+                <div
+                  key=${tile.id}
+                  className=${`dancefloor-tile ${
+                    activeTiles.has(tile.id) ? "active" : ""
+                  }`}
+                  style=${{ left: `${tile.x}px`, top: `${tile.y}px` }}
+                />
+              `
+            )}
+          </div>
         `;
       };
 
