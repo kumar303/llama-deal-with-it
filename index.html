@@ -445,17 +445,21 @@
       }
 
       @keyframes turtle-feet-move {
-        /* Normal speed on ground */
+        /* Slow movement on ground (first 10%) */
         0%,
+        2%,
+        4%,
+        6%,
+        8%,
         10% {
           transform: translateX(0);
         }
-        2.5%,
-        7.5% {
-          transform: translateX(-1px);
-        }
-        5% {
-          transform: translateX(1px);
+        1%,
+        3%,
+        5%,
+        7%,
+        9% {
+          transform: translateX(-0.3px);
         }
 
         /* Fast movement in air (15% to 85% of 4s cycle) */
@@ -535,17 +539,21 @@
           transform: translateX(2px);
         }
 
-        /* Normal speed on ground */
+        /* Slow movement on ground (last 10%) */
         90%,
+        92%,
+        94%,
+        96%,
+        98%,
         100% {
           transform: translateX(0);
         }
-        92.5%,
-        97.5% {
-          transform: translateX(-1px);
-        }
-        95% {
-          transform: translateX(1px);
+        91%,
+        93%,
+        95%,
+        97%,
+        99% {
+          transform: translateX(0.3px);
         }
       }
 
