@@ -2388,9 +2388,9 @@
                 transformOrigin: "3px 8px",
               }}
             >
-              <rect x="3" y="7" width="1" height="3" fill=${hippoColor} />
-              <rect x="2" y="5" width="1" height="2" fill=${hippoColor} />
-              <rect x="1" y="4" width="2" height="1" fill=${hippoColor} />
+              <rect x="3" y="8" width="1" height="2" fill=${hippoColor} />
+              <rect x="2" y="6" width="1" height="2" fill=${hippoColor} />
+              <rect x="1" y="5" width="2" height="1" fill=${hippoColor} />
             </g>
 
             <!-- Right arm -->
@@ -2401,9 +2401,9 @@
                 transformOrigin: "12px 8px",
               }}
             >
-              <rect x="12" y="7" width="1" height="3" fill=${hippoColor} />
-              <rect x="13" y="5" width="1" height="2" fill=${hippoColor} />
-              <rect x="13" y="4" width="2" height="1" fill=${hippoColor} />
+              <rect x="12" y="8" width="1" height="2" fill=${hippoColor} />
+              <rect x="13" y="6" width="1" height="2" fill=${hippoColor} />
+              <rect x="13" y="5" width="2" height="1" fill=${hippoColor} />
             </g>
 
             <!-- Hula hoop (tilting ellipse) -->
@@ -2415,24 +2415,29 @@
                 transformStyle: "preserve-3d",
               }}
             >
-              <!-- Elliptical hoop shape -->
-              <!-- Top curve -->
-              <rect x="4" y="9" width="8" height="1" fill=${hoopColor} />
-              <rect x="3" y="10" width="1" height="1" fill=${hoopColor} />
-              <rect x="12" y="10" width="1" height="1" fill=${hoopColor} />
+              <!-- Front part of hoop only (wraps behind hippo) -->
+              <!-- No top curve - hoop goes behind hippo -->
 
-              <!-- Side curves -->
-              <rect x="2" y="11" width="1" height="1" fill=${hoopColor} />
-              <rect x="13" y="11" width="1" height="1" fill=${hoopColor} />
+              <!-- Upper front sides (emerging from behind) -->
+              <rect x="2" y="10" width="1" height="1" fill=${hoopColor} />
+              <rect x="13" y="10" width="1" height="1" fill=${hoopColor} />
+
+              <!-- Middle sides -->
+              <rect x="0" y="11" width="1" height="1" fill=${hoopColor} />
+              <rect x="15" y="11" width="1" height="1" fill=${hoopColor} />
+
+              <!-- Lower sides -->
+              <rect x="1" y="12" width="1" height="1" fill=${hoopColor} />
+              <rect x="14" y="12" width="1" height="1" fill=${hoopColor} />
 
               <!-- Bottom curve -->
-              <rect x="3" y="12" width="1" height="1" fill=${hoopColor} />
-              <rect x="12" y="12" width="1" height="1" fill=${hoopColor} />
-              <rect x="4" y="13" width="8" height="1" fill=${hoopColor} />
+              <rect x="2" y="13" width="1" height="1" fill=${hoopColor} />
+              <rect x="13" y="13" width="1" height="1" fill=${hoopColor} />
+              <rect x="3" y="14" width="10" height="1" fill=${hoopColor} />
 
               <!-- Additional segments for smoother ellipse -->
               <rect
-                x="2"
+                x="1"
                 y="10"
                 width="1"
                 height="1"
@@ -2440,7 +2445,7 @@
                 opacity="0.7"
               />
               <rect
-                x="13"
+                x="14"
                 y="10"
                 width="1"
                 height="1"
@@ -2448,7 +2453,23 @@
                 opacity="0.7"
               />
               <rect
-                x="2"
+                x="1"
+                y="11"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="14"
+                y="11"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="0"
                 y="12"
                 width="1"
                 height="1"
@@ -2456,8 +2477,24 @@
                 opacity="0.7"
               />
               <rect
-                x="13"
+                x="15"
                 y="12"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="1"
+                y="13"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="14"
+                y="13"
                 width="1"
                 height="1"
                 fill=${hoopColor}
