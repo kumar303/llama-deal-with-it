@@ -587,15 +587,44 @@
 
       @keyframes toucan-run {
         0%,
-        45% {
-          transform: translateX(0) scaleX(1);
+        10% {
+          transform: translateX(0) translateY(0) scaleX(1);
         }
+        /* Hop while running left */
+        15% {
+          transform: translateX(-10px) translateY(-20px) scaleX(1);
+        }
+        20%,
+        35% {
+          transform: translateX(-20px) translateY(0) scaleX(1);
+        }
+        40% {
+          transform: translateX(-30px) translateY(-20px) scaleX(1);
+        }
+        45% {
+          transform: translateX(-40px) translateY(0) scaleX(1);
+        }
+        /* Flip direction */
         50%,
+        60% {
+          transform: translateX(-100px) translateY(0) scaleX(-1);
+        }
+        /* Hop while running right */
+        65% {
+          transform: translateX(-90px) translateY(-20px) scaleX(-1);
+        }
+        70%,
+        85% {
+          transform: translateX(-80px) translateY(0) scaleX(-1);
+        }
+        90% {
+          transform: translateX(-70px) translateY(-20px) scaleX(-1);
+        }
         95% {
-          transform: translateX(-100px) scaleX(-1);
+          transform: translateX(-60px) translateY(0) scaleX(-1);
         }
         100% {
-          transform: translateX(0) scaleX(1);
+          transform: translateX(0) translateY(0) scaleX(1);
         }
       }
 
@@ -2596,7 +2625,7 @@
             danceAnimation: "toucan-run 4s ease-in-out infinite",
             position: {
               bottom: "150px",
-              right: "300px",
+              right: "380px",
             },
           },
         ];
