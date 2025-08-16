@@ -687,10 +687,10 @@
       @keyframes arm-wave {
         0%,
         100% {
-          transform: translateY(0);
+          transform: rotate(-2deg);
         }
         50% {
-          transform: translateY(-3px);
+          transform: rotate(2deg);
         }
       }
 
@@ -2379,31 +2379,39 @@
             <rect x="5" y="3" width="1" height="2" fill=${hippoColor} />
             <rect x="10" y="3" width="1" height="2" fill=${hippoColor} />
 
-            <!-- Arms up in the air (waving) -->
+            <!-- Arms extended outward (waving hands) -->
             <!-- Left arm -->
             <g
               style=${{
-                animation: "arm-wave 2s ease-in-out infinite",
+                animation: "arm-wave 1.5s ease-in-out infinite",
                 animationDelay: "6s",
-                transformOrigin: "3px 8px",
+                transformOrigin: "4px 9px",
               }}
             >
-              <rect x="3" y="8" width="1" height="2" fill=${hippoColor} />
-              <rect x="2" y="6" width="1" height="2" fill=${hippoColor} />
-              <rect x="1" y="5" width="2" height="1" fill=${hippoColor} />
+              <rect x="4" y="8" width="1" height="1" fill=${hippoColor} />
+              <rect x="3" y="7" width="1" height="1" fill=${hippoColor} />
+              <rect x="2" y="6" width="1" height="1" fill=${hippoColor} />
+              <rect x="1" y="5" width="1" height="1" fill=${hippoColor} />
+              <rect x="0" y="4" width="1" height="1" fill=${hippoColor} />
+              <!-- Hand -->
+              <rect x="-1" y="3" width="2" height="1" fill=${hippoColor} />
             </g>
 
             <!-- Right arm -->
             <g
               style=${{
-                animation: "arm-wave 2s ease-in-out infinite",
-                animationDelay: "6.5s",
-                transformOrigin: "12px 8px",
+                animation: "arm-wave 1.5s ease-in-out infinite",
+                animationDelay: "6.75s",
+                transformOrigin: "11px 9px",
               }}
             >
-              <rect x="12" y="8" width="1" height="2" fill=${hippoColor} />
-              <rect x="13" y="6" width="1" height="2" fill=${hippoColor} />
-              <rect x="13" y="5" width="2" height="1" fill=${hippoColor} />
+              <rect x="11" y="8" width="1" height="1" fill=${hippoColor} />
+              <rect x="12" y="7" width="1" height="1" fill=${hippoColor} />
+              <rect x="13" y="6" width="1" height="1" fill=${hippoColor} />
+              <rect x="14" y="5" width="1" height="1" fill=${hippoColor} />
+              <rect x="15" y="4" width="1" height="1" fill=${hippoColor} />
+              <!-- Hand -->
+              <rect x="15" y="3" width="2" height="1" fill=${hippoColor} />
             </g>
 
             <!-- Hula hoop (tilting ellipse) -->
