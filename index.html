@@ -668,12 +668,19 @@
         }
       }
 
-      @keyframes hula-spin {
-        0% {
-          transform: rotate(0deg);
-        }
+      @keyframes hula-tilt {
+        0%,
         100% {
-          transform: rotate(360deg);
+          transform: rotateX(45deg) rotateZ(-10deg);
+        }
+        25% {
+          transform: rotateX(45deg) rotateZ(0deg);
+        }
+        50% {
+          transform: rotateX(45deg) rotateZ(10deg);
+        }
+        75% {
+          transform: rotateX(45deg) rotateZ(0deg);
         }
       }
 
@@ -2371,34 +2378,63 @@
             <rect x="13" y="4" width="1" height="3" fill=${hippoColor} />
             <rect x="13" y="3" width="2" height="1" fill=${hippoColor} />
 
-            <!-- Hula hoop (spinning) -->
+            <!-- Hula hoop (tilting ellipse) -->
             <g
               style=${{
-                animation: "hula-spin 1s linear infinite",
+                animation: "hula-tilt 0.8s ease-in-out infinite",
                 animationDelay: "6s",
                 transformOrigin: "8px 11px",
+                transformStyle: "preserve-3d",
               }}
             >
-              <!-- Hoop segments to create circular appearance -->
-              <rect x="2" y="10" width="2" height="1" fill=${hoopColor} />
-              <rect x="12" y="10" width="2" height="1" fill=${hoopColor} />
-              <rect x="3" y="9" width="1" height="1" fill=${hoopColor} />
-              <rect x="12" y="9" width="1" height="1" fill=${hoopColor} />
+              <!-- Elliptical hoop shape -->
+              <!-- Top curve -->
+              <rect x="4" y="9" width="8" height="1" fill=${hoopColor} />
+              <rect x="3" y="10" width="1" height="1" fill=${hoopColor} />
+              <rect x="12" y="10" width="1" height="1" fill=${hoopColor} />
+
+              <!-- Side curves -->
+              <rect x="2" y="11" width="1" height="1" fill=${hoopColor} />
+              <rect x="13" y="11" width="1" height="1" fill=${hoopColor} />
+
+              <!-- Bottom curve -->
               <rect x="3" y="12" width="1" height="1" fill=${hoopColor} />
               <rect x="12" y="12" width="1" height="1" fill=${hoopColor} />
-              <rect x="2" y="11" width="2" height="1" fill=${hoopColor} />
-              <rect x="12" y="11" width="2" height="1" fill=${hoopColor} />
+              <rect x="4" y="13" width="8" height="1" fill=${hoopColor} />
 
-              <!-- Top and bottom of hoop -->
+              <!-- Additional segments for smoother ellipse -->
               <rect
-                x="6"
-                y="8"
-                width="4"
+                x="2"
+                y="10"
+                width="1"
                 height="1"
                 fill=${hoopColor}
                 opacity="0.7"
               />
-              <rect x="6" y="13" width="4" height="1" fill=${hoopColor} />
+              <rect
+                x="13"
+                y="10"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="2"
+                y="12"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="13"
+                y="12"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
             </g>
 
             <!-- Legs -->
@@ -2764,7 +2800,7 @@
             danceAnimation: "sway-dance 0.952s ease-in-out infinite",
             position: {
               bottom: "150px",
-              right: "550px",
+              right: "700px",
             },
           },
         ];
