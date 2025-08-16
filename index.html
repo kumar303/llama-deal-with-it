@@ -214,6 +214,55 @@
         }
       }
 
+      @keyframes gator-dance {
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(-5deg);
+        }
+        25% {
+          transform: translate(10px, -10px) rotate(5deg);
+        }
+        50% {
+          transform: translate(-10px, -5px) rotate(-3deg);
+        }
+        75% {
+          transform: translate(5px, -15px) rotate(3deg);
+        }
+      }
+
+      @keyframes tail-wag {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(20deg);
+        }
+        75% {
+          transform: rotate(-20deg);
+        }
+      }
+
+      @keyframes jaw-laugh {
+        0%,
+        60%,
+        100% {
+          transform: rotate(0deg);
+        }
+        70% {
+          transform: rotate(15deg);
+        }
+        80% {
+          transform: rotate(0deg);
+        }
+        85% {
+          transform: rotate(15deg);
+        }
+        90% {
+          transform: rotate(0deg);
+        }
+      }
+
       @keyframes shuffle-dance {
         0%,
         100% {
@@ -1752,6 +1801,102 @@
         `;
       };
 
+      // Alligator Component for background dancers
+      const Alligator = ({
+        color = "#FFD700",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const bellyColor = "#FFFF99"; // Light yellow for belly
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Alligator body -->
+            <rect x="3" y="8" width="10" height="4" fill=${color} />
+
+            <!-- Belly -->
+            <rect x="4" y="9" width="8" height="2" fill=${bellyColor} />
+
+            <!-- Head -->
+            <rect x="11" y="6" width="5" height="4" fill=${color} />
+
+            <!-- Snout -->
+            <rect x="14" y="7" width="2" height="2" fill=${color} />
+
+            <!-- Eyes (smiling) -->
+            <rect x="12" y="6" width="2" height="1" fill="#FFF" />
+            <rect x="12" y="7" width="1" height="1" fill="#000" />
+            <rect x="13" y="7" width="1" height="1" fill="#000" />
+
+            <!-- Lower jaw (animated) -->
+            <g
+              style=${{
+                animation: "jaw-laugh 3s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "11px 9px",
+              }}
+            >
+              <rect x="11" y="9" width="5" height="2" fill=${color} />
+              <rect x="14" y="10" width="2" height="1" fill=${color} />
+
+              <!-- Teeth -->
+              <rect x="12" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="14" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="13" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="15" y="10" width="1" height="1" fill="#FFF" />
+            </g>
+
+            <!-- Upper teeth -->
+            <rect x="12" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="14" y="8" width="1" height="1" fill="#FFF" />
+
+            <!-- Nostrils -->
+            <rect x="15" y="7" width="1" height="1" fill="#000" opacity="0.5" />
+
+            <!-- Back ridges -->
+            <rect x="4" y="7" width="1" height="1" fill=${color} />
+            <rect x="6" y="7" width="1" height="1" fill=${color} />
+            <rect x="8" y="7" width="1" height="1" fill=${color} />
+            <rect x="10" y="7" width="1" height="1" fill=${color} />
+
+            <!-- Legs -->
+            <rect x="5" y="12" width="2" height="2" fill=${color} />
+            <rect x="9" y="12" width="2" height="2" fill=${color} />
+
+            <!-- Feet -->
+            <rect x="5" y="14" width="2" height="1" fill=${color} />
+            <rect x="9" y="14" width="2" height="1" fill=${color} />
+
+            <!-- Tail (animated) -->
+            <g
+              style=${{
+                animation: "tail-wag 1s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "3px 10px",
+              }}
+            >
+              <rect x="1" y="9" width="3" height="3" fill=${color} />
+              <rect x="0" y="10" width="1" height="2" fill=${color} />
+
+              <!-- Tail ridges -->
+              <rect x="1" y="8" width="1" height="1" fill=${color} />
+              <rect x="2" y="8" width="1" height="1" fill=${color} />
+            </g>
+          </svg>
+        `;
+      };
+
       const DancefloorTiles = ({ isDancing }) => {
         const [activeTiles, setActiveTiles] = useState(new Set());
 
@@ -2052,6 +2197,15 @@
               right: "280px",
             },
           },
+          {
+            type: "alligator",
+            color: "#FFD700",
+            danceAnimation: "gator-dance 2s ease-in-out infinite",
+            position: {
+              top: "200px",
+              left: "250px",
+            },
+          },
         ];
 
         return html`
@@ -2095,6 +2249,8 @@
                   ? Horse
                   : dancer.type === "butterfly"
                   ? Butterfly
+                  : dancer.type === "alligator"
+                  ? Alligator
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
