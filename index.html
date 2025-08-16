@@ -112,6 +112,44 @@
         }
       }
 
+      @keyframes horse-dance {
+        0%,
+        100% {
+          transform: translateX(0) translateY(0) scaleX(1);
+        }
+        20% {
+          transform: translateX(-30px) translateY(-40px) scaleX(1);
+        }
+        40% {
+          transform: translateX(-50px) translateY(0) scaleX(-1);
+        }
+        60% {
+          transform: translateX(-30px) translateY(-40px) scaleX(-1);
+        }
+        80% {
+          transform: translateX(0) translateY(0) scaleX(-1);
+        }
+        90% {
+          transform: translateX(0) translateY(-20px) scaleX(1);
+        }
+      }
+
+      @keyframes mane-flow {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-3px) rotate(-10deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(5deg);
+        }
+        75% {
+          transform: translateY(-2px) rotate(-5deg);
+        }
+      }
+
       @keyframes shuffle-dance {
         0%,
         100% {
@@ -1401,6 +1439,90 @@
       };
 
       // Dancefloor Tiles Component
+      // Horse Component for background dancers
+      const Horse = ({
+        color = "#8B4513",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const maneColor = "#D2691E"; // Lighter brown for mane
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Horse body -->
+            <rect x="3" y="8" width="9" height="5" fill=${color} />
+
+            <!-- Horse neck -->
+            <rect x="9" y="5" width="3" height="4" fill=${color} />
+            <rect x="10" y="4" width="3" height="2" fill=${color} />
+
+            <!-- Horse head -->
+            <rect x="11" y="2" width="4" height="3" fill=${color} />
+            <rect x="14" y="3" width="2" height="2" fill=${color} />
+
+            <!-- Muzzle -->
+            <rect x="15" y="4" width="1" height="1" fill="#FFB6C1" />
+
+            <!-- Eye -->
+            <rect x="13" y="3" width="1" height="1" fill="#000" />
+
+            <!-- Ears -->
+            <rect x="12" y="1" width="1" height="2" fill=${color} />
+            <rect x="14" y="1" width="1" height="2" fill=${color} />
+
+            <!-- Mane (flowing) -->
+            <g
+              style=${{
+                animation: "mane-flow 0.5s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "11px 3px",
+              }}
+            >
+              <rect x="10" y="2" width="2" height="3" fill=${maneColor} />
+              <rect x="9" y="3" width="2" height="3" fill=${maneColor} />
+              <rect x="8" y="4" width="2" height="2" fill=${maneColor} />
+              <rect x="11" y="1" width="1" height="2" fill=${maneColor} />
+            </g>
+
+            <!-- Legs -->
+            <rect x="4" y="13" width="1" height="3" fill=${color} />
+            <rect x="6" y="13" width="1" height="3" fill=${color} />
+            <rect x="9" y="13" width="1" height="3" fill=${color} />
+            <rect x="11" y="13" width="1" height="3" fill=${color} />
+
+            <!-- Hooves -->
+            <rect x="4" y="15" width="1" height="1" fill="#000" />
+            <rect x="6" y="15" width="1" height="1" fill="#000" />
+            <rect x="9" y="15" width="1" height="1" fill="#000" />
+            <rect x="11" y="15" width="1" height="1" fill="#000" />
+
+            <!-- Tail -->
+            <g
+              style=${{
+                animation: "head-bob 0.4s ease-in-out infinite",
+                animationDelay: "6.1s",
+                transformOrigin: "3px 8px",
+              }}
+            >
+              <rect x="2" y="8" width="2" height="2" fill=${maneColor} />
+              <rect x="1" y="9" width="2" height="3" fill=${maneColor} />
+              <rect x="0" y="11" width="2" height="2" fill=${maneColor} />
+            </g>
+          </svg>
+        `;
+      };
+
       const DancefloorTiles = ({ isDancing }) => {
         const [activeTiles, setActiveTiles] = useState(new Set());
 
@@ -1683,6 +1805,15 @@
               left: "100px",
             },
           },
+          {
+            type: "horse",
+            color: "#8B4513",
+            danceAnimation: "horse-dance 3s ease-in-out infinite",
+            position: {
+              bottom: "250px",
+              right: "200px",
+            },
+          },
         ];
 
         return html`
@@ -1722,6 +1853,8 @@
                   ? Octopus
                   : dancer.type === "dog"
                   ? Dog
+                  : dancer.type === "horse"
+                  ? Horse
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
