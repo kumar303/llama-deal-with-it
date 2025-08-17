@@ -906,6 +906,27 @@
         }
       }
 
+      @keyframes mercat-spin {
+        0%,
+        45% {
+          /* Facing left */
+          transform: scaleX(1) rotateY(0deg);
+        }
+        50% {
+          /* Mid-spin */
+          transform: scaleX(0.1) rotateY(90deg);
+        }
+        55%,
+        95% {
+          /* Facing right */
+          transform: scaleX(-1) rotateY(0deg);
+        }
+        100% {
+          /* Back to facing left */
+          transform: scaleX(1) rotateY(0deg);
+        }
+      }
+
       @keyframes arm-wave {
         0%,
         100% {
@@ -2721,6 +2742,112 @@
         `;
       };
 
+      // Mercat Component for background dancers
+      const Mercat = ({
+        color = "#FF69B4",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <div
+            className="background-llama"
+            style=${{
+              position: "absolute",
+              opacity: 0,
+              animation: "fade-in-dance 1s ease-out forwards",
+              animationDelay: "5s",
+              ...position,
+            }}
+          >
+            <svg
+              width="200"
+              height="200"
+              viewBox="-2 -4 20 24"
+              className="pixelated"
+              style=${{
+                imageRendering: "pixelated",
+                overflow: "visible",
+              }}
+            >
+              <!-- Group for flip animation -->
+              <g
+                style=${{
+                  animation: "mercat-spin 8s ease-in-out infinite",
+                  animationDelay: "6s",
+                  transformOrigin: "8px 8px",
+                }}
+              >
+                <!-- Group for bounce animation -->
+                <g>
+                  <!-- Mermaid tail (bottom part) -->
+                  <rect x="6" y="10" width="4" height="4" fill="#40E0D0" />
+                  <rect x="5" y="11" width="6" height="2" fill="#40E0D0" />
+
+                  <!-- Tail fin -->
+                  <rect x="3" y="13" width="3" height="2" fill="#20B2AA" />
+                  <rect x="10" y="13" width="3" height="2" fill="#20B2AA" />
+                  <rect x="2" y="14" width="3" height="1" fill="#20B2AA" />
+                  <rect x="11" y="14" width="3" height="1" fill="#20B2AA" />
+
+                  <!-- Scales pattern -->
+                  <rect x="6" y="10" width="1" height="1" fill="#20B2AA" />
+                  <rect x="8" y="10" width="1" height="1" fill="#20B2AA" />
+                  <rect x="7" y="11" width="1" height="1" fill="#20B2AA" />
+                  <rect x="9" y="11" width="1" height="1" fill="#20B2AA" />
+
+                  <!-- Cat upper body -->
+                  <rect x="6" y="6" width="4" height="4" fill=${color} />
+                  <rect x="5" y="7" width="6" height="3" fill=${color} />
+
+                  <!-- Cat head -->
+                  <rect x="5" y="3" width="6" height="4" fill=${color} />
+                  <rect x="4" y="4" width="8" height="2" fill=${color} />
+
+                  <!-- Cat ears -->
+                  <rect x="4" y="2" width="2" height="2" fill=${color} />
+                  <rect x="10" y="2" width="2" height="2" fill=${color} />
+                  <!-- Inner ears -->
+                  <rect x="5" y="3" width="1" height="1" fill="#FFB6C1" />
+                  <rect x="10" y="3" width="1" height="1" fill="#FFB6C1" />
+
+                  <!-- Cat face -->
+                  <!-- Eyes -->
+                  <rect x="6" y="4" width="1" height="1" fill="#000" />
+                  <rect x="9" y="4" width="1" height="1" fill="#000" />
+
+                  <!-- Nose -->
+                  <rect x="7" y="5" width="2" height="1" fill="#FF69B4" />
+
+                  <!-- Whiskers (simplified) -->
+                  <rect x="3" y="4" width="1" height="1" fill="#000" />
+                  <rect x="12" y="4" width="1" height="1" fill="#000" />
+                  <rect x="2" y="5" width="1" height="1" fill="#000" />
+                  <rect x="13" y="5" width="1" height="1" fill="#000" />
+
+                  <!-- Cat paws -->
+                  <rect x="4" y="8" width="2" height="2" fill=${color} />
+                  <rect x="10" y="8" width="2" height="2" fill=${color} />
+                  <!-- Paw pads -->
+                  <rect x="4" y="9" width="2" height="1" fill="#FFB6C1" />
+                  <rect x="10" y="9" width="2" height="1" fill="#FFB6C1" />
+
+                  <!-- Bounce animation -->
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="translate"
+                    values="0,0; 0,-5; 0,0"
+                    dur="1s"
+                    repeatCount="indefinite"
+                    begin="6s"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        `;
+      };
+
       // Toucan Component for background dancers
       const Toucan = ({
         color = "#FF0000", // Not used as we'll make it rainbow
@@ -3372,6 +3499,15 @@
               left: "calc(50% - 175px)",
             },
           },
+          {
+            type: "mercat",
+            color: "#FF69B4",
+            danceAnimation: "",
+            position: {
+              top: "75px",
+              left: "320px",
+            },
+          },
         ];
 
         return html`
@@ -3427,6 +3563,8 @@
                   ? Turtle
                   : dancer.type === "penguin"
                   ? Penguin
+                  : dancer.type === "mercat"
+                  ? Mercat
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
