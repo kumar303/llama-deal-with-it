@@ -852,6 +852,19 @@
         }
       }
 
+      @keyframes penguin-feet {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-1px);
+        }
+        75% {
+          transform: translateX(1px);
+        }
+      }
+
       @keyframes arm-wave {
         0%,
         100% {
@@ -2548,6 +2561,120 @@
         `;
       };
 
+      // Penguin Component for background dancers
+      const Penguin = ({
+        color = "#000000",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <div
+            className="background-llama"
+            style=${{
+              position: "absolute",
+              opacity: 0,
+              animation: "fade-in-dance 1s ease-out forwards",
+              animationDelay: "5s",
+              ...position,
+            }}
+          >
+            <svg
+              width="160"
+              height="160"
+              viewBox="0 0 16 16"
+              className="pixelated"
+              style=${{
+                imageRendering: "pixelated",
+              }}
+            >
+              <!-- Penguin body (black with white belly) -->
+              <rect x="5" y="7" width="6" height="7" fill="#000000" />
+              <rect x="4" y="8" width="8" height="5" fill="#000000" />
+
+              <!-- White belly -->
+              <rect x="6" y="8" width="4" height="5" fill="#FFFFFF" />
+              <rect x="7" y="7" width="2" height="1" fill="#FFFFFF" />
+
+              <!-- Head -->
+              <rect x="5" y="4" width="6" height="4" fill="#000000" />
+              <rect x="4" y="5" width="8" height="2" fill="#000000" />
+
+              <!-- White face area -->
+              <rect x="6" y="5" width="4" height="2" fill="#FFFFFF" />
+
+              <!-- Eyes -->
+              <rect x="6" y="5" width="1" height="1" fill="#000000" />
+              <rect x="9" y="5" width="1" height="1" fill="#000000" />
+
+              <!-- Beak (orange) -->
+              <rect x="7" y="6" width="2" height="1" fill="#FFA500" />
+
+              <!-- Wings/flippers -->
+              <rect x="3" y="8" width="1" height="4" fill="#000000" />
+              <rect x="11" y="8" width="1" height="4" fill="#000000" />
+
+              <!-- Feet (orange, animated) -->
+              <g
+                style=${{
+                  animation: "penguin-feet 0.8s ease-in-out infinite",
+                  animationDelay: "6s",
+                  transformOrigin: "6px 14px",
+                }}
+              >
+                <rect x="5" y="14" width="2" height="1" fill="#FFA500" />
+                <rect x="5" y="15" width="3" height="1" fill="#FFA500" />
+              </g>
+
+              <g
+                style=${{
+                  animation: "penguin-feet 0.8s ease-in-out infinite",
+                  animationDelay: "6.4s",
+                  transformOrigin: "9px 14px",
+                }}
+              >
+                <rect x="9" y="14" width="2" height="1" fill="#FFA500" />
+                <rect x="8" y="15" width="3" height="1" fill="#FFA500" />
+              </g>
+
+              <!-- Ice cream cone (held in wing) -->
+              <g
+                style=${{
+                  animation: "head-bob 3s ease-in-out infinite",
+                  animationDelay: "6s",
+                  transformOrigin: "13px 8px",
+                }}
+              >
+                <!-- Cone -->
+                <rect x="12" y="10" width="3" height="1" fill="#D2691E" />
+                <rect x="12" y="11" width="3" height="1" fill="#DEB887" />
+                <rect x="13" y="12" width="1" height="1" fill="#D2691E" />
+
+                <!-- Ice cream scoops -->
+                <rect x="11" y="8" width="5" height="2" fill="#FFB6C1" />
+                <rect x="12" y="7" width="3" height="1" fill="#FFB6C1" />
+                <rect x="12" y="6" width="3" height="1" fill="#87CEEB" />
+                <rect x="13" y="5" width="1" height="1" fill="#87CEEB" />
+
+                <!-- Cherry on top -->
+                <rect x="13" y="4" width="1" height="1" fill="#FF0000" />
+              </g>
+
+              <!-- Body sway animation -->
+              <animateTransform
+                attributeName="transform"
+                attributeType="XML"
+                type="rotate"
+                from="-2 8 10"
+                to="2 8 10"
+                dur="1.5s"
+                repeatCount="indefinite"
+                begin="6s"
+              />
+            </svg>
+          </div>
+        `;
+      };
+
       // Toucan Component for background dancers
       const Toucan = ({
         color = "#FF0000", // Not used as we'll make it rainbow
@@ -3190,6 +3317,15 @@
               right: "700px",
             },
           },
+          {
+            type: "penguin",
+            color: "#000000",
+            danceAnimation: "",
+            position: {
+              bottom: "50px",
+              left: "calc(50% - 100px)",
+            },
+          },
         ];
 
         return html`
@@ -3243,6 +3379,8 @@
                   ? Hippo
                   : dancer.type === "turtle"
                   ? Turtle
+                  : dancer.type === "penguin"
+                  ? Penguin
                   : MiniLlama;
               return html` <${Component} ...${dancer} /> `;
             })}
