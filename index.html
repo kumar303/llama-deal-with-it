@@ -880,15 +880,29 @@
 
       @keyframes ice-cream-lick {
         0%,
-        62.5%,
-        100% {
-          /* Normal position - 5s normal, 3s licking, total 8s cycle */
+        62.5% {
+          /* Normal position - 5s normal */
           transform: rotate(0deg) translate(0, 0);
         }
-        65%,
-        95% {
-          /* Tilted towards face for licking - holds for 3s (30% of 8s) */
+        65% {
+          /* Start tilting towards face */
           transform: rotate(-45deg) translate(-3px, -3px);
+        }
+        75% {
+          /* Slowly bob down while licking */
+          transform: rotate(-45deg) translate(-3px, -4px);
+        }
+        85% {
+          /* Slowly bob back up while licking */
+          transform: rotate(-45deg) translate(-3px, -3px);
+        }
+        95% {
+          /* Still tilted, ready to return */
+          transform: rotate(-45deg) translate(-3px, -3px);
+        }
+        100% {
+          /* Return to normal */
+          transform: rotate(0deg) translate(0, 0);
         }
       }
 
