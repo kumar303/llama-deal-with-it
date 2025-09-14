@@ -1162,6 +1162,19 @@
         image-rendering: -moz-crisp-edges;
         image-rendering: crisp-edges;
       }
+
+      /* Responsive styles for screens smaller than landscape iPad */
+      @media (max-width: 1023px) {
+        .background-llama svg {
+          width: 80px !important;
+          height: 80px !important;
+        }
+
+        .background-llama {
+          transform: scale(0.4);
+          transform-origin: top left;
+        }
+      }
     </style>
   </head>
   <body class="min-h-screen bg-white" id="body">
@@ -3570,7 +3583,9 @@
             })}
 
             <!-- Main stage -->
-            <div className="w-96 h-96 relative z-10">
+            <div
+              className="w-96 h-96 max-lg:w-[calc(100%-30px)] max-lg:mx-[15px] relative z-10"
+            >
               <!-- Gradient background (separate div for fading) -->
               <div
                 className=${`absolute inset-0 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg shadow-2xl gradient-bg ${
