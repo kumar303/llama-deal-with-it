@@ -1165,14 +1165,33 @@
 
       /* Responsive styles for screens smaller than landscape iPad */
       @media (max-width: 1023px) {
-        .background-llama svg {
-          width: 80px !important;
-          height: 80px !important;
+        /* Scale dancers by reducing their size attributes instead of transform */
+        svg.background-llama {
+          width: 96px !important; /* 60% of 160px */
+          height: 96px !important; /* 60% of 160px */
         }
 
-        .background-llama {
-          transform: scale(0.4);
-          transform-origin: top left;
+        /* For SVGs with different original sizes */
+        svg.background-llama[width="160"][height="200"] {
+          width: 96px !important; /* 60% of 160px */
+          height: 120px !important; /* 60% of 200px */
+        }
+
+        svg.background-llama[width="320"] {
+          width: 192px !important; /* 60% of 320px */
+          height: 96px !important; /* 60% of 160px */
+        }
+
+        /* For div-based dancers, scale their child SVGs */
+        div.background-llama svg {
+          width: 96px !important;
+          height: 96px !important;
+        }
+
+        /* Main llama should NOT scale */
+        .main-llama {
+          width: 160px !important;
+          height: 160px !important;
         }
       }
     </style>
@@ -1955,7 +1974,7 @@
             width="160"
             height="160"
             viewBox="0 0 16 16"
-            className=${`pixelated ${isDancing ? "dancing" : ""}`}
+            className=${`pixelated main-llama ${isDancing ? "dancing" : ""}`}
             style=${{ imageRendering: "pixelated", overflow: "visible" }}
           >
             <!-- Llama body -->
