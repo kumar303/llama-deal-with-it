@@ -13,7 +13,7 @@ What is it? My kids and I vibe-coded a llama dance party using [`claude-4.1-opus
 <details>
 <summary>👩🏽‍💻 Expand</summary>
 
-> Create a preact app using tailwind for css. Render a square centered in the viewport with slightly rounded corners. Add a diagnal dark purple to medium pink gradient to the background of the square. Add a pixelated llama in orange. Add a button, also in orange, underneath the llama that says Make the llama dance. When the button gets pressed, put "deal with it" sunglasses on the pixelated llama and make it dance up and down with crude css animation.
+> Create a preact app using tailwind for css. Render a square centered in the viewport with slightly rounded corners. Add a diagonal dark purple to medium pink gradient to the background of the square. Add a pixelated llama in orange. Add a button, also in orange, underneath the llama that says Make the llama dance. When the button gets pressed, put "deal with it" sunglasses on the pixelated llama and make it dance up and down with crude css animation.
 
 </details>
 
@@ -75,7 +75,7 @@ I will mourn the loss of this. Some of us may reminisce about it like lore. Howe
 
 # 🔗
 
-What will future abstractions look like? I'm not sure. Software abstractions like [Django](https://www.djangoproject.com/), [Rails](https://rubyonrails.org/), [jQuery](https://jquery.com/), and [React](https://react.dev/) were all created to solve some kind of hand-written sofware problem, usually around security mistakes or the tedium of boilerplate code. In Armin Ronacher's experiments with hands-off LLM code generation, he found models [wrote the best code in Go](https://lucumr.pocoo.org/2025/6/12/agentic-coding/).
+What will future abstractions look like? I'm not sure. Software abstractions like [Django](https://www.djangoproject.com/), [Rails](https://rubyonrails.org/), [jQuery](https://jquery.com/), and [React](https://react.dev/) were all created to solve some kind of hand-written software problem, usually around security mistakes or the tedium of boilerplate code. In Armin Ronacher's experiments with hands-off LLM code generation, he found models [wrote the best code in Go](https://lucumr.pocoo.org/2025/6/12/agentic-coding/).
 
 # ⚠️
 
