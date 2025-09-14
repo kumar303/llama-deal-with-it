@@ -618,15 +618,15 @@
 
       @keyframes disco-ball-drop {
         0% {
-          transform: translateY(-200px);
+          transform: translateX(-40px) translateY(-320px);
           opacity: 0;
         }
         10% {
           opacity: 1;
-          transform: translateY(-180px);
+          transform: translateX(-40px) translateY(-300px);
         }
         100% {
-          transform: translateY(20px);
+          transform: translateX(-40px) translateY(-60px);
           opacity: 1;
         }
       }
@@ -1829,9 +1829,7 @@
             className="pixelated disco-ball"
             style=${{
               imageRendering: "pixelated",
-              position: "absolute",
-              top: "-200px",
-              left: "-10px",
+              position: "relative",
             }}
           >
             <!-- Cord extending to top -->
@@ -3548,6 +3546,16 @@
               isDancing ? "bg-gray-900" : "bg-white"
             }`}
           >
+            <!-- Disco ball container - positioned at top of screen -->
+            ${isDancing &&
+            html`
+              <div
+                className="absolute top-0 left-0 right-0 flex justify-center pointer-events-none"
+              >
+                <${PixelatedDiscoBall} />
+              </div>
+            `}
+
             <!-- Dancefloor -->
             <div
               className=${`absolute inset-0 dancefloor dancefloor-fade ${
@@ -3616,7 +3624,6 @@
               <div
                 className="relative w-full h-full flex flex-col items-center justify-center overflow-visible"
               >
-                ${isDancing && html`<${PixelatedDiscoBall} />`}
                 <${PixelatedLlama} isDancing=${isDancing} />
                 <button
                   onClick=${handleDanceClick}
