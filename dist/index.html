@@ -652,6 +652,7 @@
 
       .dancing {
         animation: dance 0.476s ease-in-out infinite;
+        will-change: transform;
       }
 
       .dancing-feet-left {
@@ -1174,6 +1175,7 @@
         image-rendering: pixelated;
         image-rendering: -moz-crisp-edges;
         image-rendering: crisp-edges;
+        shape-rendering: crispEdges;
       }
 
       /* Responsive styles for screens smaller than landscape iPad */
@@ -1205,6 +1207,7 @@
         .main-llama {
           width: 160px !important;
           height: 160px !important;
+          transform-style: preserve-3d;
         }
       }
     </style>
