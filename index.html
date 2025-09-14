@@ -1,0 +1,3602 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dancing Llama</title>
+    <script src="https://unpkg.com/preact@latest/dist/preact.umd.js"></script>
+    <script src="https://unpkg.com/preact@latest/hooks/dist/hooks.umd.js"></script>
+    <script src="https://unpkg.com/htm@latest/dist/htm.umd.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes dance {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(-20px);
+        }
+        75% {
+          transform: translateY(20px);
+        }
+      }
+
+      @keyframes foot-dance {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-1px);
+        }
+        40% {
+          transform: translateX(1px);
+        }
+        60% {
+          transform: translateX(-1px);
+        }
+        80% {
+          transform: translateX(1px);
+        }
+      }
+
+      /* Different dance moves for other llamas */
+      @keyframes spin-dance {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin-dance-reverse {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(-360deg);
+        }
+      }
+
+      @keyframes sway-dance {
+        0%,
+        100% {
+          transform: rotate(-5deg);
+        }
+        50% {
+          transform: rotate(5deg);
+        }
+      }
+
+      @keyframes head-bob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      @keyframes dog-run {
+        0%,
+        100% {
+          transform: rotateY(0) rotateZ(-5deg);
+        }
+        25% {
+          transform: rotateY(0) rotateZ(5deg);
+        }
+        50% {
+          transform: rotateY(0) rotateZ(-5deg);
+        }
+        75% {
+          transform: rotateY(0) rotateZ(5deg);
+        }
+      }
+
+      @keyframes leg-run {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(-2px);
+        }
+        50% {
+          transform: translateY(0);
+        }
+        75% {
+          transform: translateY(-2px);
+        }
+      }
+
+      @keyframes horse-dance {
+        0%,
+        100% {
+          transform: translateX(0) translateY(0) scaleX(1);
+        }
+        20% {
+          transform: translateX(-30px) translateY(-40px) scaleX(1);
+        }
+        40% {
+          transform: translateX(-50px) translateY(0) scaleX(-1);
+        }
+        60% {
+          transform: translateX(-30px) translateY(-40px) scaleX(-1);
+        }
+        80% {
+          transform: translateX(0) translateY(0) scaleX(-1);
+        }
+        90% {
+          transform: translateX(0) translateY(-20px) scaleX(1);
+        }
+      }
+
+      @keyframes mane-flow {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-3px) rotate(-10deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(5deg);
+        }
+        75% {
+          transform: translateY(-2px) rotate(-5deg);
+        }
+      }
+
+      @keyframes butterfly-fly {
+        0% {
+          transform: translate(0, 0) rotate(5deg);
+        }
+        25% {
+          transform: translate(-100px, -50px) rotate(-5deg);
+        }
+        50% {
+          transform: translate(-150px, 20px) rotate(10deg);
+        }
+        75% {
+          transform: translate(-80px, -30px) rotate(-10deg);
+        }
+        100% {
+          transform: translate(0, 0) rotate(5deg);
+        }
+      }
+
+      @keyframes wing-flap {
+        0%,
+        100% {
+          transform: scaleX(1);
+        }
+        50% {
+          transform: scaleX(0.3);
+        }
+      }
+
+      @keyframes guitar-spin {
+        0%,
+        70%,
+        100% {
+          transform: rotate(-45deg) translate(-2px, -2px);
+        }
+        80% {
+          transform: rotate(-45deg) translate(-2px, -2px) rotateY(180deg);
+        }
+        90% {
+          transform: rotate(-45deg) translate(-2px, -2px) rotateY(360deg);
+        }
+      }
+
+      @keyframes shuffle-dance-flip {
+        0%,
+        20% {
+          transform: translateX(0) scaleX(1);
+        }
+        30%,
+        50% {
+          transform: translateX(-5px) scaleX(1);
+        }
+        60%,
+        70% {
+          transform: translateX(5px) scaleX(-1);
+        }
+        80%,
+        90% {
+          transform: translateX(0) scaleX(-1);
+        }
+        100% {
+          transform: translateX(0) scaleX(1);
+        }
+      }
+
+      @keyframes gator-dance {
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(-5deg);
+        }
+        25% {
+          transform: translate(10px, -10px) rotate(5deg);
+        }
+        50% {
+          transform: translate(-10px, -5px) rotate(-3deg);
+        }
+        75% {
+          transform: translate(5px, -15px) rotate(3deg);
+        }
+      }
+
+      @keyframes tail-wag {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(20deg);
+        }
+        75% {
+          transform: rotate(-20deg);
+        }
+      }
+
+      @keyframes jaw-laugh {
+        0%,
+        60%,
+        100% {
+          transform: rotate(0deg);
+        }
+        70% {
+          transform: rotate(15deg);
+        }
+        80% {
+          transform: rotate(0deg);
+        }
+        85% {
+          transform: rotate(15deg);
+        }
+        90% {
+          transform: rotate(0deg);
+        }
+      }
+
+      @keyframes shuffle-dance {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-3px);
+        }
+        75% {
+          transform: translateX(3px);
+        }
+      }
+
+      @keyframes wiggle-dance {
+        0%,
+        100% {
+          transform: rotate(0deg) translateY(0);
+        }
+        25% {
+          transform: rotate(-3deg) translateY(-2px);
+        }
+        75% {
+          transform: rotate(3deg) translateY(-2px);
+        }
+      }
+
+      @keyframes fade-in-dance {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes rainbow-pulse {
+        0%,
+        100% {
+          background-color: #ff0000;
+          box-shadow: 0 0 20px #ff0000;
+        }
+        16% {
+          background-color: #ff7f00;
+          box-shadow: 0 0 20px #ff7f00;
+        }
+        33% {
+          background-color: #ffff00;
+          box-shadow: 0 0 20px #ffff00;
+        }
+        50% {
+          background-color: #00ff00;
+          box-shadow: 0 0 20px #00ff00;
+        }
+        66% {
+          background-color: #0000ff;
+          box-shadow: 0 0 20px #0000ff;
+        }
+        83% {
+          background-color: #9400d3;
+          box-shadow: 0 0 20px #9400d3;
+        }
+      }
+
+      @keyframes chase-path {
+        0%,
+        100% {
+          transform: translateX(0) translateY(0);
+        }
+        25% {
+          transform: translateX(100px) translateY(-20px);
+        }
+        50% {
+          transform: translateX(200px) translateY(0);
+        }
+        75% {
+          transform: translateX(100px) translateY(20px);
+        }
+      }
+
+      @keyframes ball-bounce {
+        0%,
+        100% {
+          transform: translateX(0) translateY(0) rotate(0deg);
+        }
+        12.5% {
+          transform: translateX(50px) translateY(-30px) rotate(180deg);
+        }
+        25% {
+          transform: translateX(100px) translateY(-20px) rotate(360deg);
+        }
+        37.5% {
+          transform: translateX(150px) translateY(-30px) rotate(540deg);
+        }
+        50% {
+          transform: translateX(200px) translateY(0) rotate(720deg);
+        }
+        62.5% {
+          transform: translateX(150px) translateY(10px) rotate(900deg);
+        }
+        75% {
+          transform: translateX(100px) translateY(20px) rotate(1080deg);
+        }
+        87.5% {
+          transform: translateX(50px) translateY(10px) rotate(1260deg);
+        }
+      }
+
+      @keyframes confetti-explode {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--x-spread), var(--y-spread)) rotate(720deg);
+          opacity: 1;
+        }
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translate(var(--x-spread), var(--y-spread)) rotate(720deg);
+        }
+        100% {
+          transform: translate(
+              calc(var(--x-spread) + var(--x-drift)),
+              calc(var(--y-spread) + 600px)
+            )
+            rotate(1080deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes gradient-fade {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes skateboard-roll {
+        0%,
+        100% {
+          transform: translateX(-10px);
+        }
+        50% {
+          transform: translateX(10px);
+        }
+      }
+
+      @keyframes turtle-head-bob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      @keyframes turtle-jump {
+        0%,
+        10% {
+          transform: translateY(0);
+        }
+        15%,
+        85% {
+          transform: translateY(-10px);
+        }
+        90%,
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes turtle-feet-move {
+        /* Slow movement on ground (first 10%) */
+        0%,
+        2%,
+        4%,
+        6%,
+        8%,
+        10% {
+          transform: translateX(0);
+        }
+        1%,
+        3%,
+        5%,
+        7%,
+        9% {
+          transform: translateX(-0.3px);
+        }
+
+        /* Fast movement in air (15% to 85% of 4s cycle) */
+        15%,
+        17%,
+        19%,
+        21%,
+        23%,
+        25%,
+        27%,
+        29%,
+        31%,
+        33%,
+        35%,
+        37%,
+        39%,
+        41%,
+        43%,
+        45%,
+        47%,
+        49%,
+        51%,
+        53%,
+        55%,
+        57%,
+        59%,
+        61%,
+        63%,
+        65%,
+        67%,
+        69%,
+        71%,
+        73%,
+        75%,
+        77%,
+        79%,
+        81%,
+        83%,
+        85% {
+          transform: translateX(-2px);
+        }
+        16%,
+        18%,
+        20%,
+        22%,
+        24%,
+        26%,
+        28%,
+        30%,
+        32%,
+        34%,
+        36%,
+        38%,
+        40%,
+        42%,
+        44%,
+        46%,
+        48%,
+        50%,
+        52%,
+        54%,
+        56%,
+        58%,
+        60%,
+        62%,
+        64%,
+        66%,
+        68%,
+        70%,
+        72%,
+        74%,
+        76%,
+        78%,
+        80%,
+        82%,
+        84% {
+          transform: translateX(2px);
+        }
+
+        /* Slow movement on ground (last 10%) */
+        90%,
+        92%,
+        94%,
+        96%,
+        98%,
+        100% {
+          transform: translateX(0);
+        }
+        91%,
+        93%,
+        95%,
+        97%,
+        99% {
+          transform: translateX(0.3px);
+        }
+      }
+
+      @keyframes turtle-flip {
+        0%,
+        85%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        87.5% {
+          transform: translateY(-20px) rotate(-90deg);
+        }
+        90% {
+          transform: translateY(-30px) rotate(-180deg);
+        }
+        92.5% {
+          transform: translateY(-20px) rotate(-270deg);
+        }
+        95% {
+          transform: translateY(-10px) rotate(-360deg);
+        }
+      }
+
+      @keyframes sunglasses-fly-in {
+        0% {
+          transform: translate(-80px, -80px) rotate(0deg) scale(2);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+          transform: translate(-70px, -70px) rotate(180deg) scale(1.9);
+        }
+        20% {
+          transform: translate(-60px, -60px) rotate(360deg) scale(1.8);
+        }
+        30% {
+          transform: translate(-50px, -50px) rotate(540deg) scale(1.7);
+        }
+        40% {
+          transform: translate(-40px, -40px) rotate(720deg) scale(1.6);
+        }
+        50% {
+          transform: translate(-30px, -30px) rotate(900deg) scale(1.5);
+        }
+        60% {
+          transform: translate(-20px, -20px) rotate(1080deg) scale(1.4);
+        }
+        70% {
+          transform: translate(-10px, -10px) rotate(1260deg) scale(1.3);
+        }
+        80% {
+          transform: translate(-5px, -5px) rotate(1440deg) scale(1.2);
+        }
+        90% {
+          transform: translate(-2px, -2px) rotate(1620deg) scale(1.1);
+        }
+        100% {
+          transform: translate(0, 0) rotate(1800deg) scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes disco-ball-drop {
+        0% {
+          transform: translateY(-200px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+          transform: translateY(-180px);
+        }
+        100% {
+          transform: translateY(20px);
+          opacity: 1;
+        }
+      }
+
+      @keyframes sparkle {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .dancing {
+        animation: dance 0.476s ease-in-out infinite;
+      }
+
+      .dancing-feet-left {
+        animation: foot-dance 1.2s ease-in-out infinite;
+        animation-delay: 10s; /* Wait 10s after sunglasses land (5s + 10s) */
+        animation-fill-mode: backwards;
+      }
+
+      .dancing-feet-right {
+        animation: foot-dance 1.2s ease-in-out infinite;
+        animation-delay: 10.6s; /* Wait 10s + offset for alternating movement */
+        animation-fill-mode: backwards;
+      }
+
+      .sunglasses {
+        animation: sunglasses-fly-in 5s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+          forwards;
+        transform-origin: center;
+      }
+
+      .disco-ball {
+        animation: disco-ball-drop 5s ease-in-out forwards;
+      }
+
+      .sparkle {
+        animation: sparkle 1s ease-in-out infinite;
+      }
+
+      .sparkle-1 {
+        animation-delay: 0s;
+      }
+
+      .sparkle-2 {
+        animation-delay: 0.3s;
+      }
+
+      .sparkle-3 {
+        animation-delay: 0.6s;
+      }
+
+      .sparkle-4 {
+        animation-delay: 0.9s;
+      }
+
+      /* Dance move classes */
+      .spin-dancing {
+        animation: spin-dance 2s linear infinite;
+      }
+
+      .sway-dancing {
+        animation: sway-dance 0.952s ease-in-out infinite; /* 2 beats */
+      }
+
+      .head-bobbing {
+        animation: head-bob 0.476s ease-in-out infinite; /* On beat */
+      }
+
+      .shuffle-dancing {
+        animation: shuffle-dance 0.952s ease-in-out infinite; /* 2 beats */
+      }
+
+      .wiggle-dancing {
+        animation: wiggle-dance 0.476s ease-in-out infinite; /* On beat */
+      }
+
+      /* Dancefloor tiles */
+      .dancefloor {
+        background-image: linear-gradient(45deg, #f2f2f2 25%, transparent 25%),
+          linear-gradient(-45deg, #f2f2f2 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #f2f2f2 75%),
+          linear-gradient(-45deg, transparent 75%, #f2f2f2 75%);
+        background-size: 40px 40px;
+        background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+      }
+
+      /* Fade in background llamas after sunglasses land */
+      .background-llama {
+        opacity: 0;
+        animation: fade-in-dance 1s ease-out forwards, var(--dance-animation);
+        animation-delay: 5s, 6s; /* Fade in at 5s, start dancing at 6s */
+      }
+
+      /* Rainbow dancefloor tiles */
+      .dancefloor-tile {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+      }
+
+      .dancefloor-tile.active {
+        opacity: 0.8;
+        animation: rainbow-pulse 1s ease-in-out;
+      }
+
+      .tiles-container {
+        opacity: 0;
+        animation: tiles-fade-in 3s ease-out forwards;
+        animation-delay: 0s;
+      }
+
+      @keyframes tiles-fade-in {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes toucan-run {
+        0%,
+        10% {
+          transform: translateX(0) translateY(0) scaleX(1);
+        }
+        /* Hop while running left */
+        15% {
+          transform: translateX(-10px) translateY(-20px) scaleX(1);
+        }
+        20%,
+        35% {
+          transform: translateX(-20px) translateY(0) scaleX(1);
+        }
+        40% {
+          transform: translateX(-30px) translateY(-20px) scaleX(1);
+        }
+        45% {
+          transform: translateX(-40px) translateY(0) scaleX(1);
+        }
+        /* Flip direction */
+        50%,
+        60% {
+          transform: translateX(-100px) translateY(0) scaleX(-1);
+        }
+        /* Hop while running right */
+        65% {
+          transform: translateX(-90px) translateY(-20px) scaleX(-1);
+        }
+        70%,
+        85% {
+          transform: translateX(-80px) translateY(0) scaleX(-1);
+        }
+        90% {
+          transform: translateX(-70px) translateY(-20px) scaleX(-1);
+        }
+        95% {
+          transform: translateX(-60px) translateY(0) scaleX(-1);
+        }
+        100% {
+          transform: translateX(0) translateY(0) scaleX(1);
+        }
+      }
+
+      @keyframes wing-flap-fast {
+        0%,
+        100% {
+          transform: rotate(-20deg);
+        }
+        50% {
+          transform: rotate(20deg);
+        }
+      }
+
+      @keyframes beak-open {
+        0%,
+        30%,
+        60%,
+        100% {
+          transform: rotate(0deg);
+        }
+        15%,
+        45%,
+        75% {
+          transform: rotate(10deg);
+        }
+      }
+
+      @keyframes hip-wiggle {
+        0%,
+        100% {
+          transform: translateX(-2px);
+        }
+        25% {
+          transform: translateX(2px);
+        }
+        50% {
+          transform: translateX(-2px);
+        }
+        75% {
+          transform: translateX(2px);
+        }
+      }
+
+      @keyframes hula-tilt {
+        0%,
+        100% {
+          transform: rotateX(45deg) rotateZ(-10deg);
+        }
+        25% {
+          transform: rotateX(45deg) rotateZ(0deg);
+        }
+        50% {
+          transform: rotateX(45deg) rotateZ(10deg);
+        }
+        75% {
+          transform: rotateX(45deg) rotateZ(0deg);
+        }
+      }
+
+      @keyframes penguin-feet {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-1px);
+        }
+        75% {
+          transform: translateX(1px);
+        }
+      }
+
+      @keyframes penguin-sway {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+
+      @keyframes ice-cream-lick {
+        0%,
+        62.5% {
+          /* Normal position - 5s normal */
+          transform: rotate(0deg) translate(0, 0);
+        }
+        65% {
+          /* Start tilting towards face */
+          transform: rotate(-45deg) translate(-3px, -3px);
+        }
+        75% {
+          /* Slowly bob down while licking */
+          transform: rotate(-45deg) translate(-3px, -4px);
+        }
+        85% {
+          /* Slowly bob back up while licking */
+          transform: rotate(-45deg) translate(-3px, -3px);
+        }
+        95% {
+          /* Still tilted, ready to return */
+          transform: rotate(-45deg) translate(-3px, -3px);
+        }
+        100% {
+          /* Return to normal */
+          transform: rotate(0deg) translate(0, 0);
+        }
+      }
+
+      @keyframes mercat-spin {
+        0%,
+        45% {
+          /* Facing left */
+          transform: scaleX(1) rotateY(0deg);
+        }
+        50% {
+          /* Mid-spin */
+          transform: scaleX(0.1) rotateY(90deg);
+        }
+        55%,
+        95% {
+          /* Facing right */
+          transform: scaleX(-1) rotateY(0deg);
+        }
+        100% {
+          /* Back to facing left */
+          transform: scaleX(1) rotateY(0deg);
+        }
+      }
+
+      @keyframes arm-wave {
+        0%,
+        100% {
+          transform: rotate(-2deg);
+        }
+        50% {
+          transform: rotate(2deg);
+        }
+      }
+
+      @keyframes owl-hop {
+        0%,
+        20%,
+        100% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(-25px);
+        }
+        30% {
+          transform: translateY(0);
+        }
+        70% {
+          transform: translateY(0);
+        }
+        75% {
+          transform: translateY(-25px);
+        }
+        80% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes sheep-unison-dance {
+        /* 3 hops facing right */
+        0%,
+        5% {
+          transform: translateY(0) scaleX(1);
+        }
+        2.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
+        5%,
+        10% {
+          transform: translateY(0) scaleX(1);
+        }
+        7.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
+        10%,
+        15% {
+          transform: translateY(0) scaleX(1);
+        }
+        12.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
+        /* Flip direction */
+        15%,
+        20% {
+          transform: translateY(0) scaleX(-1);
+        }
+
+        /* 5 hops facing left */
+        20%,
+        25% {
+          transform: translateY(0) scaleX(-1);
+        }
+        22.5% {
+          transform: translateY(-15px) scaleX(-1);
+        }
+
+        25%,
+        30% {
+          transform: translateY(0) scaleX(-1);
+        }
+        27.5% {
+          transform: translateY(-15px) scaleX(-1);
+        }
+
+        30%,
+        35% {
+          transform: translateY(0) scaleX(-1);
+        }
+        32.5% {
+          transform: translateY(-15px) scaleX(-1);
+        }
+
+        35%,
+        40% {
+          transform: translateY(0) scaleX(-1);
+        }
+        37.5% {
+          transform: translateY(-15px) scaleX(-1);
+        }
+
+        40%,
+        45% {
+          transform: translateY(0) scaleX(-1);
+        }
+        42.5% {
+          transform: translateY(-15px) scaleX(-1);
+        }
+
+        /* Backflip spin */
+        45% {
+          transform: translateY(0) scaleX(-1);
+        }
+        47% {
+          transform: translateY(-20px) rotate(-90deg);
+        }
+        50% {
+          transform: translateY(-30px) rotate(-180deg);
+        }
+        52% {
+          transform: translateY(-20px) rotate(-270deg);
+        }
+        55% {
+          transform: translateY(0) rotate(-360deg) scaleX(1);
+        }
+
+        /* Immediately start hopping again after spin */
+        55%,
+        60% {
+          transform: translateY(0) scaleX(1);
+        }
+        57.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
+        60%,
+        65% {
+          transform: translateY(0) scaleX(1);
+        }
+        62.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
+        65%,
+        70% {
+          transform: translateY(0) scaleX(1);
+        }
+        67.5% {
+          transform: translateY(-15px) scaleX(1);
+        }
+
+        70%,
+        100% {
+          transform: translateY(0) scaleX(1);
+        }
+      }
+
+      /* Confetti styles */
+      .confetti-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      .confetti-piece {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        animation: confetti-explode 0.7s ease-out forwards,
+          confetti-fall 4s ease-in forwards;
+        animation-delay: 10s, 10.7s;
+      }
+
+      /* Gradient background fade */
+      .gradient-bg {
+        transition: opacity 10s ease-out;
+      }
+
+      .gradient-bg.fading {
+        opacity: 0;
+      }
+
+      /* Dancefloor fade in */
+      .dancefloor-fade {
+        opacity: 0;
+        transition: opacity 5s ease-in;
+      }
+
+      .dancefloor-fade.visible {
+        opacity: 0.2;
+      }
+
+      /* Background color transition */
+      .bg-transition {
+        transition: background-color 5s ease-in-out;
+      }
+
+      @keyframes glare-sweep {
+        0% {
+          opacity: 0;
+          transform: translateX(0);
+        }
+        10% {
+          opacity: 0.8;
+          transform: translateX(0);
+        }
+        50% {
+          opacity: 0.8;
+          transform: translateX(-1px);
+        }
+        90% {
+          opacity: 0.8;
+          transform: translateX(-1px);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-1px);
+        }
+      }
+
+      .glare {
+        opacity: 0;
+        animation: glare-sweep 3s ease-in-out infinite;
+        animation-delay: 5s; /* Start after sunglasses land */
+        animation-fill-mode: both; /* Keeps opacity:0 until animation starts */
+      }
+
+      /* Pixelated effect */
+      .pixelated {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-white" id="body">
+    <div id="app"></div>
+
+    <!-- Hidden YouTube player -->
+    <div id="youtube-player" style="display: none"></div>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+      const { h, render } = preact;
+      const { useState, useEffect } = preactHooks;
+      const html = htm.bind(h);
+
+      // Mini Llama Component for background dancers
+      const MiniLlama = ({
+        color = "#FF8C00",
+        danceStyle = "",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 -5 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Rainbow party hat for all background llamas -->
+            <!-- Party hat -->
+            <!-- Row 1 - tip (red) -->
+            <rect x="11" y="-3" width="1" height="1" fill="#FF0000" />
+
+            <!-- Row 2 (orange) -->
+            <rect x="10" y="-2" width="3" height="1" fill="#FF7F00" />
+
+            <!-- Row 3 (yellow) -->
+            <rect x="10" y="-1" width="3" height="1" fill="#FFFF00" />
+
+            <!-- Row 4 (green) -->
+            <rect x="9" y="0" width="5" height="1" fill="#00FF00" />
+
+            <!-- Row 5 (blue) -->
+            <rect x="9" y="1" width="5" height="1" fill="#0000FF" />
+
+            <!-- Hat pom-pom -->
+            <rect x="11" y="-4" width="1" height="1" fill="#FFFFFF" />
+
+            <!-- Llama body (same as main) -->
+            <rect x="4" y="8" width="8" height="6" fill=${color} />
+
+            <!-- Llama neck -->
+            <rect x="9" y="5" width="3" height="4" fill=${color} />
+
+            <!-- Llama head -->
+            <rect x="9" y="2" width="4" height="3" fill=${color} />
+
+            <!-- Ears -->
+            <rect x="10" y="1" width="1" height="1" fill=${color} />
+            <rect x="12" y="1" width="1" height="1" fill=${color} />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill=${color} />
+            <rect x="9" y="14" width="2" height="2" fill=${color} />
+
+            <!-- Eye -->
+            <rect x="11" y="3" width="1" height="1" fill="#000" />
+
+            <!-- Tail -->
+            <rect x="3" y="9" width="1" height="2" fill=${color} />
+          </svg>
+        `;
+      };
+
+      // Unicorn Component for background dancers
+      const Unicorn = ({
+        color = "#FFB6C1",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Unicorn body -->
+            <rect x="4" y="8" width="8" height="6" fill=${color} />
+
+            <!-- Unicorn neck -->
+            <rect x="9" y="5" width="3" height="4" fill=${color} />
+
+            <!-- Unicorn head -->
+            <rect x="9" y="2" width="4" height="3" fill=${color} />
+
+            <!-- Horn -->
+            <rect x="11" y="0" width="1" height="2" fill="#FFD700" />
+
+            <!-- Ears -->
+            <rect x="10" y="1" width="1" height="1" fill=${color} />
+            <rect x="12" y="1" width="1" height="1" fill=${color} />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill=${color} />
+            <rect x="9" y="14" width="2" height="2" fill=${color} />
+
+            <!-- Eye -->
+            <rect x="11" y="3" width="1" height="1" fill="#000" />
+
+            <!-- Flowing tail -->
+            <rect x="3" y="9" width="1" height="1" fill="#FFB6C1" />
+            <rect x="2" y="10" width="2" height="1" fill="#FFB6C1" />
+            <rect x="3" y="11" width="1" height="1" fill="#DDA0DD" />
+          </svg>
+        `;
+      };
+
+      // Kitty Component with disco ball glasses
+      const Kitty = ({
+        color = "#FFA500",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Kitty body -->
+            <rect x="5" y="10" width="6" height="5" fill=${color} />
+
+            <!-- Kitty chest/belly -->
+            <rect x="6" y="11" width="4" height="3" fill="#FFFFFF" />
+
+            <!-- Kitty head -->
+            <rect x="5" y="6" width="6" height="4" fill=${color} />
+
+            <!-- Ears -->
+            <rect x="5" y="5" width="2" height="2" fill=${color} />
+            <rect x="9" y="5" width="2" height="2" fill=${color} />
+            <!-- Inner ears -->
+            <rect x="6" y="6" width="1" height="1" fill="#FFB6C1" />
+            <rect x="9" y="6" width="1" height="1" fill="#FFB6C1" />
+
+            <!-- Legs -->
+            <rect x="6" y="15" width="1" height="1" fill=${color} />
+            <rect x="9" y="15" width="1" height="1" fill=${color} />
+
+            <!-- Tail -->
+            <rect x="3" y="10" width="1" height="1" fill=${color} />
+            <rect x="2" y="9" width="2" height="1" fill=${color} />
+            <rect x="1" y="8" width="2" height="1" fill=${color} />
+
+            <!-- Face -->
+            <!-- Eyes (happy/smiling) -->
+            <rect x="6" y="8" width="1" height="1" fill="#000" />
+            <rect x="9" y="8" width="1" height="1" fill="#000" />
+
+            <!-- Nose -->
+            <rect x="7" y="9" width="2" height="1" fill="#FF69B4" />
+
+            <!-- Smile -->
+            <rect x="6" y="9" width="1" height="1" fill="#000" />
+            <rect x="9" y="9" width="1" height="1" fill="#000" />
+
+            <!-- Disco ball glasses -->
+            <!-- Frame -->
+            <rect x="5" y="7" width="6" height="1" fill="#000" />
+            <!-- Bridge -->
+            <rect x="7" y="6" width="2" height="1" fill="#000" />
+
+            <!-- Left disco ball lens -->
+            <rect x="5" y="8" width="3" height="2" fill="#C0C0C0" />
+            <rect x="5" y="8" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="8" width="1" height="1" fill="#E0E0E0" />
+            <rect x="6" y="9" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="9" width="1" height="1" fill="#C0C0C0" />
+
+            <!-- Right disco ball lens -->
+            <rect x="8" y="8" width="3" height="2" fill="#C0C0C0" />
+            <rect x="8" y="8" width="1" height="1" fill="#E0E0E0" />
+            <rect x="10" y="8" width="1" height="1" fill="#FFFFFF" />
+            <rect x="9" y="9" width="1" height="1" fill="#C0C0C0" />
+            <rect x="10" y="9" width="1" height="1" fill="#E0E0E0" />
+          </svg>
+        `;
+      };
+
+      // Fox Component for background dancers
+      const Fox = ({
+        color = "#FF6347",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Fox body -->
+            <rect x="4" y="9" width="8" height="5" fill=${color} />
+
+            <!-- Fox chest/belly -->
+            <rect x="5" y="10" width="6" height="3" fill="#FFDAB9" />
+
+            <!-- Fox neck -->
+            <rect x="8" y="7" width="4" height="3" fill=${color} />
+
+            <!-- Fox head -->
+            <rect x="7" y="4" width="5" height="3" fill=${color} />
+
+            <!-- Snout -->
+            <rect x="11" y="5" width="2" height="2" fill=${color} />
+            <rect x="12" y="6" width="1" height="1" fill="#000" />
+
+            <!-- Ears (pointed) -->
+            <rect x="7" y="3" width="2" height="2" fill=${color} />
+            <rect x="10" y="3" width="2" height="2" fill=${color} />
+            <!-- Inner ears -->
+            <rect x="8" y="4" width="1" height="1" fill="#FFDAB9" />
+            <rect x="10" y="4" width="1" height="1" fill="#FFDAB9" />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill="#000" />
+            <rect x="9" y="14" width="2" height="2" fill="#000" />
+
+            <!-- White feet/socks -->
+            <rect x="5" y="15" width="2" height="1" fill="#FFFFFF" />
+            <rect x="9" y="15" width="2" height="1" fill="#FFFFFF" />
+
+            <!-- Bushy tail -->
+            <rect x="2" y="8" width="2" height="2" fill=${color} />
+            <rect x="1" y="9" width="3" height="3" fill=${color} />
+            <rect x="2" y="12" width="2" height="1" fill="#FFDAB9" />
+
+            <!-- Eyes -->
+            <rect x="8" y="5" width="1" height="1" fill="#000" />
+            <rect x="10" y="5" width="1" height="1" fill="#000" />
+          </svg>
+        `;
+      };
+
+      // Owl Component for background dancers
+      const Owl = ({
+        color = "#8B4513",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Owl body (round) -->
+            <rect x="5" y="8" width="6" height="6" fill=${color} />
+            <rect x="4" y="9" width="8" height="4" fill=${color} />
+
+            <!-- Owl belly -->
+            <rect x="6" y="10" width="4" height="3" fill="#D2691E" />
+
+            <!-- Owl head (round) -->
+            <rect x="5" y="4" width="6" height="4" fill=${color} />
+            <rect x="4" y="5" width="8" height="2" fill=${color} />
+
+            <!-- Ear tufts -->
+            <rect x="4" y="3" width="2" height="2" fill=${color} />
+            <rect x="10" y="3" width="2" height="2" fill=${color} />
+
+            <!-- Wings (folded) -->
+            <rect x="3" y="9" width="1" height="3" fill="#654321" />
+            <rect x="12" y="9" width="1" height="3" fill="#654321" />
+
+            <!-- Feet/talons -->
+            <rect x="6" y="14" width="1" height="1" fill="#FFD700" />
+            <rect x="9" y="14" width="1" height="1" fill="#FFD700" />
+
+            <!-- Face -->
+            <!-- Big eyes (owls have big eyes!) -->
+            <rect x="5" y="5" width="2" height="2" fill="#FFFFFF" />
+            <rect x="9" y="5" width="2" height="2" fill="#FFFFFF" />
+            <!-- Pupils -->
+            <rect x="6" y="5" width="1" height="1" fill="#000" />
+            <rect x="9" y="5" width="1" height="1" fill="#000" />
+
+            <!-- Beak -->
+            <rect x="7" y="6" width="2" height="1" fill="#FFD700" />
+            <rect x="7" y="7" width="2" height="1" fill="#FFA500" />
+          </svg>
+        `;
+      };
+
+      // Octopus Component for background dancers
+      const Octopus = ({
+        color = "#9370DB",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="200"
+            viewBox="0 0 16 21"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Octopus head/body -->
+            <rect x="5" y="6" width="6" height="5" fill=${color} />
+            <rect x="4" y="7" width="8" height="3" fill=${color} />
+
+            <!-- Eyes -->
+            <rect x="6" y="7" width="2" height="2" fill="#FFFFFF" />
+            <rect x="8" y="7" width="2" height="2" fill="#FFFFFF" />
+            <!-- Pupils -->
+            <rect x="6" y="8" width="1" height="1" fill="#000" />
+            <rect x="9" y="8" width="1" height="1" fill="#000" />
+
+            <!-- Smile -->
+            <rect x="6" y="9" width="4" height="1" fill="#FF1493" />
+
+            <!-- 8 Tentacles -->
+            <!-- Front left tentacles -->
+            <rect x="3" y="10" width="2" height="3" fill=${color} />
+            <rect x="2" y="12" width="2" height="2" fill=${color} />
+            <rect x="1" y="13" width="2" height="1" fill=${color} />
+
+            <rect x="5" y="10" width="1" height="4" fill=${color} />
+            <rect x="4" y="13" width="2" height="2" fill=${color} />
+
+            <!-- Front right tentacles -->
+            <rect x="10" y="10" width="1" height="4" fill=${color} />
+            <rect x="10" y="13" width="2" height="2" fill=${color} />
+
+            <rect x="11" y="10" width="2" height="3" fill=${color} />
+            <rect x="12" y="12" width="2" height="2" fill=${color} />
+            <rect x="13" y="13" width="2" height="1" fill=${color} />
+
+            <!-- Back tentacles (shorter, behind) -->
+            <rect x="6" y="10" width="1" height="3" fill=${color} />
+            <rect x="7" y="10" width="1" height="3" fill=${color} />
+            <rect x="8" y="10" width="1" height="3" fill=${color} />
+            <rect x="9" y="10" width="1" height="3" fill=${color} />
+
+            <!-- Suction cups (lighter dots) -->
+            <rect x="3" y="11" width="1" height="1" fill="#DDA0DD" />
+            <rect x="5" y="12" width="1" height="1" fill="#DDA0DD" />
+            <rect x="10" y="12" width="1" height="1" fill="#DDA0DD" />
+            <rect x="12" y="11" width="1" height="1" fill="#DDA0DD" />
+          </svg>
+        `;
+      };
+
+      // Dog Component with ball
+      const Dog = ({ color = "#8B4513", position = {} }) => {
+        return html`
+          <div
+            className="background-llama"
+            style=${{
+              position: "absolute",
+              opacity: 0,
+              animation: "fade-in-dance 1s ease-out forwards",
+              animationDelay: "5s",
+              ...position,
+            }}
+          >
+            <!-- Ball -->
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 8 8"
+              className="pixelated"
+              style=${{
+                imageRendering: "pixelated",
+                position: "absolute",
+                left: "20px",
+                top: "60px",
+                animation: "ball-bounce 3s ease-in-out infinite",
+                animationDelay: "6s",
+                zIndex: 1,
+              }}
+            >
+              <!-- Tennis ball -->
+              <rect x="2" y="2" width="4" height="4" fill="#CCFF00" />
+              <rect x="1" y="3" width="6" height="2" fill="#CCFF00" />
+              <rect x="3" y="1" width="2" height="6" fill="#CCFF00" />
+
+              <!-- Ball pattern -->
+              <rect x="2" y="3" width="1" height="2" fill="#99CC00" />
+              <rect x="5" y="3" width="1" height="2" fill="#99CC00" />
+            </svg>
+
+            <!-- Dog -->
+            <div
+              style=${{
+                position: "absolute",
+                left: "-30px",
+                top: "50px",
+                animation: "ball-bounce 3s ease-in-out infinite",
+                animationDelay: "6.2s",
+              }}
+            >
+              <svg
+                width="160"
+                height="160"
+                viewBox="0 0 16 16"
+                className="pixelated"
+                style=${{
+                  imageRendering: "pixelated",
+                  animation: "dog-run 0.3s ease-in-out infinite",
+                  animationDelay: "6s",
+                  transformOrigin: "center center",
+                }}
+              >
+                <!-- Dog body -->
+                <rect x="4" y="8" width="7" height="5" fill=${color} />
+
+                <!-- Dog neck/chest -->
+                <rect x="10" y="9" width="3" height="3" fill=${color} />
+
+                <!-- Dog head -->
+                <rect x="11" y="8" width="4" height="4" fill=${color} />
+
+                <!-- Snout -->
+                <rect x="14" y="9" width="2" height="2" fill=${color} />
+
+                <!-- Nose -->
+                <rect x="15" y="9" width="1" height="1" fill="#000" />
+
+                <!-- Ears (floppy) -->
+                <rect x="11" y="7" width="2" height="2" fill=${color} />
+                <rect x="13" y="7" width="2" height="2" fill=${color} />
+
+                <!-- Front legs running -->
+                <g
+                  style=${{
+                    animation: "leg-run 0.3s ease-in-out infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "8px 13px",
+                  }}
+                >
+                  <rect x="9" y="13" width="1" height="2" fill=${color} />
+                  <rect x="10" y="12" width="1" height="1" fill=${color} />
+                </g>
+                <g
+                  style=${{
+                    animation: "leg-run 0.3s ease-in-out infinite",
+                    animationDelay: "6.15s",
+                    transformOrigin: "7px 13px",
+                  }}
+                >
+                  <rect x="7" y="13" width="1" height="2" fill=${color} />
+                </g>
+
+                <!-- Back legs running -->
+                <g
+                  style=${{
+                    animation: "leg-run 0.3s ease-in-out infinite",
+                    animationDelay: "6.075s",
+                    transformOrigin: "5px 13px",
+                  }}
+                >
+                  <rect x="5" y="13" width="1" height="2" fill=${color} />
+                </g>
+                <g
+                  style=${{
+                    animation: "leg-run 0.3s ease-in-out infinite",
+                    animationDelay: "6.225s",
+                    transformOrigin: "6px 13px",
+                  }}
+                >
+                  <rect x="6" y="13" width="1" height="2" fill=${color} />
+                  <rect x="5" y="12" width="1" height="1" fill=${color} />
+                </g>
+
+                <!-- Tail (wagging) -->
+                <g
+                  style=${{
+                    animation: "head-bob 0.2s ease-in-out infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "2px 7px",
+                  }}
+                >
+                  <rect x="2" y="7" width="2" height="1" fill=${color} />
+                  <rect x="1" y="6" width="2" height="2" fill=${color} />
+                </g>
+
+                <!-- Eye -->
+                <rect x="13" y="9" width="1" height="1" fill="#000" />
+
+                <!-- Tongue (hanging out, bigger) -->
+                <g
+                  style=${{
+                    animation: "head-bob 0.15s ease-in-out infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "15px 11px",
+                  }}
+                >
+                  <rect x="14" y="11" width="2" height="1" fill="#FF69B4" />
+                  <rect x="15" y="12" width="1" height="1" fill="#FF1493" />
+                </g>
+              </svg>
+            </div>
+          </div>
+        `;
+      };
+
+      // Dragon Component for background dancers
+      const Dragon = ({
+        color = "#228B22",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        // Create a darker shade for wings
+        const getDarkerShade = (hexColor) => {
+          // Convert hex to RGB
+          const r = parseInt(hexColor.slice(1, 3), 16);
+          const g = parseInt(hexColor.slice(3, 5), 16);
+          const b = parseInt(hexColor.slice(5, 7), 16);
+
+          // Darken by 40%
+          const darkR = Math.floor(r * 0.6);
+          const darkG = Math.floor(g * 0.6);
+          const darkB = Math.floor(b * 0.6);
+
+          // Convert back to hex
+          return `#${darkR.toString(16).padStart(2, "0")}${darkG
+            .toString(16)
+            .padStart(2, "0")}${darkB.toString(16).padStart(2, "0")}`;
+        };
+
+        const wingColor = getDarkerShade(color);
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Dragon body -->
+            <rect x="4" y="8" width="8" height="6" fill=${color} />
+
+            <!-- Dragon neck -->
+            <rect x="9" y="5" width="3" height="4" fill=${color} />
+
+            <!-- Dragon head -->
+            <rect x="9" y="2" width="4" height="3" fill=${color} />
+
+            <!-- Horns -->
+            <rect x="9" y="1" width="1" height="1" fill="#FFD700" />
+            <rect x="12" y="1" width="1" height="1" fill="#FFD700" />
+
+            <!-- Wings on back -->
+            <!-- Left wing -->
+            <rect x="2" y="8" width="2" height="3" fill=${wingColor} />
+            <rect x="1" y="9" width="1" height="2" fill=${wingColor} />
+
+            <!-- Right wing -->
+            <rect x="12" y="8" width="2" height="3" fill=${wingColor} />
+            <rect x="14" y="9" width="1" height="2" fill=${wingColor} />
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill=${color} />
+            <rect x="9" y="14" width="2" height="2" fill=${color} />
+
+            <!-- Eye -->
+            <rect x="11" y="3" width="1" height="1" fill="#FF0000" />
+
+            <!-- Spiky tail -->
+            <rect x="3" y="9" width="1" height="2" fill=${color} />
+            <rect x="2" y="11" width="2" height="1" fill=${color} />
+            <rect x="2" y="10" width="1" height="1" fill="#FFD700" />
+          </svg>
+        `;
+      };
+
+      // Pixelated Disco Ball Component
+      const PixelatedDiscoBall = () => {
+        return html`
+          <svg
+            width="200"
+            height="320"
+            viewBox="0 0 16 32"
+            className="pixelated disco-ball"
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              top: "-200px",
+              left: "-10px",
+            }}
+          >
+            <!-- Cord extending to top -->
+            <rect x="7.5" y="0" width="1" height="20" fill="#000000" />
+
+            <!-- Disco ball - spherical shape -->
+            <!-- Row 1 - top -->
+            <rect x="6" y="20" width="4" height="1" fill="#C0C0C0" />
+
+            <!-- Row 2 -->
+            <rect x="5" y="21" width="6" height="1" fill="#C0C0C0" />
+
+            <!-- Row 3 -->
+            <rect x="4" y="22" width="8" height="1" fill="#C0C0C0" />
+
+            <!-- Row 4 -->
+            <rect x="3" y="23" width="10" height="1" fill="#C0C0C0" />
+
+            <!-- Row 5 -->
+            <rect x="3" y="24" width="10" height="1" fill="#C0C0C0" />
+
+            <!-- Row 6 - widest part -->
+            <rect x="2" y="25" width="12" height="1" fill="#C0C0C0" />
+
+            <!-- Row 7 - widest part -->
+            <rect x="2" y="26" width="12" height="1" fill="#C0C0C0" />
+
+            <!-- Row 8 -->
+            <rect x="3" y="27" width="10" height="1" fill="#C0C0C0" />
+
+            <!-- Row 9 -->
+            <rect x="3" y="28" width="10" height="1" fill="#C0C0C0" />
+
+            <!-- Row 10 -->
+            <rect x="4" y="29" width="8" height="1" fill="#C0C0C0" />
+
+            <!-- Row 11 -->
+            <rect x="5" y="30" width="6" height="1" fill="#C0C0C0" />
+
+            <!-- Row 12 - bottom -->
+            <rect x="6" y="31" width="4" height="1" fill="#C0C0C0" />
+
+            <!-- Mirror tiles pattern for spherical effect -->
+            <!-- Row 1 tiles -->
+            <rect x="7" y="20" width="1" height="1" fill="#FFFFFF" />
+            <rect x="8" y="20" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Row 2 tiles -->
+            <rect x="6" y="21" width="1" height="1" fill="#E0E0E0" />
+            <rect x="8" y="21" width="1" height="1" fill="#FFFFFF" />
+            <rect x="9" y="21" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Row 3 tiles -->
+            <rect x="5" y="22" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="22" width="1" height="1" fill="#E0E0E0" />
+            <rect x="9" y="22" width="1" height="1" fill="#FFFFFF" />
+            <rect x="10" y="22" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Row 4 tiles -->
+            <rect x="4" y="23" width="1" height="1" fill="#E0E0E0" />
+            <rect x="6" y="23" width="1" height="1" fill="#FFFFFF" />
+            <rect x="8" y="23" width="1" height="1" fill="#E0E0E0" />
+            <rect x="10" y="23" width="1" height="1" fill="#FFFFFF" />
+            <rect x="11" y="23" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Row 5 tiles -->
+            <rect x="4" y="24" width="1" height="1" fill="#FFFFFF" />
+            <rect x="5" y="24" width="1" height="1" fill="#E0E0E0" />
+            <rect x="7" y="24" width="1" height="1" fill="#FFFFFF" />
+            <rect x="9" y="24" width="1" height="1" fill="#E0E0E0" />
+            <rect x="11" y="24" width="1" height="1" fill="#FFFFFF" />
+
+            <!-- Row 6 tiles (widest) -->
+            <rect x="3" y="25" width="1" height="1" fill="#E0E0E0" />
+            <rect x="4" y="25" width="1" height="1" fill="#FFFFFF" />
+            <rect x="6" y="25" width="1" height="1" fill="#E0E0E0" />
+            <rect x="8" y="25" width="1" height="1" fill="#FFFFFF" />
+            <rect x="10" y="25" width="1" height="1" fill="#E0E0E0" />
+            <rect x="12" y="25" width="1" height="1" fill="#FFFFFF" />
+
+            <!-- Row 7 tiles (widest) -->
+            <rect x="2" y="26" width="1" height="1" fill="#FFFFFF" />
+            <rect x="3" y="26" width="1" height="1" fill="#E0E0E0" />
+            <rect x="5" y="26" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="26" width="1" height="1" fill="#E0E0E0" />
+            <rect x="9" y="26" width="1" height="1" fill="#FFFFFF" />
+            <rect x="11" y="26" width="1" height="1" fill="#E0E0E0" />
+            <rect x="13" y="26" width="1" height="1" fill="#FFFFFF" />
+
+            <!-- Row 8 tiles -->
+            <rect x="4" y="27" width="1" height="1" fill="#FFFFFF" />
+            <rect x="5" y="27" width="1" height="1" fill="#E0E0E0" />
+            <rect x="7" y="27" width="1" height="1" fill="#FFFFFF" />
+            <rect x="9" y="27" width="1" height="1" fill="#E0E0E0" />
+            <rect x="11" y="27" width="1" height="1" fill="#FFFFFF" />
+
+            <!-- Row 9 tiles -->
+            <rect x="4" y="28" width="1" height="1" fill="#E0E0E0" />
+            <rect x="6" y="28" width="1" height="1" fill="#FFFFFF" />
+            <rect x="8" y="28" width="1" height="1" fill="#E0E0E0" />
+            <rect x="10" y="28" width="1" height="1" fill="#FFFFFF" />
+            <rect x="11" y="28" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Row 10 tiles -->
+            <rect x="5" y="29" width="1" height="1" fill="#FFFFFF" />
+            <rect x="7" y="29" width="1" height="1" fill="#E0E0E0" />
+            <rect x="9" y="29" width="1" height="1" fill="#FFFFFF" />
+            <rect x="10" y="29" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Row 11 tiles -->
+            <rect x="6" y="30" width="1" height="1" fill="#E0E0E0" />
+            <rect x="8" y="30" width="1" height="1" fill="#FFFFFF" />
+            <rect x="9" y="30" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Row 12 tiles -->
+            <rect x="7" y="31" width="1" height="1" fill="#FFFFFF" />
+            <rect x="8" y="31" width="1" height="1" fill="#E0E0E0" />
+
+            <!-- Sparkles around the ball -->
+            <g className="sparkle sparkle-1">
+              <rect x="0" y="24" width="1" height="1" fill="#FFFF00" />
+            </g>
+            <g className="sparkle sparkle-2">
+              <rect x="15" y="25" width="1" height="1" fill="#FFFF00" />
+            </g>
+            <g className="sparkle sparkle-3">
+              <rect x="1" y="30" width="1" height="1" fill="#FFFF00" />
+            </g>
+            <g className="sparkle sparkle-4">
+              <rect x="14" y="28" width="1" height="1" fill="#FFFF00" />
+            </g>
+          </svg>
+        `;
+      };
+
+      // Pixelated Llama SVG Component
+      const PixelatedLlama = ({ isDancing }) => {
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated ${isDancing ? "dancing" : ""}`}
+            style=${{ imageRendering: "pixelated", overflow: "visible" }}
+          >
+            <!-- Llama body -->
+            <rect x="4" y="8" width="8" height="6" fill="#FF8C00" />
+
+            <!-- Llama neck -->
+            <rect x="9" y="5" width="3" height="4" fill="#FF8C00" />
+
+            <!-- Llama head -->
+            <rect x="9" y="2" width="4" height="3" fill="#FF8C00" />
+
+            <!-- Ears -->
+            <rect x="10" y="1" width="1" height="1" fill="#FF8C00" />
+            <rect x="12" y="1" width="1" height="1" fill="#FF8C00" />
+
+            <!-- Legs -->
+            <rect
+              x="5"
+              y="14"
+              width="2"
+              height="2"
+              fill="#FF8C00"
+              class=${isDancing ? "dancing-feet-left" : ""}
+            />
+            <rect
+              x="9"
+              y="14"
+              width="2"
+              height="2"
+              fill="#FF8C00"
+              class=${isDancing ? "dancing-feet-right" : ""}
+            />
+
+            <!-- Eye -->
+            <rect x="11" y="3" width="1" height="1" fill="#000" />
+
+            <!-- Tail -->
+            <rect x="3" y="9" width="1" height="2" fill="#FF8C00" />
+
+            <!-- Deal with it sunglasses -->
+            ${isDancing &&
+            html`
+              <g className="sunglasses">
+                <!-- Sunglasses frame (thicker, more pixelated) -->
+                <rect x="9" y="3" width="5" height="1" fill="#000" />
+                <!-- Bridge -->
+                <rect x="11" y="2" width="1" height="1" fill="#000" />
+                <!-- Left lens frame -->
+                <rect x="9" y="2" width="2" height="1" fill="#000" />
+                <rect x="9" y="4" width="2" height="1" fill="#000" />
+                <rect x="8" y="3" width="1" height="1" fill="#000" />
+                <!-- Right lens frame -->
+                <rect x="12" y="2" width="2" height="1" fill="#000" />
+                <rect x="12" y="4" width="2" height="1" fill="#000" />
+                <rect x="14" y="3" width="1" height="1" fill="#000" />
+                <!-- Left lens (black) -->
+                <rect x="9" y="3" width="2" height="1" fill="#000" />
+                <!-- Right lens (black) -->
+                <rect x="12" y="3" width="2" height="1" fill="#000" />
+
+                <!-- Pixelated glare effect - stays within lens boundaries -->
+                <g className="glare">
+                  <!-- Glare pixels that move across the lenses -->
+                  <!-- Right lens glare (x:12-13, y:3) -->
+                  <rect
+                    x="13"
+                    y="3"
+                    width="1"
+                    height="1"
+                    fill="#666"
+                    opacity="0.8"
+                  />
+                  <!-- Left lens glare (x:9-10, y:3) -->
+                  <rect
+                    x="10"
+                    y="3"
+                    width="1"
+                    height="1"
+                    fill="#666"
+                    opacity="0.8"
+                  />
+                </g>
+              </g>
+            `}
+          </svg>
+        `;
+      };
+
+      // YouTube player variable
+      let player;
+      let playerReady = false;
+
+      // This function will be called by YouTube API when it's ready
+      window.onYouTubeIframeAPIReady = function () {
+        player = new YT.Player("youtube-player", {
+          height: "1",
+          width: "1",
+          videoId: "eklqLkyoJWA",
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            loop: 1,
+            playlist: "eklqLkyoJWA", // Required for loop to work
+            modestbranding: 1,
+            playsinline: 1,
+          },
+          events: {
+            onReady: function (event) {
+              playerReady = true;
+              event.target.setVolume(50);
+            },
+            onStateChange: function (event) {
+              // Restart video when it ends (backup for loop)
+              if (event.data === YT.PlayerState.ENDED) {
+                player.playVideo();
+              }
+            },
+          },
+        });
+      };
+
+      // Dancefloor Tiles Component
+      // Butterfly Component for background dancers
+      const Butterfly = ({
+        color = "#FF69B4",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const wingColor = "#FFB6C1"; // Light pink wings
+        const guitarColor = "#8B4513"; // Brown guitar
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Butterfly body -->
+            <rect x="7" y="6" width="2" height="5" fill=${color} />
+            <rect x="7" y="5" width="2" height="1" fill="#000" />
+
+            <!-- Head -->
+            <rect x="7" y="4" width="2" height="2" fill=${color} />
+
+            <!-- Antennae -->
+            <rect x="7" y="3" width="1" height="1" fill="#000" />
+            <rect x="8" y="3" width="1" height="1" fill="#000" />
+            <rect x="6" y="2" width="1" height="1" fill="#000" />
+            <rect x="9" y="2" width="1" height="1" fill="#000" />
+
+            <!-- Eyes -->
+            <rect x="7" y="4" width="1" height="1" fill="#000" />
+            <rect x="8" y="4" width="1" height="1" fill="#000" />
+
+            <!-- Left wing -->
+            <g
+              style=${{
+                animation: "wing-flap 0.3s ease-in-out infinite",
+                transformOrigin: "7px 7px",
+              }}
+            >
+              <rect x="3" y="5" width="4" height="3" fill=${wingColor} />
+              <rect x="2" y="6" width="1" height="2" fill=${wingColor} />
+              <rect x="4" y="4" width="2" height="1" fill=${wingColor} />
+              <!-- Wing spots -->
+              <rect x="4" y="6" width="1" height="1" fill=${color} />
+              <rect x="5" y="5" width="1" height="1" fill="#FFD700" />
+            </g>
+
+            <!-- Right wing -->
+            <g
+              style=${{
+                animation: "wing-flap 0.3s ease-in-out infinite",
+                animationDelay: "0.05s",
+                transformOrigin: "9px 7px",
+              }}
+            >
+              <rect x="9" y="5" width="4" height="3" fill=${wingColor} />
+              <rect x="13" y="6" width="1" height="2" fill=${wingColor} />
+              <rect x="10" y="4" width="2" height="1" fill=${wingColor} />
+              <!-- Wing spots -->
+              <rect x="11" y="6" width="1" height="1" fill=${color} />
+              <rect x="10" y="5" width="1" height="1" fill="#FFD700" />
+            </g>
+
+            <!-- Guitar -->
+            <g
+              style=${{
+                animation: "guitar-spin 4s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "11px 8px",
+              }}
+            >
+              <!-- Guitar body (figure-8 shape) -->
+              <rect x="8" y="10" width="6" height="6" fill=${guitarColor} />
+              <rect x="9" y="9" width="4" height="1" fill=${guitarColor} />
+              <rect x="9" y="16" width="4" height="1" fill=${guitarColor} />
+              <!-- Curves -->
+              <rect x="7" y="11" width="1" height="4" fill=${guitarColor} />
+              <rect x="14" y="11" width="1" height="4" fill=${guitarColor} />
+
+              <!-- Sound hole -->
+              <rect x="10" y="12" width="2" height="2" fill="#000" />
+
+              <!-- Bridge -->
+              <rect x="9" y="14" width="4" height="1" fill="#000" />
+
+              <!-- Guitar neck -->
+              <rect x="10" y="0" width="2" height="10" fill=${guitarColor} />
+
+              <!-- Headstock -->
+              <rect x="10" y="-1" width="2" height="1" fill=${guitarColor} />
+
+              <!-- Tuning pegs -->
+              <rect x="9" y="-1" width="1" height="1" fill="#C0C0C0" />
+              <rect x="12" y="-1" width="1" height="1" fill="#C0C0C0" />
+              <rect x="9" y="0" width="1" height="1" fill="#C0C0C0" />
+              <rect x="12" y="0" width="1" height="1" fill="#C0C0C0" />
+
+              <!-- Fretboard -->
+              <rect
+                x="10"
+                y="0"
+                width="2"
+                height="10"
+                fill="#4B0000"
+                opacity="0.8"
+              />
+
+              <!-- Frets -->
+              <rect
+                x="10"
+                y="2"
+                width="2"
+                height="1"
+                fill="#C0C0C0"
+                opacity="0.3"
+              />
+              <rect
+                x="10"
+                y="5"
+                width="2"
+                height="1"
+                fill="#C0C0C0"
+                opacity="0.3"
+              />
+              <rect
+                x="10"
+                y="8"
+                width="2"
+                height="1"
+                fill="#C0C0C0"
+                opacity="0.3"
+              />
+
+              <!-- Strings -->
+              <rect
+                x="10"
+                y="-1"
+                width="1"
+                height="15"
+                fill="#C0C0C0"
+                opacity="0.7"
+              />
+              <rect
+                x="11"
+                y="-1"
+                width="1"
+                height="15"
+                fill="#C0C0C0"
+                opacity="0.7"
+              />
+            </g>
+
+            <!-- Smile -->
+            <rect x="7" y="5" width="2" height="1" fill="#FF1493" />
+          </svg>
+        `;
+      };
+
+      // Horse Component for background dancers
+      const Horse = ({
+        color = "#8B4513",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const maneColor = "#D2691E"; // Lighter brown for mane
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Horse body -->
+            <rect x="3" y="8" width="9" height="5" fill=${color} />
+
+            <!-- Horse neck -->
+            <rect x="9" y="5" width="3" height="4" fill=${color} />
+            <rect x="10" y="4" width="3" height="2" fill=${color} />
+
+            <!-- Horse head -->
+            <rect x="11" y="2" width="4" height="3" fill=${color} />
+            <rect x="14" y="3" width="2" height="2" fill=${color} />
+
+            <!-- Muzzle -->
+            <rect x="15" y="4" width="1" height="1" fill="#FFB6C1" />
+
+            <!-- Eye -->
+            <rect x="13" y="3" width="1" height="1" fill="#000" />
+
+            <!-- Ears -->
+            <rect x="12" y="1" width="1" height="2" fill=${color} />
+            <rect x="14" y="1" width="1" height="2" fill=${color} />
+
+            <!-- Mane (flowing) -->
+            <g
+              style=${{
+                animation: "mane-flow 0.5s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "11px 3px",
+              }}
+            >
+              <rect x="10" y="2" width="2" height="3" fill=${maneColor} />
+              <rect x="9" y="3" width="2" height="3" fill=${maneColor} />
+              <rect x="8" y="4" width="2" height="2" fill=${maneColor} />
+              <rect x="11" y="1" width="1" height="2" fill=${maneColor} />
+            </g>
+
+            <!-- Legs -->
+            <rect x="4" y="13" width="1" height="3" fill=${color} />
+            <rect x="6" y="13" width="1" height="3" fill=${color} />
+            <rect x="9" y="13" width="1" height="3" fill=${color} />
+            <rect x="11" y="13" width="1" height="3" fill=${color} />
+
+            <!-- Hooves -->
+            <rect x="4" y="15" width="1" height="1" fill="#000" />
+            <rect x="6" y="15" width="1" height="1" fill="#000" />
+            <rect x="9" y="15" width="1" height="1" fill="#000" />
+            <rect x="11" y="15" width="1" height="1" fill="#000" />
+
+            <!-- Tail -->
+            <g
+              style=${{
+                animation: "head-bob 0.4s ease-in-out infinite",
+                animationDelay: "6.1s",
+                transformOrigin: "3px 8px",
+              }}
+            >
+              <rect x="2" y="8" width="2" height="2" fill=${maneColor} />
+              <rect x="1" y="9" width="2" height="3" fill=${maneColor} />
+              <rect x="0" y="11" width="2" height="2" fill=${maneColor} />
+            </g>
+          </svg>
+        `;
+      };
+
+      // Alligator Component for background dancers
+      const Alligator = ({
+        color = "#FFD700",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const bellyColor = "#FFFF99"; // Light yellow for belly
+
+        return html`
+          <svg
+            width="320"
+            height="160"
+            viewBox="-13 0 33 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Alligator body -->
+            <rect x="3" y="8" width="10" height="4" fill=${color} />
+
+            <!-- Belly -->
+            <rect x="4" y="9" width="8" height="2" fill=${bellyColor} />
+
+            <!-- Head base -->
+            <rect x="10" y="6" width="4" height="4" fill=${color} />
+
+            <!-- Extended snout -->
+            <rect x="13" y="7" width="5" height="2" fill=${color} />
+            <rect x="17" y="7" width="2" height="2" fill=${color} />
+            <rect x="18" y="8" width="2" height="1" fill=${color} />
+
+            <!-- Eyes (smiling) -->
+            <rect x="11" y="6" width="2" height="1" fill="#FFF" />
+            <rect x="11" y="7" width="1" height="1" fill="#000" />
+            <rect x="12" y="7" width="1" height="1" fill="#000" />
+
+            <!-- Lower jaw (animated) -->
+            <g
+              style=${{
+                animation: "jaw-laugh 3s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "10px 9px",
+              }}
+            >
+              <rect x="10" y="9" width="4" height="2" fill=${color} />
+              <rect x="13" y="9" width="5" height="2" fill=${color} />
+              <rect x="17" y="10" width="2" height="1" fill=${color} />
+              <rect x="18" y="10" width="2" height="1" fill=${color} />
+
+              <!-- Teeth -->
+              <rect x="11" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="13" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="15" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="17" y="9" width="1" height="1" fill="#FFF" />
+              <rect x="12" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="14" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="16" y="10" width="1" height="1" fill="#FFF" />
+              <rect x="18" y="10" width="1" height="1" fill="#FFF" />
+            </g>
+
+            <!-- Upper teeth -->
+            <rect x="11" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="13" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="15" y="8" width="1" height="1" fill="#FFF" />
+            <rect x="17" y="8" width="1" height="1" fill="#FFF" />
+
+            <!-- Nostrils -->
+            <rect x="18" y="7" width="1" height="1" fill="#000" opacity="0.5" />
+            <rect x="19" y="7" width="1" height="1" fill="#000" opacity="0.5" />
+
+            <!-- Back ridges -->
+            <rect x="4" y="7" width="1" height="1" fill=${color} />
+            <rect x="6" y="7" width="1" height="1" fill=${color} />
+            <rect x="8" y="7" width="1" height="1" fill=${color} />
+            <rect x="10" y="7" width="1" height="1" fill=${color} />
+
+            <!-- Legs -->
+            <rect x="5" y="12" width="2" height="2" fill=${color} />
+            <rect x="9" y="12" width="2" height="2" fill=${color} />
+
+            <!-- Feet -->
+            <rect x="5" y="14" width="2" height="1" fill=${color} />
+            <rect x="9" y="14" width="2" height="1" fill=${color} />
+
+            <!-- Tail (animated) -->
+            <g
+              style=${{
+                animation: "tail-wag 1s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "3px 10px",
+              }}
+            >
+              <!-- Tail segments getting narrower and longer -->
+              <rect x="2" y="9" width="2" height="3" fill=${color} />
+              <rect x="0" y="10" width="3" height="2" fill=${color} />
+              <rect x="-2" y="10" width="2" height="2" fill=${color} />
+              <rect x="-4" y="10" width="2" height="2" fill=${color} />
+              <rect x="-6" y="11" width="2" height="1" fill=${color} />
+              <rect x="-8" y="11" width="2" height="1" fill=${color} />
+              <rect x="-10" y="11" width="1" height="1" fill=${color} />
+              <rect x="-11" y="11" width="1" height="1" fill=${color} />
+              <rect x="-12" y="11" width="1" height="1" fill=${color} />
+
+              <!-- Tail ridges along the top -->
+              <rect x="2" y="8" width="1" height="1" fill=${color} />
+              <rect x="1" y="9" width="1" height="1" fill=${color} />
+              <rect x="0" y="9" width="1" height="1" fill=${color} />
+              <rect x="-1" y="9" width="1" height="1" fill=${color} />
+              <rect x="-2" y="9" width="1" height="1" fill=${color} />
+              <rect x="-3" y="9" width="1" height="1" fill=${color} />
+              <rect x="-4" y="9" width="1" height="1" fill=${color} />
+              <rect x="-5" y="10" width="1" height="1" fill=${color} />
+              <rect x="-6" y="10" width="1" height="1" fill=${color} />
+              <rect x="-7" y="10" width="1" height="1" fill=${color} />
+              <rect x="-8" y="10" width="1" height="1" fill=${color} />
+              <rect x="-9" y="10" width="1" height="1" fill=${color} />
+              <rect x="-10" y="10" width="1" height="1" fill=${color} />
+            </g>
+          </svg>
+        `;
+      };
+
+      // Sheep Component for background dancers
+      const Sheep = ({
+        color = "#FFB6C1",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const woolColor = "#FFC0CB"; // Lighter pink for wool texture
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Sheep body (fluffy) -->
+            <rect x="4" y="7" width="8" height="5" fill=${color} />
+            <rect x="3" y="8" width="10" height="3" fill=${color} />
+
+            <!-- Wool texture -->
+            <rect x="5" y="7" width="2" height="2" fill=${woolColor} />
+            <rect x="8" y="7" width="2" height="2" fill=${woolColor} />
+            <rect x="4" y="9" width="2" height="2" fill=${woolColor} />
+            <rect x="7" y="9" width="2" height="2" fill=${woolColor} />
+            <rect x="10" y="9" width="2" height="2" fill=${woolColor} />
+
+            <!-- Head -->
+            <rect x="10" y="5" width="4" height="4" fill="#FFDAB9" />
+            <rect x="12" y="6" width="2" height="2" fill="#FFDAB9" />
+
+            <!-- Ears -->
+            <rect x="10" y="4" width="1" height="2" fill="#FFDAB9" />
+            <rect x="13" y="4" width="1" height="2" fill="#FFDAB9" />
+
+            <!-- Eyes -->
+            <rect x="11" y="6" width="1" height="1" fill="#000" />
+            <rect x="12" y="6" width="1" height="1" fill="#000" />
+
+            <!-- Snout -->
+            <rect x="12" y="7" width="2" height="1" fill="#FFB6C1" />
+
+            <!-- Legs -->
+            <rect x="5" y="12" width="2" height="3" fill="#FFDAB9" />
+            <rect x="9" y="12" width="2" height="3" fill="#FFDAB9" />
+
+            <!-- Hooves -->
+            <rect x="5" y="15" width="2" height="1" fill="#000" />
+            <rect x="9" y="15" width="2" height="1" fill="#000" />
+
+            <!-- Tail (small and fluffy) -->
+            <rect x="3" y="8" width="1" height="2" fill=${woolColor} />
+            <rect x="2" y="9" width="1" height="1" fill=${woolColor} />
+          </svg>
+        `;
+      };
+
+      // Turtle Component for background dancers
+      const Turtle = ({
+        color = "#228B22",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <div
+            className="background-llama"
+            style=${{
+              position: "absolute",
+              opacity: 0,
+              animation: "fade-in-dance 1s ease-out forwards",
+              animationDelay: "5s",
+              ...position,
+            }}
+          >
+            <svg
+              width="200"
+              height="200"
+              viewBox="-4 -8 24 28"
+              className="pixelated"
+              style=${{
+                imageRendering: "pixelated",
+                overflow: "visible",
+              }}
+            >
+              <!-- Skateboard group (rolling) -->
+              <g
+                style=${{
+                  animation: "skateboard-roll 2s ease-in-out infinite",
+                  animationDelay: "6s",
+                  transformOrigin: "8px 14px",
+                }}
+              >
+                <!-- Skateboard deck -->
+                <!-- Rainbow stripes from left to right -->
+                <rect x="2" y="14" width="2" height="1" fill="#FF0000" />
+                <rect x="4" y="14" width="2" height="1" fill="#FF7F00" />
+                <rect x="6" y="14" width="2" height="1" fill="#FFFF00" />
+                <rect x="8" y="14" width="2" height="1" fill="#00FF00" />
+                <rect x="10" y="14" width="2" height="1" fill="#0000FF" />
+                <rect x="12" y="14" width="2" height="1" fill="#9400D3" />
+
+                <!-- Wheels -->
+                <rect x="3" y="15" width="2" height="1" fill="#000" />
+                <rect x="11" y="15" width="2" height="1" fill="#000" />
+              </g>
+
+              <!-- Turtle group (with flip and jump animation) -->
+              <g
+                style=${{
+                  animation:
+                    "turtle-flip 12s ease-in-out infinite, turtle-jump 4s ease-in-out infinite",
+                  animationDelay: "6s, 6s",
+                  transformOrigin: "8px 10px",
+                }}
+              >
+                <!-- Turtle shell -->
+                <rect x="5" y="8" width="6" height="5" fill="#228B22" />
+                <rect x="4" y="9" width="8" height="3" fill="#228B22" />
+
+                <!-- Shell pattern with green, brown, and red spots -->
+                <rect x="6" y="9" width="1" height="1" fill="#8B4513" />
+                <rect x="8" y="9" width="1" height="1" fill="#FF0000" />
+                <rect x="5" y="10" width="1" height="1" fill="#FF0000" />
+                <rect x="7" y="10" width="1" height="1" fill="#006400" />
+                <rect x="9" y="10" width="1" height="1" fill="#8B4513" />
+                <rect x="6" y="11" width="1" height="1" fill="#006400" />
+                <rect x="8" y="11" width="1" height="1" fill="#8B4513" />
+                <rect x="10" y="10" width="1" height="1" fill="#FF0000" />
+
+                <!-- Head (bobbing) -->
+                <g
+                  style=${{
+                    animation: "turtle-head-bob 0.5s ease-in-out infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "12px 10px",
+                    animationFillMode: "backwards",
+                  }}
+                >
+                  <rect x="11" y="9" width="2" height="2" fill="#228B22" />
+                  <rect x="12" y="10" width="2" height="1" fill="#228B22" />
+                  <!-- Eye -->
+                  <rect x="12" y="9" width="1" height="1" fill="#000" />
+                </g>
+
+                <!-- Front legs (moving) -->
+                <g
+                  style=${{
+                    animation: "turtle-feet-move 4s linear infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "6px 13px",
+                  }}
+                >
+                  <rect x="5" y="12" width="1" height="2" fill="#228B22" />
+                  <rect x="6" y="12" width="1" height="2" fill="#228B22" />
+                </g>
+
+                <!-- Back legs (moving opposite) -->
+                <g
+                  style=${{
+                    animation: "turtle-feet-move 4s linear infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "10px 13px",
+                  }}
+                >
+                  <rect x="9" y="12" width="1" height="2" fill="#228B22" />
+                  <rect x="10" y="12" width="1" height="2" fill="#228B22" />
+                </g>
+
+                <!-- Tail -->
+                <rect x="3" y="10" width="1" height="1" fill="#228B22" />
+              </g>
+            </svg>
+          </div>
+        `;
+      };
+
+      // Penguin Component for background dancers
+      const Penguin = ({
+        color = "#000000",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <div
+            className="background-llama"
+            style=${{
+              position: "absolute",
+              opacity: 0,
+              animation: "fade-in-dance 1s ease-out forwards",
+              animationDelay: "5s",
+              ...position,
+            }}
+          >
+            <svg
+              width="160"
+              height="160"
+              viewBox="0 0 16 16"
+              className="pixelated"
+              style=${{
+                imageRendering: "pixelated",
+                animation: "penguin-sway 2s ease-in-out infinite",
+                animationDelay: "6s",
+              }}
+            >
+              <!-- Group for body tilt animation -->
+              <g>
+                <!-- Penguin body (black with white belly) -->
+                <rect x="5" y="7" width="6" height="7" fill="#000000" />
+                <rect x="4" y="8" width="8" height="5" fill="#000000" />
+
+                <!-- White belly -->
+                <rect x="6" y="8" width="4" height="5" fill="#FFFFFF" />
+                <rect x="7" y="7" width="2" height="1" fill="#FFFFFF" />
+
+                <!-- Head -->
+                <rect x="5" y="4" width="6" height="4" fill="#000000" />
+                <rect x="4" y="5" width="8" height="2" fill="#000000" />
+
+                <!-- White face area -->
+                <rect x="6" y="5" width="4" height="2" fill="#FFFFFF" />
+
+                <!-- Eyes -->
+                <rect x="6" y="5" width="1" height="1" fill="#000000" />
+                <rect x="9" y="5" width="1" height="1" fill="#000000" />
+
+                <!-- Beak (orange) -->
+                <rect x="7" y="6" width="2" height="1" fill="#FFA500" />
+
+                <!-- Wings/flippers -->
+                <rect x="3" y="8" width="1" height="4" fill="#000000" />
+                <rect x="11" y="8" width="1" height="4" fill="#000000" />
+
+                <!-- Feet (orange, animated) -->
+                <g
+                  style=${{
+                    animation: "penguin-feet 0.8s ease-in-out infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "6px 14px",
+                  }}
+                >
+                  <rect x="5" y="14" width="2" height="1" fill="#FFA500" />
+                  <rect x="5" y="15" width="3" height="1" fill="#FFA500" />
+                </g>
+
+                <g
+                  style=${{
+                    animation: "penguin-feet 0.8s ease-in-out infinite",
+                    animationDelay: "6.4s",
+                    transformOrigin: "9px 14px",
+                  }}
+                >
+                  <rect x="9" y="14" width="2" height="1" fill="#FFA500" />
+                  <rect x="8" y="15" width="3" height="1" fill="#FFA500" />
+                </g>
+
+                <!-- Ice cream cone (held in wing) -->
+                <g
+                  style=${{
+                    animation: "ice-cream-lick 8s ease-in-out infinite",
+                    animationDelay: "6s",
+                    transformOrigin: "13px 8px",
+                  }}
+                >
+                  <!-- Cone -->
+                  <rect x="12" y="10" width="3" height="1" fill="#D2691E" />
+                  <rect x="12" y="11" width="3" height="1" fill="#DEB887" />
+                  <rect x="13" y="12" width="1" height="1" fill="#D2691E" />
+
+                  <!-- Ice cream scoops -->
+                  <rect x="11" y="8" width="5" height="2" fill="#FFB6C1" />
+                  <rect x="12" y="7" width="3" height="1" fill="#FFB6C1" />
+                  <rect x="12" y="6" width="3" height="1" fill="#87CEEB" />
+                  <rect x="13" y="5" width="1" height="1" fill="#87CEEB" />
+
+                  <!-- Cherry on top -->
+                  <rect x="13" y="4" width="1" height="1" fill="#FF0000" />
+                </g>
+
+                <!-- Body tilt animation -->
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="rotate"
+                  from="-2 8 10"
+                  to="2 8 10"
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                  begin="6s"
+                />
+              </g>
+            </svg>
+          </div>
+        `;
+      };
+
+      // Mercat Component for background dancers
+      const Mercat = ({
+        color = "#FF69B4",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <div
+            className="background-llama"
+            style=${{
+              position: "absolute",
+              opacity: 0,
+              animation: "fade-in-dance 1s ease-out forwards",
+              animationDelay: "5s",
+              ...position,
+            }}
+          >
+            <svg
+              width="200"
+              height="200"
+              viewBox="-2 -4 20 24"
+              className="pixelated"
+              style=${{
+                imageRendering: "pixelated",
+                overflow: "visible",
+              }}
+            >
+              <!-- Group for flip animation -->
+              <g
+                style=${{
+                  animation: "mercat-spin 8s ease-in-out infinite",
+                  animationDelay: "6s",
+                  transformOrigin: "8px 8px",
+                }}
+              >
+                <!-- Group for bounce animation -->
+                <g>
+                  <!-- Mermaid tail (bottom part) -->
+                  <rect x="6" y="10" width="4" height="4" fill="#40E0D0" />
+                  <rect x="5" y="11" width="6" height="2" fill="#40E0D0" />
+
+                  <!-- Tail fin -->
+                  <rect x="3" y="13" width="3" height="2" fill="#20B2AA" />
+                  <rect x="10" y="13" width="3" height="2" fill="#20B2AA" />
+                  <rect x="2" y="14" width="3" height="1" fill="#20B2AA" />
+                  <rect x="11" y="14" width="3" height="1" fill="#20B2AA" />
+
+                  <!-- Scales pattern -->
+                  <rect x="6" y="10" width="1" height="1" fill="#20B2AA" />
+                  <rect x="8" y="10" width="1" height="1" fill="#20B2AA" />
+                  <rect x="7" y="11" width="1" height="1" fill="#20B2AA" />
+                  <rect x="9" y="11" width="1" height="1" fill="#20B2AA" />
+
+                  <!-- Cat upper body -->
+                  <rect x="6" y="6" width="4" height="4" fill=${color} />
+                  <rect x="5" y="7" width="6" height="3" fill=${color} />
+
+                  <!-- Cat head -->
+                  <rect x="5" y="3" width="6" height="4" fill=${color} />
+                  <rect x="4" y="4" width="8" height="2" fill=${color} />
+
+                  <!-- Cat ears -->
+                  <rect x="4" y="2" width="2" height="2" fill=${color} />
+                  <rect x="10" y="2" width="2" height="2" fill=${color} />
+                  <!-- Inner ears -->
+                  <rect x="5" y="3" width="1" height="1" fill="#FFB6C1" />
+                  <rect x="10" y="3" width="1" height="1" fill="#FFB6C1" />
+
+                  <!-- Cat face -->
+                  <!-- Eyes -->
+                  <rect x="6" y="4" width="1" height="1" fill="#000" />
+                  <rect x="9" y="4" width="1" height="1" fill="#000" />
+
+                  <!-- Nose -->
+                  <rect x="7" y="5" width="2" height="1" fill="#FF69B4" />
+
+                  <!-- Whiskers (simplified) -->
+                  <rect x="3" y="4" width="1" height="1" fill="#000" />
+                  <rect x="12" y="4" width="1" height="1" fill="#000" />
+                  <rect x="2" y="5" width="1" height="1" fill="#000" />
+                  <rect x="13" y="5" width="1" height="1" fill="#000" />
+
+                  <!-- Cat paws -->
+                  <rect x="4" y="8" width="2" height="2" fill=${color} />
+                  <rect x="10" y="8" width="2" height="2" fill=${color} />
+                  <!-- Paw pads -->
+                  <rect x="4" y="9" width="2" height="1" fill="#FFB6C1" />
+                  <rect x="10" y="9" width="2" height="1" fill="#FFB6C1" />
+
+                  <!-- Bounce animation -->
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="translate"
+                    values="0,0; 0,-5; 0,0"
+                    dur="1s"
+                    repeatCount="indefinite"
+                    begin="6s"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        `;
+      };
+
+      // Toucan Component for background dancers
+      const Toucan = ({
+        color = "#FF0000", // Not used as we'll make it rainbow
+        danceAnimation = "",
+        position = {},
+      }) => {
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Toucan body -->
+            <rect x="5" y="8" width="6" height="5" fill="#000" />
+
+            <!-- Chest (rainbow gradient simulation with stripes) -->
+            <rect x="6" y="9" width="4" height="1" fill="#FF0000" />
+            <rect x="6" y="10" width="4" height="1" fill="#FFA500" />
+            <rect x="6" y="11" width="4" height="1" fill="#FFFF00" />
+            <rect x="6" y="12" width="4" height="1" fill="#00FF00" />
+
+            <!-- Head -->
+            <rect x="8" y="5" width="4" height="4" fill="#000" />
+
+            <!-- White throat -->
+            <rect x="9" y="7" width="2" height="2" fill="#FFFFFF" />
+
+            <!-- Eye area (white) -->
+            <rect x="9" y="5" width="3" height="2" fill="#FFFFFF" />
+
+            <!-- Eye -->
+            <rect x="10" y="5" width="1" height="1" fill="#000" />
+
+            <!-- Upper beak (large, colorful) -->
+            <rect x="11" y="6" width="4" height="2" fill="#FFA500" />
+            <rect x="14" y="6" width="1" height="2" fill="#FF6347" />
+            <rect x="12" y="7" width="1" height="1" fill="#FFD700" />
+
+            <!-- Lower beak (animated) -->
+            <g
+              style=${{
+                animation: "beak-open 1s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "11px 8px",
+              }}
+            >
+              <rect x="11" y="8" width="3" height="1" fill="#FF8C00" />
+              <rect x="13" y="8" width="1" height="1" fill="#FF6347" />
+            </g>
+
+            <!-- Wing (animated) -->
+            <g
+              style=${{
+                animation: "wing-flap-fast 0.3s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "5px 9px",
+              }}
+            >
+              <rect x="3" y="8" width="3" height="4" fill="#000" />
+              <rect x="2" y="9" width="1" height="2" fill="#000" />
+              <!-- Wing feathers -->
+              <rect x="3" y="11" width="3" height="1" fill="#0000FF" />
+              <rect x="3" y="10" width="3" height="1" fill="#4B0082" />
+              <rect x="3" y="9" width="3" height="1" fill="#8A2BE2" />
+            </g>
+
+            <!-- Tail feathers -->
+            <rect x="4" y="10" width="1" height="3" fill="#FF0000" />
+            <rect x="3" y="11" width="1" height="2" fill="#FFA500" />
+            <rect x="5" y="11" width="1" height="2" fill="#00FF00" />
+
+            <!-- Legs -->
+            <rect x="6" y="13" width="1" height="2" fill="#FFA500" />
+            <rect x="8" y="13" width="1" height="2" fill="#FFA500" />
+
+            <!-- Feet -->
+            <rect x="5" y="15" width="3" height="1" fill="#FFA500" />
+            <rect x="7" y="15" width="3" height="1" fill="#FFA500" />
+          </svg>
+        `;
+      };
+
+      // Hippo Component for background dancers
+      const Hippo = ({
+        color = "#9370DB",
+        danceAnimation = "",
+        position = {},
+      }) => {
+        const hippoColor = "#8B7D7B"; // Grayish brown for hippo
+        const hoopColor = "#FF1493"; // Hot pink hula hoop
+
+        return html`
+          <svg
+            width="160"
+            height="160"
+            viewBox="0 0 16 16"
+            className=${`pixelated background-llama`}
+            style=${{
+              imageRendering: "pixelated",
+              position: "absolute",
+              "--dance-animation": danceAnimation,
+              ...position,
+            }}
+          >
+            <!-- Hippo body (wiggling) -->
+            <g
+              style=${{
+                animation: "hip-wiggle 1.5s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "8px 10px",
+              }}
+            >
+              <rect x="4" y="8" width="8" height="6" fill=${hippoColor} />
+              <rect x="3" y="9" width="10" height="4" fill=${hippoColor} />
+
+              <!-- Belly -->
+              <rect x="5" y="10" width="6" height="3" fill="#C8B8B0" />
+            </g>
+
+            <!-- Head -->
+            <rect x="5" y="4" width="6" height="5" fill=${hippoColor} />
+            <rect x="4" y="5" width="8" height="3" fill=${hippoColor} />
+
+            <!-- Snout -->
+            <rect x="6" y="7" width="4" height="2" fill=${hippoColor} />
+
+            <!-- Eyes -->
+            <rect x="6" y="5" width="1" height="1" fill="#000" />
+            <rect x="9" y="5" width="1" height="1" fill="#000" />
+
+            <!-- Nostrils -->
+            <rect x="7" y="7" width="1" height="1" fill="#000" />
+            <rect x="8" y="7" width="1" height="1" fill="#000" />
+
+            <!-- Ears -->
+            <rect x="5" y="3" width="1" height="2" fill=${hippoColor} />
+            <rect x="10" y="3" width="1" height="2" fill=${hippoColor} />
+
+            <!-- Arms extended outward (waving hands) -->
+            <!-- Left arm -->
+            <g
+              style=${{
+                animation: "arm-wave 1.5s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "4px 9px",
+              }}
+            >
+              <rect x="4" y="8" width="1" height="1" fill=${hippoColor} />
+              <rect x="3" y="7" width="1" height="1" fill=${hippoColor} />
+              <rect x="2" y="6" width="1" height="1" fill=${hippoColor} />
+              <rect x="1" y="5" width="1" height="1" fill=${hippoColor} />
+              <rect x="0" y="4" width="1" height="1" fill=${hippoColor} />
+              <!-- Hand -->
+              <rect x="-1" y="3" width="2" height="1" fill=${hippoColor} />
+            </g>
+
+            <!-- Right arm -->
+            <g
+              style=${{
+                animation: "arm-wave 1.5s ease-in-out infinite",
+                animationDelay: "6.75s",
+                transformOrigin: "11px 9px",
+              }}
+            >
+              <rect x="11" y="8" width="1" height="1" fill=${hippoColor} />
+              <rect x="12" y="7" width="1" height="1" fill=${hippoColor} />
+              <rect x="13" y="6" width="1" height="1" fill=${hippoColor} />
+              <rect x="14" y="5" width="1" height="1" fill=${hippoColor} />
+              <rect x="15" y="4" width="1" height="1" fill=${hippoColor} />
+              <!-- Hand -->
+              <rect x="15" y="3" width="2" height="1" fill=${hippoColor} />
+            </g>
+
+            <!-- Hula hoop (tilting ellipse) -->
+            <g
+              style=${{
+                animation: "hula-tilt 0.8s ease-in-out infinite",
+                animationDelay: "6s",
+                transformOrigin: "8px 11px",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <!-- Front part of hoop only (wraps behind hippo) -->
+              <!-- No top curve - hoop goes behind hippo -->
+
+              <!-- Upper front sides (emerging from behind) -->
+              <rect x="2" y="10" width="1" height="1" fill=${hoopColor} />
+              <rect x="13" y="10" width="1" height="1" fill=${hoopColor} />
+
+              <!-- Middle sides -->
+              <rect x="0" y="11" width="1" height="1" fill=${hoopColor} />
+              <rect x="15" y="11" width="1" height="1" fill=${hoopColor} />
+
+              <!-- Lower sides -->
+              <rect x="1" y="12" width="1" height="1" fill=${hoopColor} />
+              <rect x="14" y="12" width="1" height="1" fill=${hoopColor} />
+
+              <!-- Bottom curve -->
+              <rect x="2" y="13" width="1" height="1" fill=${hoopColor} />
+              <rect x="13" y="13" width="1" height="1" fill=${hoopColor} />
+              <rect x="3" y="14" width="10" height="1" fill=${hoopColor} />
+
+              <!-- Additional segments for smoother ellipse -->
+              <rect
+                x="1"
+                y="10"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="14"
+                y="10"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="1"
+                y="11"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="14"
+                y="11"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="0"
+                y="12"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="15"
+                y="12"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="1"
+                y="13"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+              <rect
+                x="14"
+                y="13"
+                width="1"
+                height="1"
+                fill=${hoopColor}
+                opacity="0.7"
+              />
+            </g>
+
+            <!-- Legs -->
+            <rect x="5" y="14" width="2" height="2" fill=${hippoColor} />
+            <rect x="9" y="14" width="2" height="2" fill=${hippoColor} />
+
+            <!-- Happy mouth -->
+            <rect x="7" y="8" width="2" height="1" fill="#FF69B4" />
+          </svg>
+        `;
+      };
+
+      const DancefloorTiles = ({ isDancing }) => {
+        const [activeTiles, setActiveTiles] = useState(new Set());
+
+        // Create a grid of tile positions
+        const tilePositions = [];
+        for (let x = 0; x < window.innerWidth; x += 40) {
+          for (let y = 0; y < window.innerHeight; y += 40) {
+            tilePositions.push({ x, y, id: `${x}-${y}` });
+          }
+        }
+
+        // Randomly activate tiles when dancing
+        useEffect(() => {
+          if (!isDancing) {
+            setActiveTiles(new Set());
+            return;
+          }
+
+          const interval = setInterval(() => {
+            setActiveTiles((prev) => {
+              const newActive = new Set(prev);
+
+              // Remove some random active tiles
+              const activeArray = Array.from(newActive);
+              for (let i = 0; i < 3; i++) {
+                if (activeArray.length > 0) {
+                  const randomIndex = Math.floor(
+                    Math.random() * activeArray.length
+                  );
+                  newActive.delete(activeArray[randomIndex]);
+                }
+              }
+
+              // Add some new random tiles
+              for (let i = 0; i < 5; i++) {
+                const randomTile =
+                  tilePositions[
+                    Math.floor(Math.random() * tilePositions.length)
+                  ];
+                newActive.add(randomTile.id);
+              }
+
+              return newActive;
+            });
+          }, 200);
+
+          return () => clearInterval(interval);
+        }, [isDancing]);
+
+        return html`
+          <div className=${isDancing ? "tiles-container" : ""}>
+            ${tilePositions.map(
+              (tile) => html`
+                <div
+                  key=${tile.id}
+                  className=${`dancefloor-tile ${
+                    activeTiles.has(tile.id) ? "active" : ""
+                  }`}
+                  style=${{ left: `${tile.x}px`, top: `${tile.y}px` }}
+                />
+              `
+            )}
+          </div>
+        `;
+      };
+
+      // Confetti Component
+      const Confetti = ({ isDancing }) => {
+        const [explosionCount, setExplosionCount] = useState(0);
+
+        useEffect(() => {
+          if (!isDancing) {
+            setExplosionCount(0);
+            return;
+          }
+
+          // Start counting explosions after 10 seconds
+          const timeout = setTimeout(() => {
+            setExplosionCount(1);
+
+            // Then add a new explosion every 5 seconds
+            const interval = setInterval(() => {
+              setExplosionCount((prev) => prev + 1);
+            }, 5000);
+
+            return () => clearInterval(interval);
+          }, 10000);
+
+          return () => clearTimeout(timeout);
+        }, [isDancing]);
+
+        if (!isDancing) return null;
+
+        const colors = [
+          "#FF0000",
+          "#FF7F00",
+          "#FFFF00",
+          "#00FF00",
+          "#0000FF",
+          "#9400D3",
+          "#FF69B4",
+          "#00CED1",
+        ];
+
+        // Generate explosions based on count
+        const explosions = [];
+        for (let i = 0; i < explosionCount; i++) {
+          explosions.push({
+            id: i,
+            delay: 0, // All start immediately when created
+            x: 10 + Math.random() * 80, // Random position 10-90%
+            y: 10 + Math.random() * 80,
+          });
+        }
+
+        const allConfettiPieces = [];
+
+        explosions.forEach((explosion, explosionIndex) => {
+          // Generate confetti pieces for each explosion
+          for (let i = 0; i < 150; i++) {
+            // More pieces per explosion
+            // Random explosion spread
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 200 + Math.random() * 300; // Bigger explosion
+            const xSpread = Math.cos(angle) * velocity;
+            const ySpread = Math.sin(angle) * velocity - 150; // Stronger upward bias
+
+            // Random drift while falling
+            const xDrift = (Math.random() - 0.5) * 150;
+
+            // Random color
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            allConfettiPieces.push({
+              id: `${explosion.id}-${i}`,
+              color,
+              xSpread: `${xSpread}px`,
+              ySpread: `${ySpread}px`,
+              xDrift: `${xDrift}px`,
+              explosionX: explosion.x,
+              explosionY: explosion.y,
+              explosionId: explosion.id,
+              delay: explosion.delay + Math.random() * 0.3, // Slight random delay for explosion
+            });
+          }
+        });
+
+        return html`
+          ${explosions.map(
+            (explosion) => html`
+              <div
+                className="confetti-container"
+                style=${{
+                  left: `${explosion.x}%`,
+                  top: `${explosion.y}%`,
+                }}
+              >
+                ${allConfettiPieces
+                  .filter((piece) => piece.explosionId === explosion.id)
+                  .map(
+                    (piece) => html`
+                      <div
+                        key=${piece.id}
+                        className="confetti-piece"
+                        style=${{
+                          backgroundColor: piece.color,
+                          "--x-spread": piece.xSpread,
+                          "--y-spread": piece.ySpread,
+                          "--x-drift": piece.xDrift,
+                          animationDelay: `${piece.delay}s, ${
+                            piece.delay + 0.5
+                          }s`,
+                        }}
+                      />
+                    `
+                  )}
+              </div>
+            `
+          )}
+        `;
+      };
+
+      const App = () => {
+        const [isDancing, setIsDancing] = useState(false);
+
+        const handleDanceClick = () => {
+          setIsDancing(!isDancing);
+
+          // Control YouTube player based on dancing state
+          if (!isDancing && playerReady && player) {
+            player.playVideo();
+          } else if (playerReady && player) {
+            player.pauseVideo();
+          }
+        };
+
+        const backgroundDancers = [
+          {
+            type: "llama",
+            color: "#FF69B4",
+            danceAnimation: "spin-dance 2s linear infinite",
+            position: { top: "20px", left: "20px" },
+          },
+          {
+            type: "unicorn",
+            color: "#DDA0DD",
+            danceAnimation: "sway-dance 0.952s ease-in-out infinite",
+            position: { top: "20px", right: "20px" },
+          },
+          {
+            type: "dragon",
+            color: "#228B22",
+            danceAnimation: "head-bob 0.476s ease-in-out infinite",
+            position: { top: "80px", left: "150px" },
+          },
+          {
+            type: "llama",
+            color: "#7B68EE",
+            danceAnimation: "shuffle-dance-flip 3s ease-in-out infinite",
+            position: { top: "80px", right: "150px" },
+          },
+          {
+            type: "fox",
+            color: "#FF6347",
+            danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
+            position: { bottom: "150px", left: "20px" },
+          },
+          {
+            type: "turtle",
+            color: "#228B22",
+            danceAnimation: "",
+            position: { bottom: "300px", right: "550px" },
+          },
+          {
+            type: "llama",
+            color: "#FF1493",
+            danceAnimation: "spin-dance-reverse 3s linear infinite",
+            position: { top: "200px", left: "80px" },
+          },
+          {
+            type: "unicorn",
+            color: "#E6E6FA",
+            danceAnimation: "head-bob 0.476s ease-in-out infinite",
+            position: { top: "200px", right: "80px" },
+          },
+          {
+            type: "dragon",
+            color: "#4B0082",
+            danceAnimation: "shuffle-dance 0.952s ease-in-out infinite",
+            position: { bottom: "50px", left: "120px" },
+          },
+          {
+            type: "llama",
+            color: "#FF4500",
+            danceAnimation: "wiggle-dance 0.476s ease-in-out infinite",
+            position: { bottom: "50px", right: "120px" },
+          },
+          {
+            type: "kitty",
+            color: "#FFA500",
+            danceAnimation: "sway-dance 0.952s ease-in-out infinite",
+            position: {
+              top: "50px",
+              left: "50%",
+              transform: "translateX(-50%)",
+            },
+          },
+          {
+            type: "octopus",
+            color: "#9370DB",
+            danceAnimation: "wiggle-dance 1.5s ease-in-out infinite",
+            position: {
+              bottom: "80px",
+              right: "200px",
+            },
+          },
+          {
+            type: "dog",
+            color: "#8B4513",
+            position: {
+              top: "300px",
+              left: "100px",
+            },
+          },
+          {
+            type: "horse",
+            color: "#8B4513",
+            danceAnimation: "horse-dance 3s ease-in-out infinite",
+            position: {
+              bottom: "250px",
+              right: "200px",
+            },
+          },
+          {
+            type: "butterfly",
+            color: "#FF69B4",
+            danceAnimation: "butterfly-fly 5s ease-in-out infinite",
+            position: {
+              bottom: "400px",
+              right: "280px",
+            },
+          },
+          {
+            type: "alligator",
+            color: "#FFD700",
+            danceAnimation: "gator-dance 2s ease-in-out infinite",
+            position: {
+              top: "200px",
+              left: "320px",
+            },
+          },
+          {
+            type: "sheep",
+            color: "#FFB6C1",
+            danceAnimation: "sheep-unison-dance 8s ease-in-out infinite",
+            position: {
+              top: "450px",
+              left: "250px",
+            },
+          },
+          {
+            type: "sheep",
+            color: "#FFB6C1",
+            danceAnimation: "sheep-unison-dance 8s ease-in-out infinite",
+            position: {
+              top: "450px",
+              left: "370px",
+            },
+          },
+          {
+            type: "sheep",
+            color: "#FFB6C1",
+            danceAnimation: "sheep-unison-dance 8s ease-in-out infinite",
+            position: {
+              top: "450px",
+              left: "490px",
+            },
+          },
+          {
+            type: "toucan",
+            color: "#000000",
+            danceAnimation: "toucan-run 4s ease-in-out infinite",
+            position: {
+              bottom: "150px",
+              right: "380px",
+            },
+          },
+          {
+            type: "hippo",
+            color: "#8B7D7B",
+            danceAnimation: "sway-dance 0.952s ease-in-out infinite",
+            position: {
+              bottom: "100px",
+              right: "700px",
+            },
+          },
+          {
+            type: "penguin",
+            color: "#000000",
+            danceAnimation: "",
+            position: {
+              bottom: "50px",
+              left: "calc(50% - 175px)",
+            },
+          },
+          {
+            type: "mercat",
+            color: "#FF69B4",
+            danceAnimation: "",
+            position: {
+              top: "75px",
+              left: "320px",
+            },
+          },
+        ];
+
+        return html`
+          <div
+            className=${`min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-transition ${
+              isDancing ? "bg-gray-900" : "bg-white"
+            }`}
+          >
+            <!-- Dancefloor -->
+            <div
+              className=${`absolute inset-0 dancefloor dancefloor-fade ${
+                isDancing ? "visible" : ""
+              }`}
+            ></div>
+
+            <!-- Rainbow blinking tiles -->
+            <${DancefloorTiles} isDancing=${isDancing} />
+
+            <!-- Confetti explosion -->
+            <${Confetti} isDancing=${isDancing} />
+
+            <!-- Background dancing creatures -->
+            ${isDancing &&
+            backgroundDancers.map((dancer) => {
+              const Component =
+                dancer.type === "unicorn"
+                  ? Unicorn
+                  : dancer.type === "dragon"
+                  ? Dragon
+                  : dancer.type === "kitty"
+                  ? Kitty
+                  : dancer.type === "fox"
+                  ? Fox
+                  : dancer.type === "owl"
+                  ? Owl
+                  : dancer.type === "octopus"
+                  ? Octopus
+                  : dancer.type === "dog"
+                  ? Dog
+                  : dancer.type === "horse"
+                  ? Horse
+                  : dancer.type === "butterfly"
+                  ? Butterfly
+                  : dancer.type === "alligator"
+                  ? Alligator
+                  : dancer.type === "sheep"
+                  ? Sheep
+                  : dancer.type === "toucan"
+                  ? Toucan
+                  : dancer.type === "hippo"
+                  ? Hippo
+                  : dancer.type === "turtle"
+                  ? Turtle
+                  : dancer.type === "penguin"
+                  ? Penguin
+                  : dancer.type === "mercat"
+                  ? Mercat
+                  : MiniLlama;
+              return html` <${Component} ...${dancer} /> `;
+            })}
+
+            <!-- Main stage -->
+            <div className="w-96 h-96 relative z-10">
+              <!-- Gradient background (separate div for fading) -->
+              <div
+                className=${`absolute inset-0 bg-gradient-to-br from-purple-900 to-pink-500 rounded-lg shadow-2xl gradient-bg ${
+                  isDancing ? "fading" : ""
+                }`}
+              ></div>
+
+              <!-- Content (doesn't fade) -->
+              <div
+                className="relative w-full h-full flex flex-col items-center justify-center overflow-visible"
+              >
+                ${isDancing && html`<${PixelatedDiscoBall} />`}
+                <${PixelatedLlama} isDancing=${isDancing} />
+                <button
+                  onClick=${handleDanceClick}
+                  className="mt-8 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-md transition-colors duration-200 shadow-lg"
+                >
+                  ${isDancing ? "OK, stop" : "Deal with it"}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
+      render(html`<${App} />`, document.getElementById("app"));
+    </script>
+  </body>
+</html>
