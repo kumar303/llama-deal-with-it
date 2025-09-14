@@ -67,7 +67,7 @@ Rapid prototyping is the key to building usable software. Today's models are ver
 
 # 🏛️
 
-Will we still build cathedrals of code? Probably not. I admit I've built more than one sofware systems where I'd become proud of their elegant, poetic architecture. The art of coding by hand is also really fun. I would often enter a [flow state](<https://en.wikipedia.org/wiki/Flow_(psychology)>), energized by intense focus. I would often walk away from hand coding a solution with a much deeper understanding of the system, of all its inputs and outputs and limitations. I will mourn the loss of this. Some of us may reminisce about it like lore. However, with AI generated code we'll likely be less emotionally attached to the code and less prone to [sunk cost fallacies](https://thedecisionlab.com/biases/the-sunk-cost-fallacy).
+Will we still build cathedrals of code? Probably not. I admit I've built more than one sofware systems where I'd become proud of its elegant, poetic architecture. The art of coding by hand is also really fun. I would often enter a [flow state](<https://en.wikipedia.org/wiki/Flow_(psychology)>), energized by intense focus. I would often walk away from hand coding a solution with a much deeper understanding of the system, of all its inputs and outputs and limitations. I will mourn the loss of this. Some of us may reminisce about it like lore. However, with AI generated code we'll likely be less emotionally attached to the code and less prone to [sunk cost fallacies](https://thedecisionlab.com/biases/the-sunk-cost-fallacy).
 
 # 🔗
 
@@ -75,11 +75,11 @@ What will future abstractions look like? I'm not sure. Software abstractions lik
 
 # ⚠️
 
-Don't get me wrong, the AI hype right now is out of control. I find services like [Suno](https://suno.com/) that generate a song from a prompt devoid of creativity. That's not a tool, it's a rubber stamp. If it were to let me describe or, even better, _express_ a drum rhythm without having to spend 10 years mastering the drums then doing the same thing with bass guitar, keys, vocals, and letting me build _my own song_ then that would make it a tool.
+Don't get me wrong, the AI hype right now is out of control. I find services like [Suno](https://suno.com/) that generate a song from a prompt devoid of creativity. That's not a tool, it's a rubber stamp. If it were to let me describe or, even better, _express_ a perfectly timed yet nuanced drum rhythm without having to spend 10 years mastering the drums and then doing the same with bass guitar, keys, vocals--letting me build _my own song_--then that would make it a tool.
 
 # 📖
 
-Sal Khan [mentioned](https://www.theverge.com/decoder-podcast-with-nilay-patel/766082/khan-academy-ceo-sal-khan-ai-education-schoolhouse-hank-green-interview) how teachers protested when text books were first introduced into classrooms, fearing they'd get replaced by the text books. Teachers never went away and it's hard to imagine going to school without a physical or digital text book. When the dust settles and a few useful LLM tools remain in hand, we might think of AI more like text books.
+Sal Khan [mentioned](https://www.theverge.com/decoder-podcast-with-nilay-patel/766082/khan-academy-ceo-sal-khan-ai-education-schoolhouse-hank-green-interview) how teachers protested when text books were first introduced into classrooms, fearing they'd get replaced by the text books. Teachers never went away and it's hard to imagine going to school without a physical or digital text book. When the dust settles and we're left clutching an LLM toolbox, we might look back on AI more like those text books.
 
 <hr />
 
