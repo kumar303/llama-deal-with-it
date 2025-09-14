@@ -31,15 +31,15 @@ In mid 2025, the models started getting pretty good for coding. At work I'm now 
 
 # ☎️
 
-Running prompts (in 2025) is slow and feels like the early days of dial-up Internet. In the 90s, the Internet had obvious potential and I get that same feeling about LLMs. They will get faster and consumers will pay. All of this will consume immense energy but that's a topic for another time.
+Running prompts (in 2025) is slow and feels like the early days of dial-up Internet. In the 90s, the Internet had obvious potential and I get that same feeling about LLMs. They will get faster and the per token cost will be worth it. All of this will consume immense energy but that's a topic for another time.
 
 # ⛏️
 
-AI is a tool, not a personality. When the hype dies down, I hope we'll be left with more tools and less chatbots. It's way faster to explain in natural language what needs doing but I don't need it to be my friend or say _you're absolutely right!_ Some of the more scary, unethical uses of AI involve impersonating humans.
+AI is a tool, not a personality. When the hype dies down, I hope we'll be left with more tools and less chatbots. It's way faster to explain in natural language what needs doing but I don't need pampering like _you're absolutely right!_ Some of the more scary, unethical uses of AI involve impersonating humans.
 
 # 🧠
 
-What if _anyone_ could build software at the **speed of thought**? This was always my dream as an engineer. Every skill I invested in--learning a more concise programming language ([Python](https://www.python.org/)), mastering a keyboard layout that favored my stronger fingers ([Kinesis Advantage](https://kinesis-ergo.com/shop/advantage2/)), learning an editor that required less keystrokes ([Vim](https://www.vim.org/) 😁)--were all marching toward the goal of creating software at the speed of thought. LLMs are a **massive leap** toward this goal and might even get us there.
+What if _anyone_ could build software at the **speed of thought**? This was always my dream as an engineer. Every skill I invested in--learning a more concise programming language ([Python](https://www.python.org/) 🌶️), mastering a keyboard layout that favored my stronger fingers ([Kinesis Advantage](https://kinesis-ergo.com/shop/advantage2/) 🌶️🌶️), learning an editor that required less keystrokes ([Vim](https://www.vim.org/) 🌶️🌶️🌶️🌶️)--were all marching toward the goal of creating software at the speed of thought. LLMs are a **massive leap** toward this goal and might even get us there.
 
 # 💃🏼
 
@@ -51,11 +51,11 @@ I'm not an expert in prompting but in 2025 I've had the most success when tellin
 
 # 📣
 
-For the first time ever, I've been talking to my computer 😂 It's faster to speak a prompt than to type it. I hadn't ever bothered with dictation -- I'm not aware of a way to dictate actual computer code that will compile. My young kids find it more natural to speak commands at their ipads but I never really got into that either.
+For the first time ever, I've been talking to my computer 😂 It's faster to speak a prompt than to type it. I hadn't ever bothered with dictation as I wasn't aware of a way to dictate actual computer code that will compile. My young kids find it more natural to speak commands at their ipads but I never really got into that either.
 
 # 🌴
 
-"Are you worried about your job?" is usually what someone asks when I tell them I'm excited about AI for coding. I have 25 years experience writing code by hand, architecting and maintaining complex software, setting up teams for collaboration, yadda yadda. I'm not worried. I might get paid less (lol) but I foresee software companies just **doing more** instead of reducing their workforces.
+"Are you worried about your job?" is usually what someone asks when I tell them I'm excited about AI for coding. I have 25 years experience writing code by hand, architecting complex software, setting up teams for collaboration, yadda yadda. I'm not worried. I might get paid less (that's fair!) but I foresee software companies just **doing more** instead of reducing their workforces.
 
 # 🐛
 
@@ -63,11 +63,15 @@ Hand written software takes a ridiculous amount of time to get right. Teams work
 
 # ✏️
 
-Rapid prototyping is the key to building usable software. Today's models are very good at it. In fact, this might be the only thing they can do with high accuracy. I've seen designers use LLMs to build fully interactive websites to demonstrate UI concepts. That's massive. Most software companies fail by simply building the wrong thing for their customers.
+Rapid prototyping has always been the key to building useful, delightful software. Today's models are very good at prototyping. In fact, this might be the only thing they can do with high accuracy. I've seen designers use LLMs to build fully interactive websites to demonstrate UI concepts. That's massive. Most software companies fail by simply building the wrong thing for their customers.
 
 # 🏛️
 
-Will we still build cathedrals of code? Probably not. I admit I've built more than one sofware systems where I'd become proud of its elegant, poetic architecture. The art of coding by hand is also really fun. I would often enter a [flow state](<https://en.wikipedia.org/wiki/Flow_(psychology)>), energized by intense focus. I would often walk away from hand coding a solution with a much deeper understanding of the system, of all its inputs and outputs and limitations. I will mourn the loss of this. Some of us may reminisce about it like lore. However, with AI generated code we'll likely be less emotionally attached to the code and less prone to [sunk cost fallacies](https://thedecisionlab.com/biases/the-sunk-cost-fallacy).
+Will we still build cathedrals of code? Probably not. I admit I've built more than one software system where I'd become proud of its elegant, poetic architecture. The art of coding by hand is also really fun. I would often enter a [flow state](<https://en.wikipedia.org/wiki/Flow_(psychology)>), energized by intense focus. I would often walk away from a coding session with a much deeper understanding of the system, of all its inputs and outputs and limitations.
+
+# 🕊️
+
+I will mourn the loss of this. Some of us may reminisce about it like lore. However, with AI generated code we'll likely be less emotionally attached to the code and less prone to [sunk cost fallacies](https://thedecisionlab.com/biases/the-sunk-cost-fallacy). I've found that _most_ successful hand coded systems end up an inelegant mess anyway.
 
 # 🔗
 
