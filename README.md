@@ -8,7 +8,7 @@ The music is [Computer Woman by Superior Elevation](https://www.youtube.com/watc
 
 # 🔥
 
-My kids and I vibe-coded a llama dance party using [`claude-4.1-opus`](https://www.anthropic.com/). We started with this prompt:
+What is it? My kids and I vibe-coded a llama dance party using [`claude-4.1-opus`](https://www.anthropic.com/). We started with this prompt:
 
 <details>
 <summary>👩🏽‍💻 Expand</summary>
