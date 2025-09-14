@@ -23,7 +23,7 @@ This project took several hours of work but would have taken weeks to code by ha
 
 # 🪐
 
-I admit I didn't see potential in early LLMs. All I saw were useless things like _explain how to do short division as if you're a pirate_ or halluncinations that eroded trust. Coding was even worse. Early LLMs could create simple scripts but failed to modify complex codebases for simple tasks like _move this module and update all imports_.
+I admit I didn't see potential in early LLMs. All I saw were useless things like _explain how to do long division as if you're a pirate_ or halluncinations that eroded trust. Coding was even worse. Early LLMs could create simple scripts but failed to modify complex codebases for simple tasks like _move this module and update all imports_.
 
 # ✨
 
@@ -68,5 +68,13 @@ Rapid prototyping is the key to building usable software. Today's models are ver
 # 🔗
 
 What will the new abstractions look like? I'm not sure. Software abstractions like [Django](https://www.djangoproject.com/), [Rails](https://rubyonrails.org/), [jQuery](https://jquery.com/), and [React](https://react.dev/) were all created to solve some kind of hand-written sofware problem, usually around security or the tedium of boilerplate code. In Armin Ronacher's experiments with hands-off LLM code generation, he found models [wrote the best code in Go](https://lucumr.pocoo.org/2025/6/12/agentic-coding/).
+
+# ⚠️
+
+Don't get me wrong, the AI hype right now is out of control. I find services like [Suno](https://suno.com/) that generate a song from a prompt devoid of creativity. That's not a tool, it's a rubber stamp. If it were to let me describe or, even better, _express_ a drum rhythm without having to spend 10 years mastering the drums then doing the same thing with bass guitar, keys, vocals, and letting me build my own song then that would make it a tool.
+
+# 📖
+
+Sal Khan [mentioned](https://www.theverge.com/decoder-podcast-with-nilay-patel/766082/khan-academy-ceo-sal-khan-ai-education-schoolhouse-hank-green-interview) how teachers protested when text books were first introduced into classrooms, fearing they'd get replaced by text books. Teachers never went away and it's hard to imagine studying without a text book. When the dust settles and the useful LLM tools remain, we might say something similar about AI.
 
 \~ Kumar McMillan, 2025-09-14
