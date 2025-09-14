@@ -1216,7 +1216,16 @@
     <div id="app"></div>
 
     <!-- Hidden YouTube player -->
-    <div id="youtube-player" style="display: none"></div>
+    <div
+      id="youtube-player"
+      style="
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+      "
+    ></div>
 
     <!-- YouTube IFrame API -->
     <script src="https://www.youtube.com/iframe_api"></script>
@@ -2118,6 +2127,8 @@
             playlist: "eklqLkyoJWA", // Required for loop to work
             modestbranding: 1,
             playsinline: 1,
+            mute: 1, // Required for iOS autoplay
+            origin: window.location.origin, // Required for iOS
           },
           events: {
             onReady: function (event) {
@@ -3392,6 +3403,10 @@
 
           // Control YouTube player based on dancing state
           if (!isDancing && playerReady && player) {
+            // For iOS, unmute on first user interaction
+            if (player.isMuted && player.isMuted()) {
+              player.unMute();
+            }
             player.playVideo();
           } else if (playerReady && player) {
             player.pauseVideo();
